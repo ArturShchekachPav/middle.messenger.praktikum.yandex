@@ -6,17 +6,32 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "prettier --check './**/*.{html,css,scss,js}'",
+    "format": "prettier --write './**/*.{html,css,scss,js}'",
+    "lint": "stylelint **/*.css",
+    "lintfix": "stylelint **/*.css --fix",
+    "checkAll": "npm run check && npm run lint",
+    "fixAll": "npm run format && npm run lintfix",
+    "start": "npm run build && npm run preview"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "cssnano": "^7.0.6",
     "postcss": "^8.5.3",
+    "postcss-combine-media-query": "^1.0.1",
     "prettier": "^3.5.3",
     "sass-embedded": "^1.86.0",
+    "stylelint": "^16.16.0",
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "eslint": "^9.23.0",
     "vite-plugin-handlebars": "^2.0.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
