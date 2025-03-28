@@ -1,17 +1,17 @@
-<form>
-  <h1>Вход</h1>
-  <fieldset>
-    <label>
-      <span>Логин</span>
-      <input type="text">
+<form class="auth-form">
+  <h1 class="auth-form__title">Вход</h1>
+  <fieldset class="auth-form__fields">
+    <label class="auth-form__field">
+      <span class="auth-form__label">Логин</span>
+      <input class="auth-form__input" name="login" type="text">
     </label>
-    <label>
-      <span>Пароль</span>
-      <input type="password">
+    <label class="auth-form__field">
+      <span class="auth-form__label">Пароль</span>
+      <input class="auth-form__input" name="password" type="password">
     </label>
   </fieldset>
-  <div>
-    <button type="submit">Авторизоваться</button>
-    <a href="/sign-in">Нет аккаунта?</a>
+  <div class="auth-form__actions">
+    <button class="auth-form__button" type="submit">Авторизоваться</button>
+    <a class="auth-form__link" href="/sign-in">Нет аккаунта?</a>
   </div>
 </form>
