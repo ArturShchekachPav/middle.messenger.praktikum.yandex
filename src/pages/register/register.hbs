@@ -1,4 +1,4 @@
-<form class="auth-form">
+<form name="registration" class="auth-form">
   <h1 class="auth-form__title">Регистрация</h1>
   <fieldset class="auth-form__fields">
     <label class="auth-form__field">
@@ -17,21 +17,21 @@
       <span class="auth-form__label">Фамилия</span>
       <input class="auth-form__input" name="last-name" type="text">
     </label>
-    <label>
-      <span>Телефон</span>
-      <input type="tel">
+    <label class='auth-form__field'>
+      <span class="auth-form__label">Телефон</span>
+      <input class="auth-form__input" name="tel" type="tel">
     </label>
-    <label>
-      <span>Пароль</span>
-      <input type="password">
+    <label class='auth-form__field'>
+      <span class="auth-form__label">Пароль</span>
+      <input class="auth-form__input" name="password" type="password">
     </label>
-    <label>
-      <span>Пароль (ещё раз)</span>
-      <input type="password">
+    <label class='auth-form__field'>
+      <span class="auth-form__label">Пароль (ещё раз)</span>
+      <input class="auth-form__input" name="password-repeat" type="password">
     </label>
   </fieldset>
-  <div>
-    <button type="submit">Зарегистрироваться</button>
-    <a href="/sign-in">Войти</a>
+  <div class="auth-form__actions">
+    <button class="auth-form__button" type="submit">Зарегистрироваться</button>
+    <a class="auth-form__link" href="/sign-in">Войти</a>
   </div>
 </form>

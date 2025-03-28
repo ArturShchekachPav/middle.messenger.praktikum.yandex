@@ -1,40 +1,40 @@
-<div>
-  <button type="button"></button>
+<div class="side-bar">
+  <button class="side-bar__button" type="button"></button>
 </div>
-<div>
-  <img src="" alt="avatar">
-  <h2>Иван</h2>
-  <form>
-    <fieldset>
-      <label>
-        <span>Почта</span>
-        <input type="email">
+<div class="profile">
+  <img src="" class="profile__avatar" alt="avatar">
+  <h2 class="profile__name">Иван</h2>
+  <form name="profile" class="profile__form">
+    <fieldset class="profile__fields">
+      <label class="profile__field">
+        <span class="profile__label">Почта</span>
+        <input class="profile__input" name="email" type="email">
       </label>
-      <label>
-        <span>Логин</span>
-        <input type="text">
+      <label class="profile__field">
+        <span class="profile__label">Логин</span>
+        <input class="profile__input" name="login" type="text">
       </label>
-      <label>
-        <span>Имя</span>
-        <input type="text">
+      <label class="profile__field">
+        <span class="profile__label">Имя</span>
+        <input class="profile__input" name="name" type="text">
       </label>
-      <label>
-        <span>Фамилия</span>
-        <input type="text">
+      <label class="profile__field">
+        <span class="profile__label">Фамилия</span>
+        <input class="profile__input" name="last-name" type="text">
       </label>
-      <label>
-        <span>Имя в чате</span>
-        <input type="text">
+      <label class="profile__field">
+        <span class="profile__label">Имя в чате</span>
+        <input class="profile__input" name="nickname" type="text">
       </label>
-      <label>
-        <span>Телефон</span>
-        <input type="tel">
+      <label class="profile__field">
+        <span class="profile__label">Телефон</span>
+        <input class="profile__input" name="tel" type="tel">
       </label>
     </fieldset>
-    <div>
-      <button type="button">Изменить данные</button>
-      <button type="button">Изменить пароль</button>
-      <button type="button">Выйти</button>
+    <div class="profile__actions">
+      <button class="profile__button" type="button">Изменить данные</button>
+      <button class="profile__button" type="button">Изменить пароль</button>
+      <button class="profile__button" type="button">Выйти</button>
     </div>
   </form>
 </div>
