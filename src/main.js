@@ -1,4 +1,4 @@
-import './style.scss';
+import "@fontsource/inter";
 import App from './App.js';
 
 document.addEventListener('DOMContentLoaded', () => {

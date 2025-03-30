@@ -1,37 +1,39 @@
-<form name="registration" class="auth-form">
-  <h1 class="auth-form__title">Регистрация</h1>
-  <fieldset class="auth-form__fields">
-    <label class="auth-form__field">
-      <span class="auth-form__label">Почта</span>
-      <input class="auth-form__input" name="email" type="email">
-    </label>
-    <label class="auth-form__field">
-      <span class="auth-form__label">Логин</span>
-      <input class="auth-form__input" name="login" type="text">
-    </label>
-    <label class="auth-form__field">
-      <span class="auth-form__label">Имя</span>
-      <input class="auth-form__input" name="name" type="text">
-    </label>
-    <label class='auth-form__field'>
-      <span class="auth-form__label">Фамилия</span>
-      <input class="auth-form__input" name="last-name" type="text">
-    </label>
-    <label class='auth-form__field'>
-      <span class="auth-form__label">Телефон</span>
-      <input class="auth-form__input" name="tel" type="tel">
-    </label>
-    <label class='auth-form__field'>
-      <span class="auth-form__label">Пароль</span>
-      <input class="auth-form__input" name="password" type="password">
-    </label>
-    <label class='auth-form__field'>
-      <span class="auth-form__label">Пароль (ещё раз)</span>
-      <input class="auth-form__input" name="password-repeat" type="password">
-    </label>
-  </fieldset>
-  <div class="auth-form__actions">
-    <button class="auth-form__button" type="submit">Зарегистрироваться</button>
-    <a class="auth-form__link" href="/sign-in">Войти</a>
-  </div>
-</form>
+<main class="auth app__auth">
+  <form name="registration" class="auth-form">
+    <h1 class="auth-form__title">Регистрация</h1>
+    <fieldset class="auth-form__fields">
+      <label class="auth-form__field">
+        <span class="auth-form__label">Почта</span>
+        <input class="auth-form__input" name="email" required type="email">
+      </label>
+      <label class="auth-form__field">
+        <span class="auth-form__label">Логин</span>
+        <input class="auth-form__input" name="login" required minlength="2" maxlength="80" type="text">
+      </label>
+      <label class="auth-form__field">
+        <span class="auth-form__label">Имя</span>
+        <input class="auth-form__input" name="name" required minlength="2" maxlength="80" type="text">
+      </label>
+      <label class='auth-form__field'>
+        <span class="auth-form__label">Фамилия</span>
+        <input class="auth-form__input" name="last-name" required minlength="2" maxlength="80" type="text">
+      </label>
+      <label class='auth-form__field'>
+        <span class="auth-form__label">Телефон</span>
+        <input class="auth-form__input" name="tel" required type="tel">
+      </label>
+      <label class='auth-form__field'>
+        <span class="auth-form__label">Пароль</span>
+        <input class="auth-form__input" name="password" minlength="8" required type="password">
+      </label>
+      <label class='auth-form__field'>
+        <span class="auth-form__label">Пароль (ещё раз)</span>
+        <input class="auth-form__input" name="password-repeat" minlength="8" required type="password">
+      </label>
+    </fieldset>
+    <div class="auth-form__actions">
+      <button class="auth-form__button" type="submit">Зарегистрироваться</button>
+      {{> Link href="/sign-in" class="auth-form__link" data-page="/sign-in" text="Войти"}}
+    </div>
+  </form>
+</main>

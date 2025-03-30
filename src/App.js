@@ -1,5 +1,20 @@
 import Handlebars from 'handlebars';
-import * as Pages from './pages';
+import {
+    MessangerPage,
+    ServerErrorPage,
+    ProfilePage,
+    RegistrationPage,
+    LoginPage,
+    NotFoundPage
+} from './pages';
+import './App.scss';
+import {
+    Link,
+    ErrorPage
+} from './components';
+
+Handlebars.registerPartial('Link', Link);
+Handlebars.registerPartial('ErrorPage', ErrorPage);
 
 export default class App {
     constructor(currentPage) {
@@ -11,29 +26,28 @@ export default class App {
         let template;
         switch (this.currentPage) {
             case '/':
-                template = Handlebars.compile(Pages.MessangerPage);
+                template = Handlebars.compile(MessangerPage);
                 this.appElement.innerHTML = template();
                 break;
             case '/500':
-                template = Handlebars.compile(Pages.ServerErrorPage);
-                this.appElement.innerHTML = template();
-                break;
-            case '/404':
-                template = Handlebars.compile(Pages.NotFoundPage);
+                template = Handlebars.compile(ServerErrorPage);
                 this.appElement.innerHTML = template();
                 break;
             case '/profile':
-                template = Handlebars.compile(Pages.Profile);
+                template = Handlebars.compile(ProfilePage);
                 this.appElement.innerHTML = template();
                 break;
             case '/sing-up':
-                template = Handlebars.compile(Pages.RegistrationPage);
+                template = Handlebars.compile(RegistrationPage);
                 this.appElement.innerHTML = template();
                 break;
             case '/sing-in':
-                template = Handlebars.compile(Pages.LoginPage);
+                template = Handlebars.compile(LoginPage);
                 this.appElement.innerHTML = template();
                 break;
+            default:
+                template = Handlebars.compile(NotFoundPage);
+                this.appElement.innerHTML = template();
         }
     }
 
