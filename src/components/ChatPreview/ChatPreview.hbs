@@ -1,13 +1,13 @@
-<li class="chat-preview">
-        <img class="chat-preview__avatar" src="/src/images/default-avatar.png" alt="avatar">
-        <div class="chat-preview__content">
-          <div class="chat-preview__head">
-            <h4 class="chat-preview__name">Андрей</h4>
-            <p class="chat-preview__time">10:49</p>
-          </div>
-          <div class="chat-preview__info">
-            <p class="chat-preview__last-message">Изображение</p>
-            <p class="chat-preview__unread">2</p>
-          </div>
-        </div>
-      </li>
+<{{{element}}} class="chat-preview">
+  <img class="chat-preview__avatar" src="{{avatar}}" alt="avatar">
+  <div class="chat-preview__content">
+    <div class="chat-preview__head">
+      <h4 class="chat-preview__name">{{name}}</h4>
+      <p class="chat-preview__time">{{lastTime}}</p>
+    </div>
+    <div class="chat-preview__info">
+      <p class="chat-preview__last-message">{{lastMessage}}</p>
+      <p class="chat-preview__unread">{{unreadMessagesCount}}</p>
+    </div>
+  </div>
+</{{{element}}}>

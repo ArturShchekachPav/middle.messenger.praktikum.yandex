@@ -1,4 +1,11 @@
-<p class="chat__message chat__message_outgoing">
-        Круто!
-        <span class="chat__message-data chat__message-data_status_read chat__message-data_type_outgoing">12:00</span>
-      </p>
+{{#if src}}
+  <div class="{{addictedClass}} message message_content_image">
+    <img src="{{src}}" alt="">
+    <span class="message__data message__data_type_image-{{source}} {{#if status}} message__data_status_{{status}} {{/if}}">{{time}}</span>
+  </div>
+{{else}}
+  <p class="{{addictedClass}} message message_content_text message_source_{{source}}">
+    {{{text}}}
+    <span class="message__data {{#if status}} message__data_status_{{status}} {{/if}} message__data_type_text-{{source}}">{{time}}</span>
+  </p>
+{{/if}}

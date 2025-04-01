@@ -82,6 +82,14 @@
     line-height: 13px;
     color: #999999;
     padding: 0;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:disabled {
+      background-color: transparent;
+    }
   }
 
   &__actions {
