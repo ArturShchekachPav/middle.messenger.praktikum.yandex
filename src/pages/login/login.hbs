@@ -2,14 +2,20 @@
   <form name="login" class="auth-form">
     <h1 class="auth-form__title">Вход</h1>
     <fieldset class="auth-form__fields">
-      <label class="auth-form__field">
-        <span class="auth-form__label">Логин</span>
-        <input class="auth-form__input" name="login" type="text">
-      </label>
-      <label class="auth-form__field">
-        <span class="auth-form__label">Пароль</span>
-        <input class="auth-form__input" name="password" type="password">
-      </label>
+      {{> Field
+          block="auth-form"
+          label="Логин"
+          name="login"
+          type="text"
+          otherAtributes="required minlength='2' maxlength='40'"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Пароль"
+          name="password"
+          type="password"
+          otherAtributes="required minlength='8'"
+      }}
     </fieldset>
     <div class="auth-form__actions">
       {{> Button type="submit" text="Войти"}}

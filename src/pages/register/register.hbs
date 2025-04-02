@@ -2,34 +2,55 @@
   <form name="registration" class="auth-form">
     <h1 class="auth-form__title">Регистрация</h1>
     <fieldset class="auth-form__fields">
-      <label class="auth-form__field">
-        <span class="auth-form__label">Почта</span>
-        <input class="auth-form__input" name="email" required type="email">
-      </label>
-      <label class="auth-form__field">
-        <span class="auth-form__label">Логин</span>
-        <input class="auth-form__input" name="login" required minlength="2" maxlength="80" type="text">
-      </label>
-      <label class="auth-form__field">
-        <span class="auth-form__label">Имя</span>
-        <input class="auth-form__input" name="first_name" required minlength="2" maxlength="80" type="text">
-      </label>
-      <label class='auth-form__field'>
-        <span class="auth-form__label">Фамилия</span>
-        <input class="auth-form__input" name="last_name" required minlength="2" maxlength="80" type="text">
-      </label>
-      <label class='auth-form__field'>
-        <span class="auth-form__label">Телефон</span>
-        <input class="auth-form__input" name="phone" required type="tel">
-      </label>
-      <label class='auth-form__field'>
-        <span class="auth-form__label">Пароль</span>
-        <input class="auth-form__input" name="password" minlength="8" required type="password">
-      </label>
-      <label class='auth-form__field'>
-        <span class="auth-form__label">Пароль (ещё раз)</span>
-        <input class="auth-form__input" name="password_repeat" minlength="8" required type="password">
-      </label>
+      {{> Field
+        block="auth-form"
+        label="Почта"
+        name="email"
+        type="email"
+        otherAtributes="required"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Логин"
+          name="login"
+          type="text"
+          otherAtributes="required minlength='2' maxlength='80'"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Имя"
+          name="first_name"
+          type="text"
+          otherAtributes="required minlength='2' maxlength='80'"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Фамилия"
+          name="last_name"
+          type="text"
+          otherAtributes="required minlength='2' maxlength='80'"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Телефон"
+          name="phone"
+          type="tel"
+          otherAtributes="required"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Пароль"
+          name="password"
+          type="password"
+          otherAtributes="required minlength='8'"
+      }}
+      {{> Field
+          block="auth-form"
+          label="Пароль (ещё раз)"
+          name="password_repeat"
+          type="password"
+          otherAtributes="required minlength='8'"
+      }}
     </fieldset>
     <div class="auth-form__actions">
       {{> Button type="submit" text="Зарегистрироваться"}}

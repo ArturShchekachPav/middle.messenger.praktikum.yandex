@@ -13,7 +13,8 @@ import {
     ErrorPage,
     Message,
     ChatPreview,
-    Button
+    Button,
+    Field
 } from './components';
 
 Handlebars.registerPartial('Link', Link);
@@ -21,6 +22,7 @@ Handlebars.registerPartial('ErrorPage', ErrorPage);
 Handlebars.registerPartial('Message', Message);
 Handlebars.registerPartial('ChatPreview', ChatPreview);
 Handlebars.registerPartial('Button', Button);
+Handlebars.registerPartial('Field', Field);
 
 export default class App {
     constructor(currentPage) {
@@ -68,16 +70,32 @@ export default class App {
                 this.changePasswordButton = document.querySelector('#edit-password-button');
                 this.singOutButton = document.querySelector('#sing-out-button');
 
+                this.profileOptions = document.querySelector('#profile-options');
+                this.commonDataSumbitAction = document.querySelector('#common-data-submit-action');
+
+                this.changePasswordForm = document.forms.profilePassword;
+                this.changeCommonDataForm = document.forms.profileCommon;
+                console.log(this.changeCommonDataForm);
+
                 this.popupAvatarEdit = document.querySelector('#popup-avatar-edit');
+
+                this.profileName = document.querySelector('.profile__name');
 
                 this.avatarEditButton.addEventListener('click', () => {
                     this.popupAvatarEdit.classList.add('popup_open');
                 });
                 this.commonDataEditButton.addEventListener('click', () => {
+                    this.profileOptions.classList.add('profile__actions_hide');
+                    this.commonDataSumbitAction.classList.remove('profile__actions_hide');
+                    this.profileName.classList.add('profile__name_hidden');
 
+                    const fields = Array.from(this.changeCommonDataForm.querySelectorAll('.profile__input'));
+                    console.log(fields);
+                    fields.forEach(field => field.removeAttribute('disabled'));
                 });
                 this.changePasswordButton.addEventListener('click', () => {
-
+                    this.changeCommonDataForm.classList.add('profile__form_hide');
+                    this.changePasswordForm.classList.remove('profile__form_hide');
                 });
                 this.singOutButton.addEventListener('click', () => {
                     this.changePage('/sing-in');
@@ -87,6 +105,24 @@ export default class App {
                     if(e.target === e.currentTarget) {
                         this.popupAvatarEdit.classList.remove('popup_open');
                     }
+                });
+
+                this.changeCommonDataForm.addEventListener('submit', e => {
+                    e.preventDefault();
+
+                    this.profileOptions.classList.remove('profile__actions_hide');
+                    this.commonDataSumbitAction.classList.add('profile__actions_hide');
+                    this.profileName.classList.remove('profile__name_hidden');
+
+                    const fields = Array.from(this.changeCommonDataForm.querySelectorAll('.profile__input'));
+                    console.log(fields);
+                    fields.forEach(field => field.setAttribute('disabled', true));
+                });
+                this.changePasswordForm.addEventListener('submit', e => {
+                    e.preventDefault();
+
+                    this.changeCommonDataForm.classList.remove('profile__form_hide');
+                    this.changePasswordForm.classList.add('profile__form_hide');
                 });
 
                 break;

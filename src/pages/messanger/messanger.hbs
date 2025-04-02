@@ -163,6 +163,20 @@
       <img class="chat-window__avatar" src="/src/images/default-avatar.png" alt="avatar">
       <h3 class="chat-window__name">Вадим</h3>
       <button class="chat-window__options-button"></button>
+      <ul id="chat-menu" class="menu menu_open chat-window__menu chat-window__menu_header">
+        <li class="menu__item">
+          <button class="menu__button">
+            <img class="menu__icon" src="/src/images/add-icon.svg" alt="">
+            <span class="menu__text">Добавить пользователя</span>
+          </button>
+        </li>
+        <li class="menu__item">
+          <button class="menu__button">
+            <img class="menu__icon" src="/src/images/delete-icon.svg" alt="">
+            <span class="menu__text">Удалить пользователя</span>
+          </button>
+        </li>
+      </ul>
     </header>
     <div class="chat-window__chat chat">
       <p class="chat__date">19 июня</p>
@@ -308,6 +322,26 @@
       </div>
     </div>
     <form class="chat-window__form" action="">
+      <ul id="add-file-menu" class="menu chat-window__menu chat-window__menu_form menu_open">
+        <li class="menu__item">
+          <button class="menu__button">
+            <img class="menu__icon" src="/src/images/media-icon.svg" alt="">
+            <span class="menu__text">Фото или Видео</span>
+          </button>
+        </li>
+        <li class="menu__item">
+          <button class="menu__button">
+            <img class="menu__icon" src="/src/images/file-menu-icon.svg" alt="">
+            <span class="menu__text">Файл</span>
+          </button>
+        </li>
+        <li class="menu__item">
+          <button class="menu__button">
+            <img class="menu__icon" src="/src/images/location-icon.svg" alt="">
+            <span class="menu__text">Локация</span>
+          </button>
+        </li>
+      </ul>
       <button class="chat-window__file-button" type="button"></button>
       <input placeholder="Сообщение" class="chat-window__message-input" name="message" type="text">
       <button type="submit" class="chat-window__submit"></button>
@@ -322,6 +356,14 @@
         <input class="file-form__input" name="avatar" type="file">
         <span class="file-form__file-text">Выбрать файл на компьютере</span>
       </label>
+      {{> Button addedClasses="file-form__button" type="submit" text="Приложить"}}
+    </form>
+  </div>
+</section>
+<section id="popup-add-user" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="add-user">
+      <h2 class="file-form__title">Загрузите файл</h2>
       {{> Button addedClasses="file-form__button" type="submit" text="Приложить"}}
     </form>
   </div>

@@ -118,6 +118,24 @@
   flex-direction: column;
   padding: 0 20px;
 
+  &__menu {
+    margin: 0;
+    position: absolute;
+    z-index: 5;
+
+    &_form {
+      translate: 0 calc(-100% - 10px);
+      left: 0;
+      top: 0;
+    }
+
+    &_header {
+      translate: 0 calc(100% + 10px);
+      right: 0;
+      bottom: 0;
+    }
+  }
+
   &__default-message {
     margin: auto;
     text-align: center;
@@ -133,6 +151,7 @@
     gap: 10px;
     align-items: center;
     padding: 10px 0;
+    position: relative;
   }
 
   &__avatar {
@@ -176,6 +195,7 @@
     display: flex;
     gap: 10px;
     align-items: stretch;
+    position: relative;
   }
 
   &__file-button {
@@ -260,5 +280,44 @@
     text-align: center;
     color: #999999;
     margin: 0;
+  }
+}
+
+.menu {
+  list-style: none;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 6px 0 #00000024;
+  padding: 15px;
+  flex-direction: column;
+  gap: 16px;
+  display: none;
+  visibility: hidden;
+
+  &_open {
+    display: flex;
+    visibility: visible;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  &__text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    color: #1E1E1E;
   }
 }
