@@ -48,13 +48,20 @@
   width: 100%;
   height: 100%;
   z-index: 10;
+  opacity: 0;
   display: none;
   visibility: hidden;
-  transition: display 0.5s linear, visibility 0.5s linear;
+  transition: display 0.5s linear, visibility 0.5s linear, opacity 0.5s linear;
+  transition-behavior: allow-discrete;
 
   &_open {
+    @starting-style {
+      opacity: 0;
+    }
+    
     visibility: visible;
     display: flex;
+    opacity: 1;
   }
 
   &:before {
