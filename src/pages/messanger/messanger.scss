@@ -24,7 +24,7 @@
 
     &:after {
       content: '';
-      background-image: url(../../images/chevron.svg);
+      background-image: url(/chevron.svg);
       display: block;
       width: 6px;
       height: 10px;
@@ -170,7 +170,7 @@
 
   &__options-button {
     margin-left: auto;
-    background-image: url(../../images/options-icon.svg);
+    background-image: url(/options-icon.svg);
     width: 3px;
     height: 15px;
     padding: 0;
@@ -199,7 +199,7 @@
   }
 
   &__file-button {
-    background-image: url(../../images/file-icon.svg);
+    background-image: url(/file-icon.svg);
     aspect-ratio: 1/1;
     width: 32px;
     background-size: contain;
@@ -236,7 +236,7 @@
     background-color: #3369F3;
     padding: 0;
     border: none;
-    background-image: url(../../images/arrow.svg);
+    background-image: url(/arrow.svg);
     rotate: 180deg;
     background-position: center center;
     background-size: 16px 14px;
