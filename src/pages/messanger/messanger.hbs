@@ -1,0 +1,404 @@
+<main class="messanger">
+  <div class="messanger__side-bar side-bar">
+    <a class="messanger__profile-link" href="/profile" data-page="/profile">Профиль</a>
+    <form class="messanger__search-form" name="search">
+      <label class="messanger__search-label">
+        <span class="messanger__search-placeholder">
+          <img src="/src/images/search-icon.svg" class="messanger__search-icon" alt="search">
+          <span class="messanger__search-text">Поиск</span>
+        </span>
+        <input class="messanger__search-input" name="search" placeholder=" " type="text">
+      </label>
+    </form>
+    <ul class="messanger__chats">
+      {{> ChatPreview
+        element="li"
+        name="Иван"
+        avatar="/src/images/default-avatar.png"
+        lastTime="12:05"
+        lastMessage="Изображение"
+        unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+      {{> ChatPreview
+          element="li"
+          name="Иван"
+          avatar="/src/images/default-avatar.png"
+          lastTime="12:05"
+          lastMessage="Изображение"
+          unreadMessagesCount="6"
+      }}
+    </ul>
+  </div>
+  <div class="messanger__chat-window chat-window">
+    <!--    <p class="chat-window__default-message">Выберите чат чтобы отправить сообщение</p>-->
+    <header class="chat-window__header">
+      <img class="chat-window__avatar" src="/src/images/default-avatar.png" alt="avatar">
+      <h3 class="chat-window__name">Вадим</h3>
+      <button class="chat-window__options-button"></button>
+      <ul id="chat-menu" class="menu chat-window__menu chat-window__menu_header">
+        <li class="menu__item">
+          <button id="button-add-user" type="button" class="menu__button">
+            <img class="menu__icon" src="/src/images/add-icon.svg" alt="">
+            <span class="menu__text">Добавить пользователя</span>
+          </button>
+        </li>
+        <li class="menu__item">
+          <button id="button-delete-user" type="button" class="menu__button">
+            <img class="menu__icon" src="/src/images/delete-icon.svg" alt="">
+            <span class="menu__text">Удалить пользователя</span>
+          </button>
+        </li>
+      </ul>
+    </header>
+    <div class="chat-window__chat chat">
+      <p class="chat__date">19 июня</p>
+      <div class="chat__block chat__block_source_incoming">
+        {{> Message
+          source="incoming"
+          time="11:54"
+          addictedClass="chat__message"
+          text="Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила
+          Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500
+          EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой
+          забрали только кассеты с пленкой.<br/><br/>
+          Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали.
+          Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро."
+        }}
+        {{> Message
+          src="/src/images/chat-image-template.png"
+          time="11:58"
+          addictedClass="chat__message"
+          source="incoming"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_outgoing">
+        {{> Message
+          source="outgoing"
+          addictedClass="chat__message"
+          text="Круто!"
+          status="read"
+          time="12:00"
+        }}
+        {{> Message
+          src="/src/images/chat-image-template.png"
+          addictedClass="chat__message"
+          time="12:05"
+          status="send"
+          source="outgoing"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_incoming">
+        {{> Message
+            source="incoming"
+            time="11:54"
+            addictedClass="chat__message"
+            text="Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила
+          Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500
+          EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой
+          забрали только кассеты с пленкой.<br/><br/>
+          Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали.
+          Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро."
+        }}
+        {{> Message
+            src="/src/images/chat-image-template.png"
+            time="11:58"
+            addictedClass="chat__message"
+            source="incoming"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_outgoing">
+        {{> Message
+            source="outgoing"
+            addictedClass="chat__message"
+            text="Круто!"
+            status="read"
+            time="12:00"
+        }}
+        {{> Message
+            src="/src/images/chat-image-template.png"
+            addictedClass="chat__message"
+            time="12:05"
+            status="send"
+            source="outgoing"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_incoming">
+        {{> Message
+            source="incoming"
+            time="11:54"
+            addictedClass="chat__message"
+            text="Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила
+          Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500
+          EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой
+          забрали только кассеты с пленкой.<br/><br/>
+          Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали.
+          Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро."
+        }}
+        {{> Message
+            src="/src/images/chat-image-template.png"
+            time="11:58"
+            addictedClass="chat__message"
+            source="incoming"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_outgoing">
+        {{> Message
+            source="outgoing"
+            addictedClass="chat__message"
+            text="Круто!"
+            status="read"
+            time="12:00"
+        }}
+        {{> Message
+            src="/src/images/chat-image-template.png"
+            addictedClass="chat__message"
+            time="12:05"
+            status="send"
+            source="outgoing"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_incoming">
+        {{> Message
+            source="incoming"
+            time="11:54"
+            addictedClass="chat__message"
+            text="Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила
+          Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500
+          EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой
+          забрали только кассеты с пленкой.<br/><br/>
+          Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали.
+          Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро."
+        }}
+        {{> Message
+            src="/src/images/chat-image-template.png"
+            time="11:58"
+            addictedClass="chat__message"
+            source="incoming"
+        }}
+      </div>
+      <div class="chat__block chat__block_source_outgoing">
+        {{> Message
+            source="outgoing"
+            addictedClass="chat__message"
+            text="Круто!"
+            status="read"
+            time="12:00"
+        }}
+        {{> Message
+            src="/src/images/chat-image-template.png"
+            addictedClass="chat__message"
+            time="12:05"
+            status="send"
+            source="outgoing"
+        }}
+      </div>
+    </div>
+    <form class="chat-window__form">
+      <ul id="add-file-menu" class="menu chat-window__menu chat-window__menu_form">
+        <li class="menu__item">
+          <button type="button" id="button-add-media" class="menu__button">
+            <img class="menu__icon" src="/src/images/media-icon.svg" alt="">
+            <span class="menu__text">Фото или Видео</span>
+          </button>
+        </li>
+        <li class="menu__item">
+          <button type="button" id="button-add-file" class="menu__button">
+            <img class="menu__icon" src="/src/images/file-menu-icon.svg" alt="">
+            <span class="menu__text">Файл</span>
+          </button>
+        </li>
+        <li class="menu__item">
+          <button type="button" id="button-add-location" class="menu__button">
+            <img class="menu__icon" src="/src/images/location-icon.svg" alt="">
+            <span class="menu__text">Локация</span>
+          </button>
+        </li>
+      </ul>
+      <button class="chat-window__file-button" id="button-delete-user" type="button"></button>
+      <input placeholder="Сообщение" class="chat-window__message-input" name="message" type="text">
+      <button type="submit" class="chat-window__submit"></button>
+    </form>
+  </div>
+</main>
+<section id="popup-add-media" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="add-media">
+      <h2 class="file-form__title">Загрузите медиа-файл</h2>
+      <label class="file-form__field">
+        <input class="file-form__input" name="media" type="file">
+        <span class="file-form__file-text">Выбрать файл на компьютере</span>
+      </label>
+      {{> Button addedClasses="file-form__button" type="submit" text="Отправить"}}
+    </form>
+  </div>
+</section>
+<section id="popup-add-file" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="add-file">
+      <h2 class="file-form__title">Загрузите файл</h2>
+      <label class="file-form__field">
+        <input class="file-form__input" name="file" type="file">
+        <span class="file-form__file-text">Выбрать файл на компьютере</span>
+      </label>
+      {{> Button addedClasses="file-form__button" type="submit" text="Отправить"}}
+    </form>
+  </div>
+</section>
+<section id="popup-add-user" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="add-user">
+      <h2 class="file-form__title">Добавить пользователя</h2>
+      {{> Field
+        block="auth-form"
+        name="login"
+        type="text"
+        label="Логин"
+        otherAtributes="required minLength='2' maxLength=40"
+      }}
+      {{> Button addedClasses="file-form__button" type="submit" text="Добавить"}}
+    </form>
+  </div>
+</section>
+<section id="popup-delete-user" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="delete-user">
+      <h2 class="file-form__title">Удалить пользователя</h2>
+      {{> Field
+        block="auth-form"
+        name="login"
+        type="text"
+        label="Логин"
+        otherAtributes="required minLength='2' maxLength=40"
+      }}
+      {{> Button addedClasses="file-form__button" type="submit" text="Удалить"}}
+    </form>
+  </div>
+</section>

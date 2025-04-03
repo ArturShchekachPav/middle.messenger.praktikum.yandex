@@ -1,0 +1,103 @@
+.message {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+
+  &_content {
+    &_text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 15px;
+      color: #1E1E1E;
+      padding: 11px;
+      width: fit-content;
+    }
+
+    &_image {
+      border: 1px solid #EAEAEA;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+  }
+
+  &_source {
+    &_incoming {
+      background-color: #F8F8F8;
+      border-radius: 0px 12px 12px 12px;
+
+      &:after {
+        content: '';
+        margin-left: 40px;
+      }
+    }
+
+    &_outgoing {
+      background-color: #E4EDFD;
+      border-radius: 12px 12px 0 12px;
+
+      &:after {
+        content: '';
+        margin-left: 50px;
+      }
+    }
+  }
+
+  &__data {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 9px;
+    position: absolute;
+    bottom:11px;
+    right: 11px;
+
+    &_type {
+      &_text-incoming {
+        color: #999999;
+      }
+
+      &_text-outgoing {
+        color: #3369F3;
+      }
+
+      &_image-incoming {
+        color: #fff;
+        background-color: rgba(82, 82, 82, 0.5);
+        padding: 2px 7px;
+        border-radius: 30px;
+      }
+
+      &_image-outgoing {
+        color: #3369F3;
+        background-color: #E4EDFD;
+        padding: 2px 7px;
+        border-radius: 30px;
+      }
+    }
+
+    &_status {
+      &_send:before {
+        content: '';
+        background-image: url(../../images/send-icon.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        width: 7px;
+        height: 5px;
+        margin-right: 4px;
+      }
+
+      &_read:before {
+        content: '';
+        background-image: url(../../images/read-icon.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        width: 10px;
+        height: 5px;
+        margin-right: 4px;
+      }
+    }
+  }
+}
