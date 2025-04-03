@@ -1,76 +1,76 @@
 .chat-preview {
-  display: grid;
-  grid-template-columns: 47px 1fr;
-  gap: 10px;
-  padding: 12px 0;
-  border-top: 1px solid #eaeaea;
+	display: grid;
+	grid-template-columns: 47px 1fr;
+	gap: 10px;
+	padding: 12px 0;
+	border-top: 1px solid var(--border-color);
 
-  &__avatar {
-    width: 100%;
-    border-radius: 50%;
-    background-color: #efefef;
-    aspect-ratio: 1/1;
-  }
+	&__avatar {
+		width: 100%;
+		border-radius: 50%;
+		background-color: var(--tetriary-color);
+		aspect-ratio: 1/1;
+	}
 
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
 
-  &__head {
-    display: flex;
-    gap: 20px;
-  }
+	&__head {
+		display: flex;
+		gap: 20px;
+	}
 
-  &__info {
-    display: flex;
-    gap: 20px;
-    height: 100%;
-  }
+	&__info {
+		display: flex;
+		gap: 20px;
+		height: 100%;
+	}
 
-  &__name {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 13px;
-    color: #1e1e1e;
-  }
+	&__name {
+		margin: 0;
+		font-family: var(--main-font);
+		font-weight: 600;
+		font-size: 13px;
+		line-height: 13px;
+		color: var(--primary-color);
+	}
 
-  &__time {
-    margin: 0 0 0 auto;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 9px;
-    line-height: 13px;
-    color: #999999;
-  }
+	&__time {
+		margin: 0 0 0 auto;
+		font-family: var(--main-font);
+		font-weight: 500;
+		font-size: 9px;
+		line-height: 13px;
+		color: var(--secondary-color);
+	}
 
-  &__last-message {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    color: #999999;
-  }
+	&__last-message {
+		margin: 0;
+		font-family: var(--main-font);
+		font-weight: 500;
+		font-size: 12px;
+		line-height: 15px;
+		color: var(--secondary-color);
+	}
 
-  &__unread {
-    margin: 0 0 0 auto;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 11px;
-    color: #fff;
-    background-color: #3369f3;
-    border-radius: 50%;
-    padding: 4px;
-    aspect-ratio: 1/1;
-    min-width: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-end;
-  }
+	&__unread {
+		margin: 0 0 0 auto;
+		font-family: var(--main-font);
+		font-weight: 500;
+		font-size: 11px;
+		line-height: 11px;
+		color: var(--globe-color);
+		background-color: var(--accent-color);
+		border-radius: 50%;
+		padding: 4px;
+		aspect-ratio: 1/1;
+		min-width: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-end;
+	}
 }

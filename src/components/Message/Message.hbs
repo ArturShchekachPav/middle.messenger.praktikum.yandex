@@ -1,11 +1,13 @@
 {{#if src}}
-  <div class="{{addictedClass}} message message_content_image">
-    <img src="{{src}}" alt="">
-    <span class="message__data message__data_type_image-{{source}} {{#if status}} message__data_status_{{status}} {{/if}}">{{time}}</span>
-  </div>
+	<div class="{{addictedClass}} message message_content_image">
+		<img width="auto" height="auto" src="{{src}}" alt="media-message">
+		<span class="message__data message__data_type_image-{{source}} {{#if
+			status}} message__data_status_{{status}} {{/if}}">{{time}}</span>
+	</div>
 {{else}}
-  <p class="{{addictedClass}} message message_content_text message_source_{{source}}">
-    {{{text}}}
-    <span class="message__data {{#if status}} message__data_status_{{status}} {{/if}} message__data_type_text-{{source}}">{{time}}</span>
-  </p>
+	<p class="{{addictedClass}} message message_content_text message_source_{{source}}">
+		{{{text}}}
+		<span class="message__data {{#if
+			status}} message__data_status_{{status}} {{/if}} message__data_type_text-{{source}}">{{time}}</span>
+	</p>
 {{/if}}

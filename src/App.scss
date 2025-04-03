@@ -1,130 +1,142 @@
+:root {
+	--main-font: 'Inter', sans-serif;
+	--accent-color: #3369f3;
+	--primary-color: #1e1e1e;
+	--secondary-color: #999999;
+	--globe-color: #ffffff;
+	--tetriary-color: #efefef;
+	--danger-color: #ff2f2f;
+	--border-color: #eaeaea;
+	--select-color: #e4edfd;
+}
+
 .body {
-  margin: 0;
+	margin: 0;
 }
 
 .app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	position: relative;
 
-  &__error {
-    margin: auto;
-  }
+	&__error {
+		margin: auto;
+	}
 
-  &__auth {
-    margin: auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
+	&__auth {
+		margin: auto;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
 }
 
 .side-bar {
-  height: 100%;
-  background-color: #fbfbfb;
-  border-right: 1px solid #eaeaea;
-  display: flex;
-  flex-direction: column;
+	height: 100%;
+	background-color: #fbfbfb;
+	border-right: 1px solid var(--border-color);
+	display: flex;
+	flex-direction: column;
 
-  &__back-button {
-    margin: auto;
-    border-radius: 50%;
-    aspect-ratio: 1/1;
-    width: 28px;
-    background-color: #3369f3;
-    background-image: url(/arrow.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 11px 10px;
-    padding: 0;
-  }
+	&__back-button {
+		margin: auto;
+		border-radius: 50%;
+		aspect-ratio: 1/1;
+		width: 28px;
+		background-color: var(--accent-color);
+		background-image: url(/arrow.svg);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 11px 10px;
+		padding: 0;
+	}
 }
 
 .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  opacity: 0;
-  display: none;
-  visibility: hidden;
-  transition:
-    display 0.5s linear,
-    visibility 0.5s linear,
-    opacity 0.5s linear;
-  transition-behavior: allow-discrete;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	opacity: 0;
+	display: none;
+	visibility: hidden;
+	transition:
+		display 0.5s linear,
+		visibility 0.5s linear,
+		opacity 0.5s linear;
+	transition-behavior: allow-discrete;
 
-  &_open {
-    @starting-style {
-      opacity: 0;
-    }
+	&_open {
+		@starting-style {
+			opacity: 0;
+		}
 
-    visibility: visible;
-    display: flex;
-    opacity: 1;
-  }
+		visibility: visible;
+		display: flex;
+		opacity: 1;
+	}
 
-  &:before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+	&:before {
+		content: '';
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: -1;
+		top: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.4);
+	}
 
-  &__container {
-    background-color: #fff;
-    margin: auto;
-    border-radius: 12px;
-    box-shadow: 0px 0px 6px 0px #00000024;
-    padding: 40px 30px;
-    max-width: 340px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+	&__container {
+		background-color: var(--globe-color);
+		margin: auto;
+		border-radius: 12px;
+		box-shadow: 0 0 6px 0 #00000024;
+		padding: 40px 30px;
+		max-width: 340px;
+		width: 100%;
+		box-sizing: border-box;
+	}
 }
 
 .file-form {
-  &__title {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 20px;
-    text-align: center;
-    margin: 0 0 43px 0;
-    color: #1e1e1e;
-  }
+	&__title {
+		font-family: var(--main-font);
+		font-weight: 500;
+		font-size: 15px;
+		line-height: 20px;
+		text-align: center;
+		margin: 0 0 43px 0;
+		color: var(--primary-color);
+	}
 
-  &__field {
-    display: block;
-    position: relative;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    text-decoration: underline;
-    color: #3369f3;
-    max-width: 122px;
-    margin: 0 auto 45px auto;
-  }
+	&__field {
+		display: block;
+		position: relative;
+		text-align: center;
+		font-family: var(--main-font);
+		font-weight: 500;
+		font-size: 12px;
+		line-height: 16px;
+		text-decoration: underline;
+		color: var(--accent-color);
+		max-width: 122px;
+		margin: 0 auto 45px auto;
+	}
 
-  &__input {
-    position: absolute;
-    z-index: -1;
-    visibility: hidden;
-    display: block;
-    width: 0;
-    height: 0;
-  }
+	&__input {
+		position: absolute;
+		z-index: -1;
+		visibility: hidden;
+		display: block;
+		width: 0;
+		height: 0;
+	}
 
-  &__button {
-    width: 100%;
-  }
+	&__button {
+		width: 100%;
+	}
 }
