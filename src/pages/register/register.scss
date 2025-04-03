@@ -10,13 +10,13 @@
   box-sizing: border-box;
 
   &__title {
-    font-family: "Inter", sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
     text-align: center;
     margin: 0 0 40px 0;
-    color: #1E1E1E;
+    color: #1e1e1e;
   }
 
   &__fields {
@@ -39,7 +39,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #3369F3;
+    border-bottom: 1px solid #3369f3;
     padding-bottom: 7px;
     font-family: 'Inter', sans-serif;
     font-weight: 500;
@@ -72,7 +72,7 @@
     font-size: 11px;
     line-height: 11px;
     text-align: center;
-    color: #3369F3;
+    color: #3369f3;
     text-decoration: none;
   }
 }

@@ -1,3 +1,3 @@
-import './register.scss'
+import './register.scss';
 
-export {default as RegistrationPage} from './register.hbs?raw';
+export { default as RegistrationPage } from './register.hbs?raw';

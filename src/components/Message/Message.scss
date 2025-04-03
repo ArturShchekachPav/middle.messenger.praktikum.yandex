@@ -9,13 +9,13 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 15px;
-      color: #1E1E1E;
+      color: #1e1e1e;
       padding: 11px;
       width: fit-content;
     }
 
     &_image {
-      border: 1px solid #EAEAEA;
+      border: 1px solid #eaeaea;
       border-radius: 12px;
       overflow: hidden;
     }
@@ -23,7 +23,7 @@
 
   &_source {
     &_incoming {
-      background-color: #F8F8F8;
+      background-color: #f8f8f8;
       border-radius: 0px 12px 12px 12px;
 
       &:after {
@@ -33,7 +33,7 @@
     }
 
     &_outgoing {
-      background-color: #E4EDFD;
+      background-color: #e4edfd;
       border-radius: 12px 12px 0 12px;
 
       &:after {
@@ -49,7 +49,7 @@
     font-size: 9px;
     line-height: 9px;
     position: absolute;
-    bottom:11px;
+    bottom: 11px;
     right: 11px;
 
     &_type {
@@ -58,7 +58,7 @@
       }
 
       &_text-outgoing {
-        color: #3369F3;
+        color: #3369f3;
       }
 
       &_image-incoming {
@@ -69,8 +69,8 @@
       }
 
       &_image-outgoing {
-        color: #3369F3;
-        background-color: #E4EDFD;
+        color: #3369f3;
+        background-color: #e4edfd;
         padding: 2px 7px;
         border-radius: 30px;
       }

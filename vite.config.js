@@ -12,16 +12,14 @@ export default defineConfig({
   preview: {
     port: 3000,
   },
-  plugins: [
-      handlebars()
-  ],
+  plugins: [handlebars()],
   css: {
     postcss: {
       plugins: [
         autoprefixer({}), // add options if needed,
         mediaquery(),
-        cssnano()
+        cssnano(),
       ],
-    }
+    },
   },
 });

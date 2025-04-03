@@ -22,8 +22,8 @@
 
 .side-bar {
   height: 100%;
-  background-color: #FBFBFB;
-  border-right: 1px solid #EAEAEA;
+  background-color: #fbfbfb;
+  border-right: 1px solid #eaeaea;
   display: flex;
   flex-direction: column;
 
@@ -32,7 +32,7 @@
     border-radius: 50%;
     aspect-ratio: 1/1;
     width: 28px;
-    background-color: #3369F3;
+    background-color: #3369f3;
     background-image: url(/arrow.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -51,14 +51,17 @@
   opacity: 0;
   display: none;
   visibility: hidden;
-  transition: display 0.5s linear, visibility 0.5s linear, opacity 0.5s linear;
+  transition:
+    display 0.5s linear,
+    visibility 0.5s linear,
+    opacity 0.5s linear;
   transition-behavior: allow-discrete;
 
   &_open {
     @starting-style {
       opacity: 0;
     }
-    
+
     visibility: visible;
     display: flex;
     opacity: 1;
@@ -95,7 +98,7 @@
     line-height: 20px;
     text-align: center;
     margin: 0 0 43px 0;
-    color: #1E1E1E;
+    color: #1e1e1e;
   }
 
   &__field {
@@ -107,7 +110,7 @@
     font-size: 12px;
     line-height: 16px;
     text-decoration: underline;
-    color: #3369F3;
+    color: #3369f3;
     max-width: 122px;
     margin: 0 auto 45px auto;
   }

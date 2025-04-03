@@ -28,7 +28,7 @@
     aspect-ratio: 1/1;
     height: 130px;
     margin: 0 auto;
-    background-color: #EFEFEF;
+    background-color: #efefef;
     display: flex;
     align-items: center;
     padding: 0;
@@ -62,7 +62,7 @@
       object-fit: cover;
     }
   }
-  
+
   &__name {
     text-align: center;
     font-family: 'Inter', sans-serif;
@@ -70,7 +70,7 @@
     font-size: 16px;
     line-height: 16px;
     margin: 21px 0 60px 0;
-    color: #1E1E1E;
+    color: #1e1e1e;
 
     &_hidden {
       visibility: hidden;
@@ -89,7 +89,7 @@
   &__field {
     display: flex;
     padding-bottom: 10px;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
     gap: 12px;
     align-items: center;
   }
@@ -100,7 +100,7 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-    color: #1E1E1E;
+    color: #1e1e1e;
   }
 
   &__input {
@@ -138,21 +138,20 @@
 
     &_change {
       padding: 0 0 10px 0;
-      border-bottom: 1px solid #EAEAEA;
+      border-bottom: 1px solid #eaeaea;
       text-align: left;
       background-color: transparent;
-      color: #3369F3;
+      color: #3369f3;
     }
 
     &_exit {
       padding: 0;
       text-align: left;
       background-color: transparent;
-      color: #FF0000;
+      color: #ff0000;
     }
 
     &_submit {
-
     }
   }
 }
