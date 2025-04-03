@@ -1,7 +1,20 @@
-Netlify : https://lucent-cactus-20ffc2.netlify.app/
-Figma: https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1
-Для создания проводовой сборки и ее зпуска npm run start
-Для запуска dev версии run dev
+
+# Проект "Чат"
+
+Проект является учебной работой в рамках обучения яндекс практикуме на курсе "Мидл фронтенд разработчик".
+
+Использованы следующие технологии: js, handlebars, vite, scss, postcss, 
+
+## Команды
+
+```
+npm install // Установка зависимостей
+npm run dev // Запуск дев сервера на 3005 порту
+npm run start // Сборка и запуск проекта на 3000 порту
+```
+
+## Страницы проекта
+
 Страница 404 - /404
 Страница 500 - /500
 Страница редактирования профиля - /profile
@@ -9,6 +22,7 @@ Figma: https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node
 Страница авторизации - /sing-in
 Страница регистрации - /sing-up
 
-Чат. Провект является проектнорй работой в рамках обучения яндекс практикуме.
+## Источники
 
-Использованы следующие технологии: js, handlebars, vite, scss, postcss, 
+Netlify  (опубликованное приложение с автодеплоем): https://lucent-cactus-20ffc2.netlify.app/
+Figma (макет): https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1
