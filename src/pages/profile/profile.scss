@@ -34,6 +34,27 @@
     padding: 0;
     overflow: hidden;
     border: none;
+    position: relative;
+
+    &::before {
+      content: 'Поменять аватар';
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: transparent;
+      background-color: transparent;
+      height: 100%;
+      width: 100%;
+      transition: all 0.5s linear;
+    }
+
+    &:hover {
+      &::before {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+      }
+    }
 
     &-image {
       width: 100%;

@@ -40,17 +40,61 @@ export default class App {
                 this.setRoutingLinks();
 
                 this.menuAddFile = document.querySelector('#add-file-menu');
+                this.menuChat = document.querySelector('#chat-menu');
+
+                this.addMediaPopup = document.querySelector('#popup-add-media');
+                this.addFilePopup = document.querySelector('#popup-add-file');
+                this.addUserPopup = document.querySelector('#popup-add-user');
+                this.removeUserPopup = document.querySelector('#popup-delete-user');
+
+                this.addMediaPopupButton = document.querySelector('#button-add-media');
+                this.addFilePopupButton = document.querySelector('#button-add-file');
+                this.addUserPopupButton = document.querySelector('#button-add-user');
+                this.removeUserPopupButton = document.querySelector('#button-delete-user');
 
                 this.buttonAddFile = document.querySelector('.chat-window__file-button');
+                this.buttonChatOptions = document.querySelector('.chat-window__options-button');
 
                 this.buttonAddFile.addEventListener('click', () => {
-                    this.popupAddFile.classList.add('menu_open');
+                    this.menuAddFile.classList.toggle('menu_open');
                 });
 
-                this.popupAddFile.addEventListener('click', e => {
+                this.buttonChatOptions.addEventListener('click', () => {
+                    this.menuChat.classList.toggle('menu_open');
+                });
+
+                this.addMediaPopup.addEventListener('click', e => {
                     if(e.target === e.currentTarget) {
-                        this.popupAddFile.classList.remove('menu_open');
+                        this.addMediaPopup.classList.remove('popup_open');
                     }
+                });
+                this.addFilePopup.addEventListener('click', e => {
+                    if(e.target === e.currentTarget) {
+                        this.addFilePopup.classList.remove('popup_open');
+                    }
+                });
+                this.addUserPopup.addEventListener('click', e => {
+                    if(e.target === e.currentTarget) {
+                        this.addUserPopup.classList.remove('popup_open');
+                    }
+                });
+                this.removeUserPopup.addEventListener('click', e => {
+                    if(e.target === e.currentTarget) {
+                        this.removeUserPopup.classList.remove('popup_open');
+                    }
+                });
+
+                this.addMediaPopupButton.addEventListener('click', () => {
+                    this.addMediaPopup.classList.add('popup_open');
+                });
+                this.addFilePopupButton.addEventListener('click', () => {
+                    this.addFilePopup.classList.add('popup_open');
+                });
+                this.addUserPopupButton.addEventListener('click', () => {
+                    this.addUserPopup.classList.add('popup_open');
+                });
+                this.removeUserPopupButton.addEventListener('click', () => {
+                    this.removeUserPopup.classList.add('popup_open');
                 });
                 break;
             case '/500':

@@ -163,15 +163,15 @@
       <img class="chat-window__avatar" src="/src/images/default-avatar.png" alt="avatar">
       <h3 class="chat-window__name">Вадим</h3>
       <button class="chat-window__options-button"></button>
-      <ul id="chat-menu" class="menu menu_open chat-window__menu chat-window__menu_header">
+      <ul id="chat-menu" class="menu chat-window__menu chat-window__menu_header">
         <li class="menu__item">
-          <button class="menu__button">
+          <button id="button-add-user" type="button" class="menu__button">
             <img class="menu__icon" src="/src/images/add-icon.svg" alt="">
             <span class="menu__text">Добавить пользователя</span>
           </button>
         </li>
         <li class="menu__item">
-          <button class="menu__button">
+          <button id="button-delete-user" type="button" class="menu__button">
             <img class="menu__icon" src="/src/images/delete-icon.svg" alt="">
             <span class="menu__text">Удалить пользователя</span>
           </button>
@@ -322,27 +322,27 @@
       </div>
     </div>
     <form class="chat-window__form">
-      <ul id="add-file-menu" class="menu chat-window__menu chat-window__menu_form menu_open">
+      <ul id="add-file-menu" class="menu chat-window__menu chat-window__menu_form">
         <li class="menu__item">
-          <button class="menu__button">
+          <button type="button" id="button-add-media" class="menu__button">
             <img class="menu__icon" src="/src/images/media-icon.svg" alt="">
             <span class="menu__text">Фото или Видео</span>
           </button>
         </li>
         <li class="menu__item">
-          <button class="menu__button">
+          <button type="button" id="button-add-file" class="menu__button">
             <img class="menu__icon" src="/src/images/file-menu-icon.svg" alt="">
             <span class="menu__text">Файл</span>
           </button>
         </li>
         <li class="menu__item">
-          <button class="menu__button">
+          <button type="button" id="button-add-location" class="menu__button">
             <img class="menu__icon" src="/src/images/location-icon.svg" alt="">
             <span class="menu__text">Локация</span>
           </button>
         </li>
       </ul>
-      <button class="chat-window__file-button" type="button"></button>
+      <button class="chat-window__file-button" id="button-delete-user" type="button"></button>
       <input placeholder="Сообщение" class="chat-window__message-input" name="message" type="text">
       <button type="submit" class="chat-window__submit"></button>
     </form>
