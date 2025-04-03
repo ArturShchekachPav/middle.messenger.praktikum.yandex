@@ -39,17 +39,17 @@ export default class App {
 
                 this.setRoutingLinks();
 
-                this.popupAddFile = document.querySelector('#popup-add-file');
+                this.menuAddFile = document.querySelector('#add-file-menu');
 
                 this.buttonAddFile = document.querySelector('.chat-window__file-button');
 
                 this.buttonAddFile.addEventListener('click', () => {
-                    this.popupAddFile.classList.add('popup_open');
+                    this.popupAddFile.classList.add('menu_open');
                 });
 
                 this.popupAddFile.addEventListener('click', e => {
                     if(e.target === e.currentTarget) {
-                        this.popupAddFile.classList.remove('popup_open');
+                        this.popupAddFile.classList.remove('menu_open');
                     }
                 });
                 break;

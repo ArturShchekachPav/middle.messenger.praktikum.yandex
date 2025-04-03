@@ -321,7 +321,7 @@
         }}
       </div>
     </div>
-    <form class="chat-window__form" action="">
+    <form class="chat-window__form">
       <ul id="add-file-menu" class="menu chat-window__menu chat-window__menu_form menu_open">
         <li class="menu__item">
           <button class="menu__button">
@@ -348,23 +348,57 @@
     </form>
   </div>
 </main>
-<section id="popup-add-file" class="popup">
+<section id="popup-add-media" class="popup">
   <div class="popup__container">
-    <form class="file-form" name="change-avatar">
-      <h2 class="file-form__title">Загрузите файл</h2>
+    <form class="file-form" name="add-media">
+      <h2 class="file-form__title">Загрузите медиа-файл</h2>
       <label class="file-form__field">
-        <input class="file-form__input" name="avatar" type="file">
+        <input class="file-form__input" name="media" type="file">
         <span class="file-form__file-text">Выбрать файл на компьютере</span>
       </label>
-      {{> Button addedClasses="file-form__button" type="submit" text="Приложить"}}
+      {{> Button addedClasses="file-form__button" type="submit" text="Отправить"}}
+    </form>
+  </div>
+</section>
+<section id="popup-add-file" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="add-file">
+      <h2 class="file-form__title">Загрузите файл</h2>
+      <label class="file-form__field">
+        <input class="file-form__input" name="file" type="file">
+        <span class="file-form__file-text">Выбрать файл на компьютере</span>
+      </label>
+      {{> Button addedClasses="file-form__button" type="submit" text="Отправить"}}
     </form>
   </div>
 </section>
 <section id="popup-add-user" class="popup">
   <div class="popup__container">
     <form class="file-form" name="add-user">
-      <h2 class="file-form__title">Загрузите файл</h2>
-      {{> Button addedClasses="file-form__button" type="submit" text="Приложить"}}
+      <h2 class="file-form__title">Добавить пользователя</h2>
+      {{> Field
+        block="auth-form"
+        name="login"
+        type="text"
+        label="Логин"
+        otherAtributes="required minLength='2' maxLength=40"
+      }}
+      {{> Button addedClasses="file-form__button" type="submit" text="Добавить"}}
+    </form>
+  </div>
+</section>
+<section id="popup-delete-user" class="popup">
+  <div class="popup__container">
+    <form class="file-form" name="delete-user">
+      <h2 class="file-form__title">Удалить пользователя</h2>
+      {{> Field
+        block="auth-form"
+        name="login"
+        type="text"
+        label="Логин"
+        otherAtributes="required minLength='2' maxLength=40"
+      }}
+      {{> Button addedClasses="file-form__button" type="submit" text="Удалить"}}
     </form>
   </div>
 </section>
