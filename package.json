@@ -11,8 +11,8 @@
     "format": "prettier --write './src/**/*.{html,css,scss,js,hbs}'",
     "stylelint": "stylelint ./src/**/*.{css,scss}",
     "stylelintFix": "stylelint ./src/**/*.{css,scss} --fix",
-		"eslint": "npx eslint ./src/**/*.{ts,js}",
-		"eslitFix": "npx eslint --fix ./src/**/*.{ts,js}",
+    "eslint": "npx eslint ./src/**/*.{ts,js}",
+    "eslitFix": "npx eslint --fix ./src/**/*.{ts,js}",
     "checkAll": "npm run check && npm run stylelint && npm run eslint",
     "fixAll": "npm run format && npm run stypelintFix && npm run eslintFix",
     "start": "npm run build && npm run preview"
@@ -38,6 +38,7 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.5",
     "handlebars": "^4.7.8",
+    "uuid": "^11.1.0",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "browserslist": [
