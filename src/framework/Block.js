@@ -18,7 +18,7 @@ export default class Block {
 		const eventBus = new EventBus();
 		const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
 		this.props = this._makePropsProxy({ ...props });
-		this.children = children;
+		this.children = this._makePropsProxy({ ...children });
 		this.lists = this._makePropsProxy({ ...lists });
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
@@ -105,20 +105,32 @@ export default class Block {
 		});
 	}
 
+	removeAttributes(attr) {
+		attr.forEach(attribute => {
+			if (this._element) {
+				this._element.removeAttribute(attribute);
+			}
+		});
+	}
+
 	setProps = (nextProps) => {
 		if (!nextProps) {
 			return;
 		}
 
-		Object.assign(this.props, nextProps);
-	};
+		const { props, children, lists } = this._getChildrenPropsAndProps(nextProps);
 
-	setLists = (nextList) => {
-		if (!nextList) {
-			return;
+		if(Object.entries(props).length) {
+			Object.assign(this.props, props);
 		}
 
-		Object.assign(this.lists, nextList);
+		if(Object.entries(children).length) {
+			Object.assign(this.children, children);
+		}
+
+		if(Object.entries(lists).length) {
+			Object.assign(this.lists, lists);
+		}
 	};
 
 	get element() {
@@ -128,7 +140,7 @@ export default class Block {
 	_render() {
 		console.log('Render');
 		const propsAndStubs = { ...this.props };
-		const tmpId =  Math.floor(100000 + Math.random() * 900000);
+		const tmpId =  makeUUID();
 		Object.entries(this.children).forEach(([key, child]) => {
 			propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
 		});
@@ -212,7 +224,7 @@ export default class Block {
 		const content = this.getContent();
 
 		if (content) {
-			content.style.display = 'block';
+			content.style.removeProperty('display');
 		}
 	}
 

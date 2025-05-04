@@ -1,12 +1,11 @@
 import Block from '../../framework/Block.js';
 import { default as layout } from './login.hbs?raw';
+import '../register/register.scss';
 
 export class LoginPage extends Block {
-	constructor() {
+	constructor({LoginForm}) {
 		super({
-			Field: new Field({}),
-			Button: new Button({}),
-			Link: new Link({})
+			LoginForm
 		});
 	}
 

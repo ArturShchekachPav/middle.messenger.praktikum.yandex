@@ -21,6 +21,13 @@
 		&_hide {
 			display: none;
 		}
+
+		&-button {
+			width: 100%;
+			max-width: 280px;
+			margin: 0 auto;
+			display: block;
+		}
 	}
 
 	&__avatar {
@@ -92,6 +99,7 @@
 		border-bottom: 1px solid var(--border-color);
 		gap: 12px;
 		align-items: center;
+		position: relative;
 	}
 
 	&__label {

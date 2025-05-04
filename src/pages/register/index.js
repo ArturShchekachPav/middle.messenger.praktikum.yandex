@@ -1,3 +1,15 @@
-import './register.scss';
+import Block from '../../framework/Block.js';
+import { default as layout } from './register.hbs?raw';
+import '../register/register.scss';
 
-export { default as RegistrationPage } from './register.hbs?raw';
+export class RegistrationPage extends Block {
+	constructor({RegisterForm}) {
+		super({
+			RegisterForm
+		});
+	}
+
+	render() {
+		return layout;
+	}
+}

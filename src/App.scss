@@ -140,3 +140,16 @@
 		width: 100%;
 	}
 }
+
+.error-message {
+	display: none;
+	color: var(--danger-color);
+	font-family: var(--main-font);
+	font-weight: 400;
+	font-size: 8px;
+	line-height: 8px;
+
+	&_open {
+		display: initial;
+	}
+}

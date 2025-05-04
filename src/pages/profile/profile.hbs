@@ -1,117 +1,12 @@
 <main class="profile">
 	<nav class="profile__side-bar side-bar">
-		<a href="/" class="side-bar__back-button" data-page="/"></a>
+		{{{MessangerLink}}}
 	</nav>
 	<div class="profile__content">
-		<button type="button" class="profile__avatar" id="edit-avatar-button">
-			<img src="/default-avatar.png" class="profile__avatar-image" alt="avatar">
-		</button>
-		<h2 class="profile__name">Иван</h2>
-		<form name="profileCommon" class="profile__form">
-			<fieldset class="profile__fields">
-				{{> Field
-					block="profile"
-					label="Почта"
-					name="email"
-					type="email"
-					id="profile-input-email"
-					otherAtributes="required disabled value='pochta@yandex.ru'"
-				}}
-				{{> Field
-					block="profile"
-					label="Логин"
-					name="login"
-					type="text"
-					id="profile-input-login"
-					otherAtributes="required disabled value='ivanivanov' minlength='2' maxlength='40'"
-				}}
-				{{> Field
-					block="profile"
-					label="Имя"
-					name="first_name"
-					type="text"
-					id="profile-input-first-name"
-					otherAtributes="required disabled value='Иван' minlength='2' maxlength='40'"
-				}}
-				{{> Field
-					block="profile"
-					label="Фамилия"
-					name="second_name"
-					type="text"
-					id="profile-input-second-name"
-					otherAtributes="required disabled value='Иванов' minlength='2' maxlength='40'"
-				}}
-				{{> Field
-					block="profile"
-					label="Имя в чате"
-					name="display_name"
-					type="text"
-					id="profile-input-display-name"
-					otherAtributes="required disabled value='Иван' minlength='2' maxlength='40'"
-				}}
-				{{> Field
-					block="profile"
-					label="Телефон"
-					name="phone"
-					type="tel"
-					id="profile-input-phone"
-					otherAtributes="required disabled value='+7 (909) 967 30 30' minlength='2' maxlength='40'"
-				}}
-			</fieldset>
-			<div class="profile__actions" id="profile-options">
-				<button class="profile__button profile__button_change" id="edit-common-data-button" type="button">Изменить
-					данные
-				</button>
-				<button class="profile__button profile__button_change" id="edit-password-button" type="button">Изменить пароль
-				</button>
-				<button class="profile__button profile__button_exit" id="sing-out-button" type="button">Выйти</button>
-			</div>
-			<div class="profile__actions profile__actions_hide" id="common-data-submit-action">
-				{{> Button type="submit" text="Сохранить"}}
-			</div>
-		</form>
-		<form name="profilePassword" class="profile__form profile__form_hide">
-			<fieldset class="profile__fields">
-				{{> Field
-					block="profile"
-					label="Старый пароль"
-					name="oldPassword"
-					type="password"
-					id="profile-input-oldpassword"
-					otherAtributes="required minlength='8'"
-				}}
-				{{> Field
-					block="profile"
-					label="Новый пароль"
-					name="newPassword"
-					type="password"
-					id="profile-input-newpassword"
-					otherAtributes="required minlength='8'"
-				}}
-				{{> Field
-					block="profile"
-					label="Повторите новый пароль"
-					name="repeat_password"
-					type="password"
-					id="profile-input-repeat-password"
-					otherAtributes="required minlength='8'"
-				}}
-			</fieldset>
-			<div class="profile__actions">
-				{{> Button type="submit" text="Сохранить"}}
-			</div>
-		</form>
+		{{{AvatarChangeButton}}}
+		<h2 class="profile__name">{{name}}</h2>
+		{{{EditProfileForm}}}
+		{{{EditPasswordForm}}}
+		{{{ProfileActions}}}
 	</div>
 </main>
-<section id="popup-avatar-edit" class="popup">
-	<div class="popup__container">
-		<form class="file-form" name="change-avatar">
-			<h2 class="file-form__title">Загрузите файл</h2>
-			<label class="file-form__field">
-				<input class="file-form__input" name="avatar" type="file">
-				<span class="file-form__file-text">Выбрать файл на компьютере</span>
-			</label>
-			{{> Button addedClasses="file-form__button" type="submit" text="Поменять"}}
-		</form>
-	</div>
-</section>

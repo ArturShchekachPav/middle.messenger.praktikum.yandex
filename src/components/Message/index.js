@@ -1,3 +1,15 @@
 import './Message.scss';
+import { default as layout } from './Message.hbs?raw';
+import Block from "../../framework/Block.js";
 
-export { default as Message } from './Message.hbs?raw';
+export class Message extends Block {
+	constructor({src, addictedClass, source, status, time, text}) {
+		super({src, addictedClass, source, status, time, text});
+	}
+
+	render() {
+		return layout;
+	}
+}
+
+
