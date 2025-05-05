@@ -145,7 +145,7 @@ export default class App {
 
 				break;
 			case '/500':
-				const serverErrorPage = new ServerErrorPage();
+				const serverErrorPage = new ServerErrorPage({onChangePage: this.changePage});
 
 				if(this.appElement) {
 					this.appElement.replaceChildren(serverErrorPage.getContent());

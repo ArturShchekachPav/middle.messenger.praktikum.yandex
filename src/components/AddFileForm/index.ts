@@ -32,9 +32,11 @@ export class AddFileForm extends Form {
 						}
 
 						const input = this.children.Input.getContent() as HTMLInputElement;
-						const errorMessage = this.children.ErrorMessage;
+						let errorMessage = this.children.ErrorMessage;
 
-						this.validateInput(input, errorMessage);
+						if (errorMessage instanceof Component) {
+							this.validateInput(input, errorMessage);
+						}
 					}
 				}
 			}),
@@ -66,19 +68,21 @@ export class AddFileForm extends Form {
 
 		this.setProps({
 			events: {
-				submit: event => {
+				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
 						formData => {
 							console.log(formData);
 							onSuccessAction();
-							this.getContent().reset();
+							(this.getContent() as HTMLFormElement).reset();
 						},
 						() => {
-							const input = this.children.Input.getContent();
+							const input = this.children.Input.getContent() as HTMLInputElement;
 							const errorMessage = this.children.ErrorMessage;
 
-							this.validateInput(input, errorMessage);
+							if(errorMessage instanceof Component) {
+								this.validateInput(input, errorMessage);
+							}
 						}
 					)
 				}

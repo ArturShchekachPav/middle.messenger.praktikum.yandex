@@ -141,7 +141,9 @@ export class ProfilePage extends Block {
 	}
 
 	onChangeProfileButtonClick() {
-		this.children.EditProfileForm.edit();
+		if(this.children.EditProfileForm instanceof EditProfileForm) {
+			this.children.EditProfileForm.edit();
+		}
 
 		this.children.ProfileActions.hide();
 	}
@@ -154,7 +156,9 @@ export class ProfilePage extends Block {
 	}
 
 	onChangeProfileData() {
-		this.children.EditProfileForm.read();
+		if(this.children.EditProfileForm instanceof EditProfileForm) {
+			this.children.EditProfileForm.read();
+		}
 
 		this.children.ProfileActions.show();
 	}

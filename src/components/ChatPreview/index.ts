@@ -3,7 +3,7 @@ import { default as layout } from './ChatPreview.hbs?raw';
 import Block from "../../framework/Block.js";
 
 type ChatPreviewType = {
-	unreadMessagesCount: number,
+	unreadMessagesCount: string,
 	lastMessage: string,
 	lastTime: string,
 	name: string,

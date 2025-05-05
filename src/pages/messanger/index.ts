@@ -12,9 +12,9 @@ export class MessangerPage extends Block {
 			avatar: string,
 			lastTime: string,
 			lastMessage: string,
-			unreadMessagesCount: number
+			unreadMessagesCount: string
 		}>,
-		popups: Array<Popup>,
+		popups: Record<string, Popup>,
 		onChangePage: (page: string) => void,
 	}) {
 		super({
@@ -24,9 +24,19 @@ export class MessangerPage extends Block {
 
 					this.children.ChatsList.setProps({
 						content: createChats(chats.filter(({name}) => name.toLowerCase().includes(searchValue)), () => {
+							const {
+								addFilePopup,
+								addMediaPopup,
+								addUserPopup,
+								removeUserPopup
+							} = popups;
+
 							return {
 								currentChat: this.children.CurrentChat,
-								...popups
+								addFilePopup,
+								addMediaPopup,
+								addUserPopup,
+								removeUserPopup
 							}
 						})
 					});
@@ -38,9 +48,19 @@ export class MessangerPage extends Block {
 					class: 'messanger__chats'
 				},
 				content: createChats(chats, () => {
+					const {
+						addFilePopup,
+						addMediaPopup,
+						addUserPopup,
+						removeUserPopup
+					} = popups;
+
 					return {
 						currentChat: this.children.CurrentChat,
-						...popups
+						addFilePopup,
+						addMediaPopup,
+						addUserPopup,
+						removeUserPopup
 					}
 				})
 			}),

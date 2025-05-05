@@ -4,7 +4,7 @@ import { Message } from "../index.js";
 import Component from "../../framework/Component.js";
 
 export class ChatMessages extends Block {
-	constructor({dataMessages}: {dataMessages: Array<Record<string, string>>}) {
+	constructor({dataMessages}: {dataMessages: Array<Record<string, any>>}) {
 		super({
 			dataMessages: dataMessages.length,
 			content: dataMessages.map(dataMessagesItem => {
@@ -23,7 +23,7 @@ export class ChatMessages extends Block {
 					attr: {
 						class: `chat__block chat__block_source_${dataMessagesItem.source}`
 					},
-					content: dataMessagesItem.messages.map(messageData => new Message({
+					content: dataMessagesItem.messages.map((messageData: Record<string, string>) => new Message({
 						source: dataMessagesItem.source,
 						time: messageData.time,
 						status: messageData.status,

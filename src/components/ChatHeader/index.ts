@@ -20,7 +20,10 @@ export class ChatHeader extends Block {
 						icon: '/add-icon.svg',
 						events: {
 							click: () => {
-								this.children.Menu.close();
+								if(this.children.Menu instanceof Menu) {
+									this.children.Menu.close();
+								}
+
 								onAddUserButtonClick();
 							}
 						}
@@ -30,7 +33,10 @@ export class ChatHeader extends Block {
 						icon: '/delete-icon.svg',
 						events: {
 							click: () => {
-								this.children.Menu.close();
+								if(this.children.Menu instanceof Menu) {
+									this.children.Menu.close();
+								}
+
 								onRemoveUserButtonClick();
 							}
 						}
@@ -45,9 +51,12 @@ export class ChatHeader extends Block {
 					class: "chat-window__options-button"
 				},
 				events: {
-					click: (e) => {
+					click: (e: MouseEvent) => {
 						e.stopPropagation();
-						this.children.Menu.open();
+
+						if(this.children.Menu instanceof Menu) {
+							this.children.Menu.open();
+						}
 					}
 				}
 			})

@@ -13,7 +13,10 @@ export class ChatMessageForm extends Form {
 						icon: '/media-icon.svg',
 						events: {
 							click: () => {
-								this.children.Menu.close()
+								if(this.children.Menu instanceof Menu) {
+									this.children.Menu.close();
+								}
+
 								onAddMediaButtonClick();
 							}
 						},
@@ -23,14 +26,20 @@ export class ChatMessageForm extends Form {
 						icon: '/file-menu-icon.svg',
 						events: {
 							click: () => {
-								this.children.Menu.close()
+								if(this.children.Menu instanceof Menu) {
+									this.children.Menu.close()
+								}
+
 								onAddFileButtonClick();
 							}
 						}
 					}),
 					new MenuItem({
 						text: 'Локация',
-						icon: '/location-icon.svg'
+						icon: '/location-icon.svg',
+						events: {
+							click: () => {}
+						}
 					})
 				],
 				isOpen: false,
@@ -43,9 +52,13 @@ export class ChatMessageForm extends Form {
 					type: "button",
 				},
 				events: {
-					click: (e) => {
+					click: (e: MouseEvent) => {
 						e.stopPropagation();
-						this.children.Menu.open()
+
+						if(this.children.Menu instanceof Menu) {
+							this.children.Menu.open();
+						}
+
 					}
 				}
 			}),
@@ -77,12 +90,12 @@ export class ChatMessageForm extends Form {
 
 		this.setProps({
 			events: {
-				submit: event => {
+				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
 						formData => {
 							console.log(formData);
-							this.getContent().reset();
+							(this.getContent() as HTMLFormElement).reset();
 						},
 						() => {
 							this.validateInput();
@@ -97,9 +110,11 @@ export class ChatMessageForm extends Form {
 		return layout;
 	}
 
-	validateInput(input, errorMessage) {
-		if(this.getContent().checkValidity()) {
-			this.children.Input.setAttributes({placeholder: 'Сообщение'});
+	validateInput() {
+		if((this.getContent() as HTMLFormElement).checkValidity()) {
+			if(this.children.Input instanceof Component) {
+				this.children.Input.setAttributes({placeholder: 'Сообщение'});
+			}
 		} else {
 			this.children.Input.setAttributes({placeholder: 'Введите сообщение для его отправки'});
 		}

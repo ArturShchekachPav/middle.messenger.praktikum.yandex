@@ -1,6 +1,6 @@
 import {ChatHeader, ChatMessageForm, ChatMessages, ChatPreview, Popup } from "../components/index";
 import {MESSAGES_DATA} from "./constants";
-import Component from "../framework/Component";
+import Block from "../framework/Block";
 
 
 
@@ -10,10 +10,10 @@ export const createChats = (
 		avatar: string,
 		lastTime: string,
 		lastMessage: string,
-		unreadMessagesCount: number
+		unreadMessagesCount: string
 	}>,
 	getComponents: () => {
-		currentChat: Component,
+		currentChat: Block,
 		addFilePopup: Popup,
 		addMediaPopup: Popup,
 		addUserPopup: Popup,

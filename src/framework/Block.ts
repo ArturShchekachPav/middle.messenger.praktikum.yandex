@@ -113,7 +113,7 @@ export default class Block {
 		});
 	}
 
-	protected setAttributes(attr: Record<string, string | number | boolean>): void {
+	setAttributes(attr: Record<string, string | number | boolean>): void {
 		Object.entries(attr).forEach(([key, value]) => {
 			if (this._element) {
 				this._element.setAttribute(key, value.toString());
