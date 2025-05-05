@@ -1,0 +1,3 @@
+import './messanger.scss';
+
+export { default as MessangerPage } from './messanger.hbs?raw';
