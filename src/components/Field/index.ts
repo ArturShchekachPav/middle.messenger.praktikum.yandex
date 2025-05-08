@@ -1,4 +1,4 @@
-import { default as layout } from './Field.hbs?raw';
+import {default as layout} from './Field.hbs?raw';
 import Block from "../../framework/Block.js";
 import Component from "../../framework/Component";
 

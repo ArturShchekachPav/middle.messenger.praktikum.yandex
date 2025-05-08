@@ -7,7 +7,7 @@ import Component from "../../framework/Component";
 
 export class MessangerPage extends Block {
 	constructor({chats, popups, onChangePage}: {
-		chats:  Array<{
+		chats: Array<{
 			name: string,
 			avatar: string,
 			lastTime: string,

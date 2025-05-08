@@ -1,12 +1,19 @@
-import {LoginPage, MessangerPage, NotFoundPage, ProfilePage, RegistrationPage, ServerErrorPage,} from './pages/index.js';
+import {
+	LoginPage,
+	MessangerPage,
+	NotFoundPage,
+	ProfilePage,
+	RegistrationPage,
+	ServerErrorPage,
+} from './pages/index.js';
 import './App.scss';
-import {CHATS_DATA} from "./utils/constants";
-import {AddFileForm, LoginForm, Popup, UserActionForm} from "./components/index";
-import {RegisterForm} from "./components/RegisterForm/index";
+import {CHATS_DATA} from './utils/constants';
+import {AddFileForm, LoginForm, Popup, UserActionForm,} from './components/index';
+import {RegisterForm} from './components/RegisterForm/index';
 
 export default class App {
-	private currentPage: string;
 	readonly appElement: HTMLElement | null;
+	private currentPage: string;
 
 	constructor(currentPage: string) {
 		this.currentPage = currentPage;
@@ -26,8 +33,8 @@ export default class App {
 						title: 'Добавить фото/видео',
 						onSuccessAction: () => {
 							addMediaPopup.close();
-						}
-					})
+						},
+					}),
 				});
 				const addFilePopup = new Popup({
 					isOpen: false,
@@ -38,8 +45,8 @@ export default class App {
 						title: 'Добавить файл',
 						onSuccessAction: () => {
 							addFilePopup.close();
-						}
-					})
+						},
+					}),
 				});
 				const addUserPopup = new Popup({
 					isOpen: false,
@@ -49,8 +56,8 @@ export default class App {
 						title: 'Добавить пользователя',
 						onSuccessAction: () => {
 							addUserPopup.close();
-						}
-					})
+						},
+					}),
 				});
 				const removeUserPopup = new Popup({
 					isOpen: false,
@@ -60,8 +67,8 @@ export default class App {
 						title: 'Удалить пользователя',
 						onSuccessAction: () => {
 							removeUserPopup.close();
-						}
-					})
+						},
+					}),
 				});
 
 				const messangerPage = new MessangerPage({
@@ -70,12 +77,12 @@ export default class App {
 						addMediaPopup,
 						addFilePopup,
 						addUserPopup,
-						removeUserPopup
+						removeUserPopup,
 					},
-					onChangePage: this.changePage
+					onChangePage: this.changePage,
 				});
 
-				if(this.appElement) {
+				if (this.appElement) {
 					this.appElement.replaceChildren(
 						messangerPage.getContent(),
 						addMediaPopup.getContent(),
@@ -94,10 +101,10 @@ export default class App {
 						buttonText: 'Заменить',
 						title: 'Изменить аватар',
 						onSuccessAction: () => {
-							changeAvatarPopup.close()
-						}
+							changeAvatarPopup.close();
+						},
 					}),
-					isOpen: false
+					isOpen: false,
 				});
 
 				const profilePage = new ProfilePage({
@@ -109,10 +116,10 @@ export default class App {
 					phone: '+79099673030',
 					avatar: '/default-avatar.png',
 					onChangePage: this.changePage,
-					changeAvatarPopup
+					changeAvatarPopup,
 				});
 
-				if(this.appElement) {
+				if (this.appElement) {
 					this.appElement.replaceChildren(
 						profilePage.getContent(),
 						changeAvatarPopup.getContent()
@@ -123,11 +130,11 @@ export default class App {
 			case '/sing-up':
 				const registrationPage = new RegistrationPage({
 					RegisterForm: new RegisterForm({
-						onPageChange: this.changePage
-					})
+						onPageChange: this.changePage,
+					}),
 				});
 
-				if(this.appElement) {
+				if (this.appElement) {
 					this.appElement.replaceChildren(registrationPage.getContent());
 				}
 
@@ -135,27 +142,31 @@ export default class App {
 			case '/sing-in':
 				const loginPage = new LoginPage({
 					LoginForm: new LoginForm({
-						onPageChange: this.changePage
-					})
+						onPageChange: this.changePage,
+					}),
 				});
 
-				if(this.appElement) {
+				if (this.appElement) {
 					this.appElement.replaceChildren(loginPage.getContent());
 				}
 
 				break;
 			case '/500':
-				const serverErrorPage = new ServerErrorPage({onChangePage: this.changePage});
+				const serverErrorPage = new ServerErrorPage({
+					onChangePage: this.changePage,
+				});
 
-				if(this.appElement) {
+				if (this.appElement) {
 					this.appElement.replaceChildren(serverErrorPage.getContent());
 				}
 
 				break;
 			default:
-				const notFoundPage = new NotFoundPage({onChangePage: this.changePage});
+				const notFoundPage = new NotFoundPage({
+					onChangePage: this.changePage,
+				});
 
-				if(this.appElement) {
+				if (this.appElement) {
 					this.appElement.replaceChildren(notFoundPage.getContent());
 				}
 		}

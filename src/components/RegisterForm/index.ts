@@ -1,6 +1,6 @@
 import Form from "../../framework/Form.js";
-import { default as layout } from './RegisterForm.hbs?raw';
-import { Field } from "../index.js";
+import {default as layout} from './RegisterForm.hbs?raw';
+import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {REGISTER_FORM_CONFIG} from "../../utils/constants.js";
 
@@ -96,12 +96,12 @@ export class RegisterForm extends Form {
 	}
 
 	validateConfirmPassword(input: HTMLInputElement) {
-		const { value, name } = input;
-		const { repeat_password, password } = this.getFormData();
+		const {value, name} = input;
+		const {repeat_password, password} = this.getFormData();
 
-		if(name === 'repeat_password' && value && repeat_password !== password ) {
+		if (name === 'repeat_password' && value && repeat_password !== password) {
 			input.setCustomValidity('Пароли не совпадают');
-		} else if(name === 'repeat_password') {
+		} else if (name === 'repeat_password') {
 			input.setCustomValidity('');
 		}
 	}

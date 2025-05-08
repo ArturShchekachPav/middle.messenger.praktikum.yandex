@@ -1,11 +1,11 @@
 import Form from "../../framework/Form.js";
-import { default as layout } from './EditPasswordForm.hbs?raw';
-import { Field } from "../index.js";
+import {default as layout} from './EditPasswordForm.hbs?raw';
+import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {EDIT_PASSWORD_FORM_CONFIG} from "../../utils/constants.js";
 
 export class EditPasswordForm extends Form {
-	constructor({isHide, onChangePasswordData}: {isHide: boolean, onChangePasswordData: () => void}) {
+	constructor({isHide, onChangePasswordData}: { isHide: boolean, onChangePasswordData: () => void }) {
 		super({
 			Fields: EDIT_PASSWORD_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new Component({
@@ -66,7 +66,7 @@ export class EditPasswordForm extends Form {
 			}
 		});
 
-		if(isHide) {
+		if (isHide) {
 			this.hide();
 		}
 	}
@@ -82,12 +82,12 @@ export class EditPasswordForm extends Form {
 	}
 
 	validateConfirmPassword(input: HTMLInputElement) {
-		const { value, name } = input;
-		const { repeat_password, newPassword } = this.getFormData();
+		const {value, name} = input;
+		const {repeat_password, newPassword} = this.getFormData();
 
-		if(name === 'repeat_password' && value && repeat_password !== newPassword ) {
+		if (name === 'repeat_password' && value && repeat_password !== newPassword) {
 			input.setCustomValidity('Пароли не совпадают');
-		} else if(name === 'repeat_password') {
+		} else if (name === 'repeat_password') {
 			input.setCustomValidity('');
 		}
 	}

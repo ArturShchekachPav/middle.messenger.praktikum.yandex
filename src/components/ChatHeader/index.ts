@@ -1,4 +1,4 @@
-import { default as layout } from './ChatHeader.hbs?raw';
+import {default as layout} from './ChatHeader.hbs?raw';
 import Block from "../../framework/Block.js";
 import {Menu, MenuItem} from "../index.js";
 import Component from "../../framework/Component.js";
@@ -20,7 +20,7 @@ export class ChatHeader extends Block {
 						icon: '/add-icon.svg',
 						events: {
 							click: () => {
-								if(this.children.Menu instanceof Menu) {
+								if (this.children.Menu instanceof Menu) {
 									this.children.Menu.close();
 								}
 
@@ -33,7 +33,7 @@ export class ChatHeader extends Block {
 						icon: '/delete-icon.svg',
 						events: {
 							click: () => {
-								if(this.children.Menu instanceof Menu) {
+								if (this.children.Menu instanceof Menu) {
 									this.children.Menu.close();
 								}
 
@@ -54,7 +54,7 @@ export class ChatHeader extends Block {
 					click: (e: MouseEvent) => {
 						e.stopPropagation();
 
-						if(this.children.Menu instanceof Menu) {
+						if (this.children.Menu instanceof Menu) {
 							this.children.Menu.open();
 						}
 					}

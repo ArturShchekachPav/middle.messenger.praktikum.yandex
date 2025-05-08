@@ -1,11 +1,11 @@
 import Form from "../../framework/Form.js";
-import { default as layout } from './LoginForm.hbs?raw';
-import { Field } from "../index.js";
+import {default as layout} from './LoginForm.hbs?raw';
+import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {LOGIN_FORM_CONFIG} from "../../utils/constants.js";
 
 export class LoginForm extends Form {
-	constructor({onPageChange} : {onPageChange: (page : string) => void}) {
+	constructor({onPageChange}: { onPageChange: (page: string) => void }) {
 		super({
 			Fields: LOGIN_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new Component({
@@ -51,7 +51,7 @@ export class LoginForm extends Form {
 				},
 				content: 'Нет аккаунта',
 				events: {
-					click: (event : Event) => {
+					click: (event: Event) => {
 						event.preventDefault();
 
 						onPageChange('/sing-up');

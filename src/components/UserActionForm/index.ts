@@ -1,6 +1,6 @@
 import Form from "../../framework/Form.js";
-import { default as layout } from './UserActionForm.hbs?raw';
-import { Field } from "../index.js";
+import {default as layout} from './UserActionForm.hbs?raw';
+import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {USER_ACTION_FORM_CONFIG} from "../../utils/constants.js";
 

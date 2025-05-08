@@ -1,5 +1,5 @@
 import Block from "../../framework/Block.js";
-import { default as layout } from './Menu.hbs?raw';
+import {default as layout} from './Menu.hbs?raw';
 
 export class Menu extends Block {
 	constructor({content, isOpen, addClass}: {

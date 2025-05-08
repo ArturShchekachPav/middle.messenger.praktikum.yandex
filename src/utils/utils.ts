@@ -1,11 +1,10 @@
-import {ChatHeader, ChatMessageForm, ChatMessages, ChatPreview, Popup } from "../components/index";
+import {ChatHeader, ChatMessageForm, ChatMessages, ChatPreview, Popup} from "../components/index";
 import {MESSAGES_DATA} from "./constants";
 import Block from "../framework/Block";
 
 
-
 export const createChats = (
-	chatsData : Array<{
+	chatsData: Array<{
 		name: string,
 		avatar: string,
 		lastTime: string,

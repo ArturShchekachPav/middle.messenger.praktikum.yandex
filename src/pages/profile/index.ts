@@ -1,21 +1,21 @@
 import './profile.scss';
-import { default as layout } from './profile.hbs?raw';
+import {default as layout} from './profile.hbs?raw';
 import Block from "../../framework/Block";
 import {EditPasswordForm, EditProfileForm, Popup} from "../../components/index.js";
 import Component from "../../framework/Component";
 
 export class ProfilePage extends Block {
 	constructor({
-		email,
-		login,
-		first_name,
-		second_name,
-		display_name,
-		phone,
-		avatar,
-		onChangePage,
-		changeAvatarPopup
-	}: {
+								email,
+								login,
+								first_name,
+								second_name,
+								display_name,
+								phone,
+								avatar,
+								onChangePage,
+								changeAvatarPopup
+							}: {
 		email: string,
 		login: string,
 		first_name: string,
@@ -141,7 +141,7 @@ export class ProfilePage extends Block {
 	}
 
 	onChangeProfileButtonClick() {
-		if(this.children.EditProfileForm instanceof EditProfileForm) {
+		if (this.children.EditProfileForm instanceof EditProfileForm) {
 			this.children.EditProfileForm.edit();
 		}
 
@@ -156,7 +156,7 @@ export class ProfilePage extends Block {
 	}
 
 	onChangeProfileData() {
-		if(this.children.EditProfileForm instanceof EditProfileForm) {
+		if (this.children.EditProfileForm instanceof EditProfileForm) {
 			this.children.EditProfileForm.read();
 		}
 

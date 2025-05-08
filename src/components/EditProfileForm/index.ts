@@ -1,16 +1,16 @@
 import Form from "../../framework/Form";
-import { default as layout } from './EditProfileForm.hbs?raw';
-import { Field } from "../index";
+import {default as layout} from './EditProfileForm.hbs?raw';
+import {Field} from "../index";
 import Component from "../../framework/Component";
 import {EDIT_PROFILE_FORM_CONFIG} from "../../utils/constants";
 
 export class EditProfileForm extends Form {
 	constructor({
-		defaultValues,
-		isEdit,
-		isHide,
-		onChangeProfileData
-	}: {
+								defaultValues,
+								isEdit,
+								isHide,
+								onChangeProfileData
+							}: {
 		defaultValues: Record<string, unknown>,
 		isEdit: boolean,
 		isHide: boolean,
@@ -77,11 +77,11 @@ export class EditProfileForm extends Form {
 			}
 		});
 
-		if(isHide) {
+		if (isHide) {
 			this.hide();
 		}
 
-		if(isEdit) {
+		if (isEdit) {
 			this.edit();
 		} else {
 			this.read();
@@ -98,7 +98,7 @@ export class EditProfileForm extends Form {
 	}
 
 	read() {
-		this.lists.Fields.forEach(({children: {Input}}) => Input.setAttributes({disabled : true}));
+		this.lists.Fields.forEach(({children: {Input}}) => Input.setAttributes({disabled: true}));
 		this.children.Button.hide();
 	}
 }

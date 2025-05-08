@@ -1,5 +1,5 @@
 import './Message.scss';
-import { default as layout } from './Message.hbs?raw';
+import {default as layout} from './Message.hbs?raw';
 import Block from "../../framework/Block.js";
 
 export class Message extends Block {

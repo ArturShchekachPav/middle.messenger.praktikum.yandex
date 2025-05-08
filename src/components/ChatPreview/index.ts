@@ -1,5 +1,5 @@
 import './ChatPreview.scss';
-import { default as layout } from './ChatPreview.hbs?raw';
+import {default as layout} from './ChatPreview.hbs?raw';
 import Block from "../../framework/Block.js";
 
 type ChatPreviewType = {
@@ -12,7 +12,7 @@ type ChatPreviewType = {
 }
 
 export class ChatPreview extends Block {
-	constructor({unreadMessagesCount, lastMessage, lastTime, name, avatar, onClick} : ChatPreviewType) {
+	constructor({unreadMessagesCount, lastMessage, lastTime, name, avatar, onClick}: ChatPreviewType) {
 		super({unreadMessagesCount, lastMessage, lastTime, name, avatar, events: {click: onClick}});
 	}
 

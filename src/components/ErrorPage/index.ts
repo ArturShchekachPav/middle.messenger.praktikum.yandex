@@ -1,10 +1,10 @@
 import './ErrorPage.scss';
-import { default as layout } from './ErrorPage.hbs?raw';
+import {default as layout} from './ErrorPage.hbs?raw';
 import Block from "../../framework/Block.js";
 import Component from "../../framework/Component";
 
 export class ErrorPage extends Block {
-	constructor({href, error, message, linkText, onChangePage} : {
+	constructor({href, error, message, linkText, onChangePage}: {
 		href: string,
 		error: string,
 		message: string,

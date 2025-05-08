@@ -1,4 +1,4 @@
-import { default as layout } from './AddFileForm.hbs?raw';
+import {default as layout} from './AddFileForm.hbs?raw';
 import Component from "../../framework/Component.js";
 import Form from "../../framework/Form.js";
 
@@ -11,7 +11,7 @@ type AddFileFormProps = {
 }
 
 export class AddFileForm extends Form {
-	constructor({formName, inputName, buttonText, title, onSuccessAction} : AddFileFormProps) {
+	constructor({formName, inputName, buttonText, title, onSuccessAction}: AddFileFormProps) {
 		super({
 			formName,
 			title,
@@ -27,7 +27,7 @@ export class AddFileForm extends Form {
 					change: (event: InputEvent) => {
 						const inputElement = event.target as HTMLInputElement;
 
-						if(inputElement.files) {
+						if (inputElement.files) {
 							this.children.FieldLabel.setProps({content: inputElement.files[0].name});
 						}
 
@@ -80,7 +80,7 @@ export class AddFileForm extends Form {
 							const input = this.children.Input.getContent() as HTMLInputElement;
 							const errorMessage = this.children.ErrorMessage;
 
-							if(errorMessage instanceof Component) {
+							if (errorMessage instanceof Component) {
 								this.validateInput(input, errorMessage);
 							}
 						}

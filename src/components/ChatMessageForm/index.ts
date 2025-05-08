@@ -1,5 +1,5 @@
-import { default as layout } from './ChatMessageForm.hbs?raw';
-import { Menu, MenuItem } from "../index.js"
+import {default as layout} from './ChatMessageForm.hbs?raw';
+import {Menu, MenuItem} from "../index.js"
 import Component from "../../framework/Component.js";
 import Form from "../../framework/Form.js";
 
@@ -13,7 +13,7 @@ export class ChatMessageForm extends Form {
 						icon: '/media-icon.svg',
 						events: {
 							click: () => {
-								if(this.children.Menu instanceof Menu) {
+								if (this.children.Menu instanceof Menu) {
 									this.children.Menu.close();
 								}
 
@@ -26,7 +26,7 @@ export class ChatMessageForm extends Form {
 						icon: '/file-menu-icon.svg',
 						events: {
 							click: () => {
-								if(this.children.Menu instanceof Menu) {
+								if (this.children.Menu instanceof Menu) {
 									this.children.Menu.close()
 								}
 
@@ -38,7 +38,8 @@ export class ChatMessageForm extends Form {
 						text: 'Локация',
 						icon: '/location-icon.svg',
 						events: {
-							click: () => {}
+							click: () => {
+							}
 						}
 					})
 				],
@@ -55,7 +56,7 @@ export class ChatMessageForm extends Form {
 					click: (e: MouseEvent) => {
 						e.stopPropagation();
 
-						if(this.children.Menu instanceof Menu) {
+						if (this.children.Menu instanceof Menu) {
 							this.children.Menu.open();
 						}
 
@@ -65,8 +66,8 @@ export class ChatMessageForm extends Form {
 			SubmitButton: new Component({
 				tag: 'button',
 				attr: {
-					type:"submit",
-					class:"chat-window__submit"
+					type: "submit",
+					class: "chat-window__submit"
 				}
 			}),
 			Input: new Component({
@@ -111,8 +112,8 @@ export class ChatMessageForm extends Form {
 	}
 
 	validateInput() {
-		if((this.getContent() as HTMLFormElement).checkValidity()) {
-			if(this.children.Input instanceof Component) {
+		if ((this.getContent() as HTMLFormElement).checkValidity()) {
+			if (this.children.Input instanceof Component) {
 				this.children.Input.setAttributes({placeholder: 'Сообщение'});
 			}
 		} else {
