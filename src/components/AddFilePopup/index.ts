@@ -2,6 +2,9 @@ import {AddFileForm, Popup} from "../index";
 import Controller from "../../controllers";
 
 export class AddFilePopup extends Popup {
+	private controller: Controller;
+	private addFileForm: AddFileForm;
+
 	constructor() {
 		const addFileForm = new AddFileForm({
 			formName: 'add-file',

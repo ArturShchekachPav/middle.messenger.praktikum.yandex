@@ -2,6 +2,8 @@ import {Menu, MenuItem} from "../index";
 import Controller from "../../controllers";
 
 export class ChatActionsMenu extends Menu {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			content: [

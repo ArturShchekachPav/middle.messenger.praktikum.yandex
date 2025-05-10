@@ -2,12 +2,15 @@ import {UserActionForm, Popup} from "../index";
 import Controller from "../../controllers";
 
 export class RemoveUserPopup extends Popup {
+	private controller: Controller;
+	private removeChatForm: UserActionForm;
+
 	constructor() {
 		const removeChatForm = new UserActionForm({
 			name: 'remove-user',
 			buttonText: 'Удалить',
 			title: 'Удалить пользователя',
-			onSumbit: (formData) => {
+			onSubmit: (formData) => {
 				this.controller.emit('addChat', formData);
 				this.close();
 			},

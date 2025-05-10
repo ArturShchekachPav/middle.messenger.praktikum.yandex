@@ -1,20 +1,19 @@
 import Form from "../../framework/Form.js";
 import {default as layout} from './EditPasswordForm.hbs?raw';
-import {Field} from "../index.js";
+import {ErrorMessage, Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {EDIT_PASSWORD_FORM_CONFIG} from "../../utils/constants.js";
 import Controller from "../../controllers";
 
 export class EditPasswordForm extends Form {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			Fields: EDIT_PASSWORD_FORM_CONFIG.map(({block, label, inputAttributs}) => {
-				const errorMessage = new Component({
-					tag: 'span',
-					attr: {
-						class: 'error-message'
-					},
-					content: '',
+				const errorMessage = new ErrorMessage({
+					text: '',
+					isHide: true
 				});
 
 				return new Field({
@@ -46,7 +45,6 @@ export class EditPasswordForm extends Form {
 			}),
 		});
 
-		this.validateInput = this.validateInput.bind(this);
 		this.show = this.show.bind(this);
 		this.hide = this.hide.bind(this);
 
@@ -58,11 +56,7 @@ export class EditPasswordForm extends Form {
 						formData => {
 							this.controller.emit('changePassword', formData);
 						},
-						() => {
-							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
-								this.validateInput(Input.getContent(), ErrorMessage);
-							});
-						}
+						() => {}
 					)
 				}
 			}
@@ -79,7 +73,7 @@ export class EditPasswordForm extends Form {
 		return layout;
 	}
 
-	validateInput(input: HTMLInputElement, errorMessage: Component) {
+	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {
 		this.validateConfirmPassword(input);
 
 		super.validateInput(input, errorMessage);
@@ -94,5 +88,13 @@ export class EditPasswordForm extends Form {
 		} else if (name === 'repeat_password') {
 			input.setCustomValidity('');
 		}
+	}
+
+	checkFormValidity() {
+		this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
+			this.validateInput(Input.getContent(), ErrorMessage);
+		});
+
+		return super.checkFormValidity();
 	}
 }

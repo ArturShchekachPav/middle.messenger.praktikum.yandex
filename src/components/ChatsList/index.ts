@@ -2,9 +2,14 @@ import Block from "../../framework/Block";
 import {ChatPreview} from "../ChatPreview";
 import Controller from "../../controllers";
 import {default as layout} from './ChatsList.hbs?raw';
+import {ChatData} from "../../utils/types";
 
 export class ChatsList extends Block {
-	constructor(chatsData) {
+	private controller: Controller;
+	private filter: string;
+	private chatsData: ChatData[];
+
+	constructor(chatsData: ChatData[]) {
 		super();
 
 		this.filter = '';
@@ -34,7 +39,7 @@ export class ChatsList extends Block {
 		);
 	}
 
-	searchChats(searchValue) {
+	searchChats(searchValue: string) {
 		this.filter = searchValue;
 
 		this.setProps({
@@ -42,7 +47,7 @@ export class ChatsList extends Block {
 		})
 	}
 
-	updateChatList(chatsData) {
+	updateChatList(chatsData: ChatData[]) {
 		this.chatsData = chatsData;
 
 		this.setProps({

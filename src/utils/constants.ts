@@ -1,6 +1,5 @@
 export const CHATS_DATA = [
 	{
-		element: "li",
 		name: "Жора",
 		avatar: "/default-avatar.png",
 		lastTime: "12:05",
@@ -8,7 +7,6 @@ export const CHATS_DATA = [
 		unreadMessagesCount: "2"
 	},
 	{
-		element: "li",
 		name: "Андрей",
 		avatar: "/default-avatar.png",
 		lastTime: "12:05",
@@ -16,7 +14,6 @@ export const CHATS_DATA = [
 		unreadMessagesCount: "4"
 	},
 	{
-		element: "li",
 		name: "Михаил",
 		avatar: "/default-avatar.png",
 		lastTime: "12:05",
@@ -24,7 +21,6 @@ export const CHATS_DATA = [
 		unreadMessagesCount: "12"
 	},
 	{
-		element: "li",
 		name: "Иван",
 		avatar: "/default-avatar.png",
 		lastTime: "12:05",
@@ -32,7 +28,6 @@ export const CHATS_DATA = [
 		unreadMessagesCount: "6"
 	},
 	{
-		element: "li",
 		name: "Иван",
 		avatar: "/default-avatar.png",
 		lastTime: "12:05",
@@ -40,7 +35,6 @@ export const CHATS_DATA = [
 		unreadMessagesCount: "6"
 	},
 	{
-		element: "li",
 		name: "Иван",
 		avatar: "/default-avatar.png",
 		lastTime: "12:05",
@@ -458,3 +452,12 @@ export const USER_ACTION_FORM_CONFIG = [
 		}
 	}
 ];
+
+export enum METHOD {
+	GET = 'GET',
+	POST = 'POST',
+	PUT = 'PUT',
+	PATCH = 'PATCH',
+	DELETE = 'DELETE'
+};
+

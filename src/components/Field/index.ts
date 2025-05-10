@@ -1,15 +1,9 @@
 import {default as layout} from './Field.hbs?raw';
 import Block from "../../framework/Block.js";
-import Component from "../../framework/Component";
+import {FieldProps} from "../../utils/types";
 
 export class Field extends Block {
-	constructor({block, label, id, ErrorMessage, Input}: {
-		block: string,
-		label: string,
-		id: string,
-		ErrorMessage: Component,
-		Input: Component
-	}) {
+	constructor({block, label, id, ErrorMessage, Input}: FieldProps) {
 		super({
 			block,
 			id: id,

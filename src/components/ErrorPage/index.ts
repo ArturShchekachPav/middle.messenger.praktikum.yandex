@@ -5,6 +5,8 @@ import Component from "../../framework/Component";
 import Controller from "../../controllers";
 
 export class ErrorPage extends Block {
+	private controller: Controller;
+
 	constructor({error, message}: {
 		error: string,
 		message: string,

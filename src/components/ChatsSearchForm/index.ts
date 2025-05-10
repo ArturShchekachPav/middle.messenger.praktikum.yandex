@@ -4,13 +4,15 @@ import Component from "../../framework/Component.js";
 import Controllers from "../../controllers";
 
 export class ChatsSearchForm extends Block {
+	private controller: Controllers;
+
 	constructor() {
 		super({
 			SearchInput: new Component({
 				tag: 'input',
 				events: {
-					input: event => {
-						this.controller.emit('searchChats', event.target.value.toLowerCase());
+					input: (event: InputEvent) => {
+						this.controller.emit('searchChats', (event.target as HTMLInputElement).value.toLowerCase());
 					}
 				},
 				attr: {

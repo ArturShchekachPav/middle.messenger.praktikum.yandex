@@ -2,13 +2,14 @@ import {default as layout} from './ChatMessages.hbs?raw';
 import Block from "../../framework/Block.js";
 import {Message} from "../index.js";
 import Component from "../../framework/Component.js";
+import {ChatMessagesProps} from "../../utils/types";
 
 export class ChatMessages extends Block {
-	constructor({dataMessages}: { dataMessages: Array<Record<string, any>> }) {
+	constructor({dataMessages}: ChatMessagesProps) {
 		super({
 			dataMessages: dataMessages.length,
 			content: dataMessages.map(dataMessagesItem => {
-				if (dataMessagesItem.type === 'date') {
+				if (dataMessagesItem.date) {
 					return new Component({
 						tag: 'p',
 						attr: {

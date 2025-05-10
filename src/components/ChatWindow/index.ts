@@ -6,6 +6,8 @@ import Controller from "../../controllers";
 import {default as layout} from './ChatWindow.hbs?raw';
 
 export class ChatWindow extends Block {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			content: [
@@ -26,7 +28,7 @@ export class ChatWindow extends Block {
 		this.controller.on('mediaSent', this.handleMediaSend.bind(this));
 	}
 
-	setCurrentChat({name, avatar}) {
+	setCurrentChat({name, avatar}: Record<string, string>) {
 		this.setProps({
 			content: [
 				new ChatHeader({

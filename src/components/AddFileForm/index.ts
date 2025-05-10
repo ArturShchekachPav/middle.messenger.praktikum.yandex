@@ -1,17 +1,18 @@
 import {default as layout} from './AddFileForm.hbs?raw';
 import Component from "../../framework/Component.js";
 import Form from "../../framework/Form.js";
-
-type AddFileFormProps = {
-	formName: string,
-	inputName: string,
-	buttonText: string,
-	title: string,
-	onSubmit: () => void
-}
+import {ErrorMessage} from "../ErrorMessage";
+import {AddFileFormProps} from "../../utils/types";
 
 export class AddFileForm extends Form {
+	private readonly errorMessage: ErrorMessage;
+
 	constructor({formName, inputName, buttonText, title, onSubmit}: AddFileFormProps) {
+		const errorMessage = new ErrorMessage({
+			text: '',
+			isHide: true
+		});
+
 		super({
 			formName,
 			title,
@@ -32,11 +33,9 @@ export class AddFileForm extends Form {
 						}
 
 						const input = this.children.Input.getContent() as HTMLInputElement;
-						let errorMessage = this.children.ErrorMessage;
 
-						if (errorMessage instanceof Component) {
-							this.validateInput(input, errorMessage);
-						}
+
+						this.validateInput(input, this.errorMessage);
 					}
 				}
 			}),
@@ -55,16 +54,10 @@ export class AddFileForm extends Form {
 				},
 				content: buttonText
 			}),
-			ErrorMessage: new Component({
-				tag: 'span',
-				attr: {
-					class: 'error-message'
-				},
-				content: '',
-			})
+			ErrorMessage: errorMessage
 		});
 
-		this.validateInput = this.validateInput.bind(this);
+		this.errorMessage = errorMessage;
 
 		this.setProps({
 			events: {
@@ -74,11 +67,8 @@ export class AddFileForm extends Form {
 						onSubmit,
 						() => {
 							const input = this.children.Input.getContent() as HTMLInputElement;
-							const errorMessage = this.children.ErrorMessage;
 
-							if (errorMessage instanceof Component) {
-								this.validateInput(input, errorMessage);
-							}
+							this.validateInput(input, this.errorMessage);
 						}
 					)
 				}
@@ -88,5 +78,11 @@ export class AddFileForm extends Form {
 
 	render() {
 		return layout;
+	}
+
+	reset() {
+		this.errorMessage.reset();
+
+		super.reset();
 	}
 }

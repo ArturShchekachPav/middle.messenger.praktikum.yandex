@@ -1,10 +1,7 @@
 import EventBus from './EventBus';
 import Handlebars from 'handlebars';
 import {v4 as makeUUID} from 'uuid';
-
-interface BlockProps {
-	[key: string]: any;
-}
+import {BlockProps} from "../utils/types";
 
 export default class Block {
 	static EVENTS = {
@@ -48,7 +45,7 @@ export default class Block {
 		});
 	}
 
-	public setProps = (nextProps: BlockProps | Record<string, any[]> | Record<string, Block>): void => {
+	public setProps = (nextProps: BlockProps | Record<string, unknown[]> | Record<string, Block>): void => {
 		if (!nextProps) {
 			return;
 		}
@@ -159,11 +156,11 @@ export default class Block {
 	private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
 		children: Record<string, Block>,
 		props: BlockProps,
-		lists: Record<string, any[]>
+		lists: Record<string, unknown[]>
 	} {
 		const children: Record<string, Block> = {};
 		const props: BlockProps = {};
-		const lists: Record<string, any[]> = {};
+		const lists: Record<string, unknown[]> = {};
 
 		Object.entries(propsAndChildren).forEach(([key, value]) => {
 			if (value instanceof Block) {
@@ -226,15 +223,15 @@ export default class Block {
 		this.addAttributes();
 	}
 
-	private _makePropsProxy(props: any): any {
+	private _makePropsProxy(props: Record<string, unknown>): any {
 		const self = this;
 
 		return new Proxy(props, {
-			get(target: any, prop: string) {
+			get(target: Record<string, unknown>, prop: string) {
 				const value = target[prop];
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
-			set(target: any, prop: string, value: any) {
+			set(target: Record<string, unknown>, prop: string, value: unknown) {
 				const oldTarget = {...target};
 				target[prop] = value;
 				self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);

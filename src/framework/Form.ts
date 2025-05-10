@@ -1,31 +1,16 @@
 import Block from "./Block";
-import Component from "./Component";
 import {ErrorMessage} from "../components";
 
-interface BlockProps {
-	[key: string]: any;
-}
-
 export default class Form extends Block {
-	constructor(propsWithChildren: BlockProps) {
+	constructor(propsWithChildren: Record<string, unknown>) {
 		super(propsWithChildren);
 	}
 
-	validateInput(input: HTMLInputElement, errorMessage: Component) {
+	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {
 		if (this.checkInputValidity(input)) {
-			errorMessage.setProps({content: this.getValidationMessage(input), attr: {class: 'error-message'}});
+			errorMessage.reset();
 		} else {
-			errorMessage.setProps({content: this.getValidationMessage(input), attr: {class: 'error-message error-message_open'}});
-		}
-	}
-
-	validateInputDuble(input: HTMLInputElement, errorMessage: ErrorMessage) {
-		if (this.checkInputValidity(input)) {
-			errorMessage.hide();
-			errorMessage.setText('');
-		} else {
-			errorMessage.show();
-			errorMessage.setText(this.getValidationMessage(input));
+			errorMessage.enable(this.getValidationMessage(input));
 		}
 	}
 
@@ -50,23 +35,11 @@ export default class Form extends Block {
 		}
 	}
 
-	handleSubmitDuble() {
-		return (event) => {
-			event.preventDefault();
-
-			this.onSubmit(this.getFormData(), event);
-		}
-	}
-
-	onSubmit(formData, event) {
-
-	}
-
 	reset() {
 		this.getContent().reset();
 	}
 
-	checkInputValidity(input) {
+	checkInputValidity(input: HTMLInputElement) {
 		return input.validity.valid;
 	}
 
@@ -74,15 +47,11 @@ export default class Form extends Block {
 		return this.getContent().checkValidity();
 	}
 
-	setCustomInputError(input, message) {
-		input.setCustomValidity(input, message);
-	}
-
-	resetCustomInputError(input) {
-		input.setCustomValidity(input, message);
-	}
-
-	getValidationMessage(input) {
+	getValidationMessage(input: HTMLInputElement) {
 		return input.validationMessage;
+	}
+
+	getContent(): HTMLFormElement {
+		return super.getContent() as HTMLFormElement;
 	}
 };

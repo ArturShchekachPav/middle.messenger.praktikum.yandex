@@ -5,6 +5,8 @@ import Component from "../../framework/Component.js";
 import Controller from "../../controllers";
 
 export class ChatHeader extends Block {
+	private controller: Controller;
+
 	constructor({name, avatarSrc}: {
 		name: string,
 		avatarSrc: string

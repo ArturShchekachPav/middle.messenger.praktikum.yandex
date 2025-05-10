@@ -1,20 +1,19 @@
 import Form from "../../framework/Form.js";
 import {default as layout} from './RegisterForm.hbs?raw';
-import {Field} from "../index.js";
+import {ErrorMessage, Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {REGISTER_FORM_CONFIG} from "../../utils/constants.js";
 import Controller from "../../controllers";
 
 export class RegisterForm extends Form {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			Fields: REGISTER_FORM_CONFIG.map(({block, label, inputAttributs}) => {
-				const errorMessage = new Component({
-					tag: 'span',
-					attr: {
-						class: 'error-message'
-					},
-					content: '',
+				const errorMessage = new ErrorMessage({
+					text: '',
+					isHide: true
 				});
 
 				return new Field({
@@ -64,8 +63,6 @@ export class RegisterForm extends Form {
 
 		this.controller = new Controller();
 
-		this.validateInput = this.validateInput.bind(this);
-
 		this.setProps({
 			events: {
 				submit: (event: SubmitEvent) => {
@@ -74,11 +71,7 @@ export class RegisterForm extends Form {
 						formData => {
 							this.controller.emit('register', formData);
 						},
-						() => {
-							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
-								this.validateInput(Input.getContent(), ErrorMessage);
-							});
-						}
+						() => {}
 					)
 				}
 			}
@@ -89,7 +82,7 @@ export class RegisterForm extends Form {
 		return layout;
 	}
 
-	validateInput(input: HTMLInputElement, errorMessage: Component) {
+	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {
 		this.validateConfirmPassword(input);
 
 		super.validateInput(input, errorMessage);
@@ -104,5 +97,13 @@ export class RegisterForm extends Form {
 		} else if (name === 'repeat_password') {
 			input.setCustomValidity('');
 		}
+	}
+
+	checkFormValidity() {
+		this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
+			this.validateInput(Input.getContent(), ErrorMessage);
+		});
+
+		return super.checkFormValidity();
 	}
 }

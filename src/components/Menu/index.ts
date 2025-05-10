@@ -1,12 +1,9 @@
 import Block from "../../framework/Block.js";
 import {default as layout} from './Menu.hbs?raw';
+import {MenuProps} from "../../utils/types";
 
 export class Menu extends Block {
-	constructor({content, isOpen, addClass}: {
-		content: any,
-		isOpen: boolean,
-		addClass: string
-	}) {
+	constructor({content, isOpen, addClass}: MenuProps) {
 		super({
 			content,
 			isOpen,

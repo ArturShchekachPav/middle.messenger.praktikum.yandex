@@ -1,20 +1,19 @@
 import Form from "../../framework/Form.js";
 import {default as layout} from './LoginForm.hbs?raw';
-import {Field} from "../index.js";
+import {ErrorMessage, Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {LOGIN_FORM_CONFIG} from "../../utils/constants.js";
 import Controller from "../../controllers";
 
 export class LoginForm extends Form {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			Fields: LOGIN_FORM_CONFIG.map(({block, label, inputAttributs}) => {
-				const errorMessage = new Component({
-					tag: 'span',
-					attr: {
-						class: 'error-message'
-					},
-					content: '',
+				const errorMessage = new ErrorMessage({
+					text: '',
+					isHide: true
 				});
 
 				return new Field({
@@ -61,9 +60,9 @@ export class LoginForm extends Form {
 			})
 		});
 
-		this.controller = new Controller();
-
 		this.validateInput = this.validateInput.bind(this);
+
+		this.controller = new Controller();
 
 		this.setProps({
 			events: {

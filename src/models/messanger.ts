@@ -1,5 +1,6 @@
 import Controller from "../controllers/Controller";
 import {CHATS_DATA} from "../utils/constants";
+import {ChatActionProps, SendFileProps, SendMediaProps} from "../utils/types";
 
 class Messanger {
 	private controller: Controller;
@@ -13,38 +14,39 @@ class Messanger {
 		this.removeChat = this.removeChat.bind(this);
 	}
 
-	addChat(formData) {
+	addChat(formData: ChatActionProps) {
 		console.log(formData);
 		this.controller.emit('chadAdded', CHATS_DATA);
 	}
 
-	removeChat(formData) {
+	removeChat(formData: ChatActionProps) {
 		console.log(formData);
 		this.controller.emit('chadRemoved', CHATS_DATA);
 	}
 
-	sendMessage(formData) {
+	sendMessage(formData: { message: string }) {
 		console.log(formData);
 		this.controller.emit('messageSent', formData.message);
 	}
 
-	sendFile(formData) {
+	sendFile(formData: SendFileProps) {
 		console.log(formData);
 		this.controller.emit('fileSent', formData);
 	}
 
-	sendMedia(formData) {
+	sendMedia(formData: SendMediaProps) {
 		console.log(formData);
 		this.controller.emit('mediaSent', formData);
 	}
 
-	sendLocation(formData) {
+	sendLocation(formData: { location: unknown }) {
+		console.log(formData);
 		this.controller.emit('locationSent', formData);
 	}
 
-	getChatData(chatId) {
-		const chatData = {};
-		this.controller.emit('locationSent', chatData);
+	getChatData(chatId: string) {
+		console.log(chatId);
+		this.controller.emit('chatDataGot', {});
 	}
 }
 

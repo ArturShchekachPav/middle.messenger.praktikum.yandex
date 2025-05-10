@@ -1,11 +1,13 @@
 import Form from "../../framework/Form";
 import {default as layout} from './EditProfileForm.hbs?raw';
-import {Field} from "../index";
+import {ErrorMessage, Field} from "../index";
 import Component from "../../framework/Component";
 import {EDIT_PROFILE_FORM_CONFIG} from "../../utils/constants";
 import Controller from "../../controllers";
 
 export class EditProfileForm extends Form {
+	private controller: Controller;
+
 	constructor({
 								defaultValues
 							}: {
@@ -13,12 +15,9 @@ export class EditProfileForm extends Form {
 	}) {
 		super({
 			Fields: EDIT_PROFILE_FORM_CONFIG.map(({block, label, inputAttributs}) => {
-				const errorMessage = new Component({
-					tag: 'span',
-					attr: {
-						class: 'error-message'
-					},
-					content: '',
+				const errorMessage = new ErrorMessage({
+					text: '',
+					isHide: true
 				});
 
 				return new Field({
@@ -51,7 +50,6 @@ export class EditProfileForm extends Form {
 			})
 		});
 
-		this.validateInput = this.validateInput.bind(this);
 		this.edit = this.edit.bind(this);
 		this.read = this.read.bind(this);
 		this.hide = this.hide.bind(this);

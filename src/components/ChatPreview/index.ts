@@ -2,17 +2,12 @@ import './ChatPreview.scss';
 import {default as layout} from './ChatPreview.hbs?raw';
 import Block from "../../framework/Block.js";
 import Controllers from "../../controllers";
-
-type ChatPreviewType = {
-	unreadMessagesCount: string,
-	lastMessage: string,
-	lastTime: string,
-	name: string,
-	avatar: string
-}
+import {ChatPreviewProps} from "../../utils/types";
 
 export class ChatPreview extends Block {
-	constructor({unreadMessagesCount, lastMessage, lastTime, name, avatar}: ChatPreviewType) {
+	private controller: Controllers;
+
+	constructor({unreadMessagesCount, lastMessage, lastTime, name, avatar}: ChatPreviewProps) {
 		super({
 			unreadMessagesCount,
 			lastMessage,

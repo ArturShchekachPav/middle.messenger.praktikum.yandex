@@ -6,6 +6,8 @@ import Component from "../../framework/Component";
 import Controller from "../../controllers";
 
 export class ProfilePage extends Block {
+	private controller: Controller;
+
 	constructor({
 								email,
 								login,

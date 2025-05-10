@@ -6,6 +6,8 @@ import Component from "../../framework/Component";
 import Controller from "../../controllers";
 
 export class MessangerPage extends Block {
+	private controller: Controller;
+
 	constructor({chats}: {
 		chats: Array<{
 			name: string,

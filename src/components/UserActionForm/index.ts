@@ -1,26 +1,19 @@
 import Form from "../../framework/Form.js";
 import {default as layout} from './UserActionForm.hbs?raw';
-import {Field} from "../index.js";
+import {ErrorMessage, Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {USER_ACTION_FORM_CONFIG} from "../../utils/constants.js";
+import {UserActionFormProps} from "../../utils/types";
 
 export class UserActionForm extends Form {
-	constructor({name, title, buttonText, onSumbit}: {
-		name: string,
-		title: string,
-		buttonText: string,
-		onSumbit: () => void
-	}) {
+	constructor({name, title, buttonText, onSubmit}: UserActionFormProps) {
 		super({
 			name,
 			title,
 			Fields: USER_ACTION_FORM_CONFIG.map(({block, label, inputAttributs}) => {
-				const errorMessage = new Component({
-					tag: 'span',
-					attr: {
-						class: 'error-message'
-					},
-					content: '',
+				const errorMessage = new ErrorMessage({
+					text: '',
+					isHide: true
 				});
 
 				return new Field({
@@ -53,14 +46,12 @@ export class UserActionForm extends Form {
 			})
 		});
 
-		this.validateInput = this.validateInput.bind(this);
-
 		this.setProps({
 			events: {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						onSumbit,
+						onSubmit,
 						() => {
 							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
 								this.validateInput(Input.getContent(), ErrorMessage);
@@ -74,5 +65,13 @@ export class UserActionForm extends Form {
 
 	render() {
 		return layout;
+	}
+
+	reset() {
+		this.lists.Fields.forEach(({children: {ErrorMessage}}) => {
+			ErrorMessage.reset();
+		});
+
+		super.reset();
 	}
 }

@@ -5,6 +5,8 @@ import Form from "../../framework/Form.js";
 import Controller from "../../controllers";
 
 export class ChatMessageForm extends Form {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			Menu: new AttachmentMenu(),
@@ -46,8 +48,6 @@ export class ChatMessageForm extends Form {
 			})
 		});
 
-		this.validateInput = this.validateInput.bind(this);
-
 		this.setProps({
 			events: {
 				submit: (event: SubmitEvent) => {
@@ -73,10 +73,8 @@ export class ChatMessageForm extends Form {
 	}
 
 	validateInput() {
-		if ((this.getContent() as HTMLFormElement).checkValidity()) {
-			if (this.children.Input instanceof Component) {
-				this.children.Input.setAttributes({placeholder: 'Сообщение'});
-			}
+		if (this.checkFormValidity()) {
+			this.children.Input.setAttributes({placeholder: 'Сообщение'});
 		} else {
 			this.children.Input.setAttributes({placeholder: 'Введите сообщение для его отправки'});
 		}

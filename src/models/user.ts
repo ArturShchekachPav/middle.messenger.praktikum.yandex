@@ -1,5 +1,6 @@
 import Controller from "../controllers/Controller";
 import {CHATS_DATA} from "../utils/constants";
+import {ChangeAvatarProps, ChangePasswordProps, RegisterProps, UserData} from "../utils/types";
 
 class User {
 	private controller: Controller;
@@ -14,7 +15,7 @@ class User {
 		this.changeAvatar = this.changeAvatar.bind(this);
 	}
 
-	login(formData) {
+	login(formData: {login: string, password: string}) {
 		console.log(formData);
 		const userData = {
 			...formData,
@@ -35,7 +36,7 @@ class User {
 		);
 	}
 
-	register(formData) {
+	register(formData: RegisterProps) {
 		console.log(formData);
 		const userData = {
 			...formData,
@@ -56,7 +57,7 @@ class User {
 		this.controller.emit('loggedOut', true);
 	}
 
-	editUserData(formData) {
+	editUserData(formData: UserData) {
 		console.log(formData);
 		const userData = {
 			...formData
@@ -64,13 +65,13 @@ class User {
 		this.controller.emit('userDataEdited', userData);
 	}
 
-	changeAvatar(formData) {
+	changeAvatar(formData: ChangeAvatarProps) {
 		console.log(formData);
 		const avatar = '/default-avatar.png';
 		this.controller.emit('avatarChanged', avatar);
 	}
 
-	changePassword(formData) {
+	changePassword(formData: ChangePasswordProps) {
 		console.log(formData)
 		this.controller.emit('passwordChanged', formData);
 	}

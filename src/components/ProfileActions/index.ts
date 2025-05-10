@@ -4,6 +4,8 @@ import {ProfileActionButton} from "../index";
 import Controller from "../../controllers";
 
 export class ProfileActions extends Block {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			ActionButtons: [

@@ -1,8 +1,9 @@
 import Block from "../../framework/Block.js";
 import {default as layout} from './Popup.hbs?raw';
+import {PopupProps} from "../../utils/types";
 
 export class Popup extends Block {
-	constructor({content, isOpen}: { content: any, isOpen: boolean }) {
+	constructor({content, isOpen}: PopupProps) {
 		super({
 			isOpen,
 			content,

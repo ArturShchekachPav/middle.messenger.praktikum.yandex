@@ -2,12 +2,15 @@ import {UserActionForm, Popup} from "../index";
 import Controller from "../../controllers";
 
 export class AddUserPopup extends Popup {
+	private controller: Controller;
+	private addChatForm: UserActionForm;
+
 	constructor() {
 		const addChatForm = new UserActionForm({
 			name: 'add-user',
 			buttonText: 'Добавить',
 			title: 'Добавить пользователя',
-			onSumbit: (formData) => {
+			onSubmit: (formData) => {
 				this.controller.emit('addChat', formData);
 				this.close();
 			},

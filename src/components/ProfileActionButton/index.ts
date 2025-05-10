@@ -1,8 +1,9 @@
 import Block from "../../framework/Block";
 import {default as layout} from './ProfileActionButton.hbs?raw';
+import {ProfileActionButtonProps} from "../../utils/types";
 
 export class ProfileActionButton extends Block {
-	constructor({content, type, onClick}) {
+	constructor({content, type, onClick}: ProfileActionButtonProps) {
 		super({
 			content,
 			type,

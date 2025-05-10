@@ -2,6 +2,8 @@ import {Menu, MenuItem} from "../index";
 import Controller from "../../controllers";
 
 export class AttachmentMenu extends Menu {
+	private controller: Controller;
+
 	constructor() {
 		super({
 			content: [

@@ -1,11 +1,7 @@
 import Block from "./Block";
 
-interface BlockProps {
-	[key: string]: any;
-}
-
 export default class Component extends Block {
-	constructor(props: BlockProps) {
+	constructor(props: Record<string, unknown>) {
 		super(props);
 	}
 
