@@ -13,8 +13,9 @@
     "stylelintFix": "stylelint **/*.scss --fix",
     "eslint": "npx eslint ./**/*.{ts,js}",
     "eslitFix": "npx eslint --fix ./**/*.{ts,js}",
-    "checkAll": "npm run check && npm run stylelint && npm run eslint",
-    "fixAll": "npm run format && npm run stypelintFix && npm run eslintFix",
+		"tslint": "tsc --noEmit",
+    "checkAll": "npm run check && npm run stylelint && npm run eslint && npm run tslint",
+    "fixAll": "npm run format && npm run stypelintFix && npm run eslintFix && npm run tslint",
     "start": "npm run build && npm run preview"
   },
   "devDependencies": {
