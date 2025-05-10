@@ -1,3 +1,5 @@
 /build
 **/*.min.js
 /node_modules
+/src/main.js
+vite.config.js
