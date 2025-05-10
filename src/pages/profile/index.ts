@@ -1,8 +1,9 @@
 import './profile.scss';
 import {default as layout} from './profile.hbs?raw';
 import Block from "../../framework/Block";
-import {EditPasswordForm, EditProfileForm, Popup} from "../../components/index.js";
+import {EditPasswordForm, EditProfileForm, ProfileActions} from "../../components/index.js";
 import Component from "../../framework/Component";
+import Controller from "../../controllers";
 
 export class ProfilePage extends Block {
 	constructor({
@@ -12,9 +13,7 @@ export class ProfilePage extends Block {
 								second_name,
 								display_name,
 								phone,
-								avatar,
-								onChangePage,
-								changeAvatarPopup
+								avatar
 							}: {
 		email: string,
 		login: string,
@@ -22,15 +21,11 @@ export class ProfilePage extends Block {
 		second_name: string,
 		display_name: string,
 		phone: string,
-		avatar: string,
-		onChangePage: (page: string) => void,
-		changeAvatarPopup: Popup
+		avatar: string
 	}) {
 		super({
 			name: first_name,
 			EditProfileForm: new EditProfileForm({
-				isEdit: false,
-				isHide: false,
 				defaultValues: {
 					email,
 					login,
@@ -38,17 +33,9 @@ export class ProfilePage extends Block {
 					second_name,
 					display_name,
 					phone
-				},
-				onChangeProfileData: () => {
-					this.onChangeProfileData();
 				}
 			}),
-			EditPasswordForm: new EditPasswordForm({
-				isHide: true,
-				onChangePasswordData: () => {
-					this.onChangePasswordData();
-				}
-			}),
+			EditPasswordForm: new EditPasswordForm(),
 			MessangerLink: new Component({
 				tag: 'a',
 				attr: {
@@ -59,7 +46,7 @@ export class ProfilePage extends Block {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						onChangePage('/');
+						this.controller.emit('changePage', '/')
 					}
 				}
 			}),
@@ -79,94 +66,17 @@ export class ProfilePage extends Block {
 				}),
 				events: {
 					click: () => {
-						changeAvatarPopup.open();
+						this.controller.emit('openEditAvatarPopup');
 					}
 				}
 			}),
-			ProfileActions: new Component({
-				tag: 'div',
-				attr: {
-					class: 'profile__actions'
-				},
-				content: [
-					new Component({
-						tag: 'button',
-						attr: {
-							class: 'profile__button profile__button_change',
-							type: 'button'
-						},
-						content: 'Изменить данные',
-						events: {
-							click: () => {
-								this.onChangeProfileButtonClick();
-							}
-						}
-					}),
-					new Component({
-						tag: 'button',
-						attr: {
-							class: 'profile__button profile__button_change',
-							type: 'button'
-						},
-						content: 'Изменить пароль',
-						events: {
-							click: () => {
-								this.onChangePasswordButtonClick();
-							}
-						}
-					}),
-					new Component({
-						tag: 'button',
-						attr: {
-							class: 'profile__button profile__button_exit',
-							type: 'button'
-						},
-						content: 'Выйти',
-						events: {
-							click: () => {
-								onChangePage('/sing-in');
-							}
-						}
-					})
-				]
-			})
+			ProfileActions: new ProfileActions()
 		});
 
-		this.onChangePasswordButtonClick = this.onChangePasswordButtonClick.bind(this);
-		this.onChangeProfileButtonClick = this.onChangeProfileButtonClick.bind(this);
+		this.controller = new Controller();
 	}
 
 	render() {
 		return layout;
-	}
-
-	onChangeProfileButtonClick() {
-		if (this.children.EditProfileForm instanceof EditProfileForm) {
-			this.children.EditProfileForm.edit();
-		}
-
-		this.children.ProfileActions.hide();
-	}
-
-	onChangePasswordButtonClick() {
-		this.children.EditProfileForm.hide();
-		this.children.ProfileActions.hide();
-
-		this.children.EditPasswordForm.show();
-	}
-
-	onChangeProfileData() {
-		if (this.children.EditProfileForm instanceof EditProfileForm) {
-			this.children.EditProfileForm.read();
-		}
-
-		this.children.ProfileActions.show();
-	}
-
-	onChangePasswordData() {
-		this.children.EditProfileForm.show();
-		this.children.ProfileActions.show();
-
-		this.children.EditPasswordForm.hide();
 	}
 }

@@ -1,123 +1,83 @@
 import {
-	LoginPage,
-	MessangerPage,
-	NotFoundPage,
-	ProfilePage,
-	RegistrationPage,
-	ServerErrorPage,
-} from './pages/index.js';
+	AddMediaPopup,
+	ErrorPage,
+	LoginForm,
+	AddFilePopup,
+	AddUserPopup,
+	RemoveUserPopup,
+	ChangeAvatarPopup
+} from "./components";
 import './App.scss';
-import {CHATS_DATA} from './utils/constants';
-import {AddFileForm, LoginForm, Popup, UserActionForm,} from './components/index';
-import {RegisterForm} from './components/RegisterForm/index';
+import {LoginPage, MessangerPage, ProfilePage, RegistrationPage} from "./pages";
+import Controller from "./controllers";
+import {RegisterForm} from "./components/RegisterForm";
 
 export default class App {
 	readonly appElement: HTMLElement | null;
 	private currentPage: string;
+	private isLoggedIn: boolean;
 
 	constructor(currentPage: string) {
 		this.currentPage = currentPage;
 		this.appElement = document.getElementById('app');
-		this.changePage = this.changePage.bind(this);
+		this.userData = {};
+		this.chatsData = [];
+		this.isLoggedIn = false;
+		this.controller = new Controller();
+
+		this.onChangePage = this.onChangePage.bind(this);
+		this.handleLoggedIn = this.handleLoggedIn.bind(this);
+		this.handleLogOut = this.handleLogOut.bind(this);
+		this.handleChangePasswordData = this.handleChangePasswordData.bind(this);
+		this.handleChangeProfileData = this.handleChangeProfileData.bind(this);
+		this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
+		this.handleUpdateChatsList = this.handleUpdateChatsList.bind(this);
+
+		this.controller.on('loggedIn', this.handleLoggedIn);
+		this.controller.on('loggedOut', this.handleLogOut);
+		this.controller.on('changePage', this.onChangePage);
+		this.controller.on('passwordChanged', this.handleChangePasswordData);
+		this.controller.on('userDataEdited', this.handleChangeProfileData);
+		this.controller.on('avatarChanged', this.handleChangeAvatar);
+		this.controller.on('chadAdded', this.handleUpdateChatsList);
+		this.controller.on('chadRemoved', this.handleUpdateChatsList);
 	}
 
 	render() {
 		switch (this.currentPage) {
 			case '/':
-				const addMediaPopup = new Popup({
-					isOpen: false,
-					content: new AddFileForm({
-						formName: 'add-media-file',
-						inputName: 'file',
-						buttonText: 'Добавить',
-						title: 'Добавить фото/видео',
-						onSuccessAction: () => {
-							addMediaPopup.close();
-						},
-					}),
-				});
-				const addFilePopup = new Popup({
-					isOpen: false,
-					content: new AddFileForm({
-						formName: 'add-file',
-						inputName: 'file',
-						buttonText: 'Добавить',
-						title: 'Добавить файл',
-						onSuccessAction: () => {
-							addFilePopup.close();
-						},
-					}),
-				});
-				const addUserPopup = new Popup({
-					isOpen: false,
-					content: new UserActionForm({
-						name: 'add-user',
-						buttonText: 'Добавить',
-						title: 'Добавить пользователя',
-						onSuccessAction: () => {
-							addUserPopup.close();
-						},
-					}),
-				});
-				const removeUserPopup = new Popup({
-					isOpen: false,
-					content: new UserActionForm({
-						name: 'remove-user',
-						buttonText: 'Удалить',
-						title: 'Удалить пользователя',
-						onSuccessAction: () => {
-							removeUserPopup.close();
-						},
-					}),
-				});
+				if(!this.isLoggedIn) {
+					this.onChangePage('/sing-in');
+					return;
+				}
+
+				const addMediaPopup = new AddMediaPopup();
+				const addFilePopup = new AddFilePopup();
+				const addUserPopup = new AddUserPopup();
+				const removeUserPopup = new RemoveUserPopup();
 
 				const messangerPage = new MessangerPage({
-					chats: CHATS_DATA,
-					popups: {
-						addMediaPopup,
-						addFilePopup,
-						addUserPopup,
-						removeUserPopup,
-					},
-					onChangePage: this.changePage,
+					chats: this.chatsData
 				});
 
-				if (this.appElement) {
-					this.appElement.replaceChildren(
-						messangerPage.getContent(),
-						addMediaPopup.getContent(),
-						addFilePopup.getContent(),
-						addUserPopup.getContent(),
-						removeUserPopup.getContent()
-					);
-				}
+				this.appElement.replaceChildren(
+					messangerPage.getContent(),
+					addMediaPopup.getContent(),
+					addFilePopup.getContent(),
+					addUserPopup.getContent(),
+					removeUserPopup.getContent()
+				);
 
 				break;
 			case '/profile':
-				const changeAvatarPopup = new Popup({
-					content: new AddFileForm({
-						formName: 'change-avatar',
-						inputName: 'avatar',
-						buttonText: 'Заменить',
-						title: 'Изменить аватар',
-						onSuccessAction: () => {
-							changeAvatarPopup.close();
-						},
-					}),
-					isOpen: false,
-				});
+				if(!this.isLoggedIn) {
+					this.onChangePage('/sing-in');
+					return;
+				}
 
-				const profilePage = new ProfilePage({
-					email: 'pochta@yandex.ru',
-					login: 'ivanivanov',
-					first_name: 'Иван',
-					second_name: 'Иванов',
-					display_name: 'Иван',
-					phone: '+79099673030',
-					avatar: '/default-avatar.png',
-					onChangePage: this.changePage,
-					changeAvatarPopup,
-				});
+				const changeAvatarPopup = new ChangeAvatarPopup();
+
+				const profilePage = new ProfilePage(this.userData);
 
 				if (this.appElement) {
 					this.appElement.replaceChildren(
@@ -128,10 +88,15 @@ export default class App {
 
 				break;
 			case '/sing-up':
+				if(this.isLoggedIn) {
+					this.onChangePage('/');
+					return;
+				}
+
+				const registrationForm = new RegisterForm();
+
 				const registrationPage = new RegistrationPage({
-					RegisterForm: new RegisterForm({
-						onPageChange: this.changePage,
-					}),
+					RegisterForm: registrationForm,
 				});
 
 				if (this.appElement) {
@@ -140,10 +105,15 @@ export default class App {
 
 				break;
 			case '/sing-in':
+				if(this.isLoggedIn) {
+					this.onChangePage('/');
+					return;
+				}
+
+				const loginForm = new LoginForm();
+
 				const loginPage = new LoginPage({
-					LoginForm: new LoginForm({
-						onPageChange: this.changePage,
-					}),
+					LoginForm: loginForm,
 				});
 
 				if (this.appElement) {
@@ -152,8 +122,9 @@ export default class App {
 
 				break;
 			case '/500':
-				const serverErrorPage = new ServerErrorPage({
-					onChangePage: this.changePage,
+				const serverErrorPage = new ErrorPage({
+					error: '500',
+					message: 'Мы уже фиксим',
 				});
 
 				if (this.appElement) {
@@ -162,20 +133,72 @@ export default class App {
 
 				break;
 			default:
-				const notFoundPage = new NotFoundPage({
-					onChangePage: this.changePage,
+				const NotFoundErrorPage = new ErrorPage({
+					error: '404',
+					message: 'Мы уже фиксим',
 				});
 
 				if (this.appElement) {
-					this.appElement.replaceChildren(notFoundPage.getContent());
+					this.appElement.replaceChildren(NotFoundErrorPage.getContent());
 				}
 		}
 	}
 
-	changePage(page: string) {
+	onChangePage(page: string) {
 		this.currentPage = page;
 		history.pushState(null, '', page);
 
 		this.render();
+	}
+
+	handleLoggedIn ({ userData, chats }) {
+		this.isLoggedIn = true;
+
+		this.userData = userData;
+		this.chatsData = chats;
+
+		this.onChangePage('/');
+	}
+
+	handleLogOut() {
+		this.isLoggedIn = false;
+
+		this.userData = {};
+
+		this.onChangePage('/sing-in');
+	}
+
+	handleChangeProfileData(userData) {
+		this.userData = {
+			...this.userData,
+			...userData
+		};
+
+		this.controller.emit('disableEditProfileForm');
+
+		this.controller.emit('showProfileActions');
+	}
+
+	handleChangePasswordData(userData) {
+		this.userData = {
+			...this.userData,
+			...userData
+		};
+
+		this.controller.emit('showEditProfileForm');
+		this.controller.emit('showProfileActions');
+
+		this.controller.emit('hideEditPasswordForm');
+	}
+
+	handleChangeAvatar(userData) {
+		this.userData = {
+			...this.userData,
+			...userData
+		};
+	}
+
+	handleUpdateChatsList(chats) {
+		this.controller.emit('updateChatsList', chats);
 	}
 }

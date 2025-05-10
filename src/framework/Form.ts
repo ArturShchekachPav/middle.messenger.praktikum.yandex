@@ -1,5 +1,6 @@
 import Block from "./Block";
 import Component from "./Component";
+import {ErrorMessage} from "../components";
 
 interface BlockProps {
 	[key: string]: any;
@@ -11,10 +12,20 @@ export default class Form extends Block {
 	}
 
 	validateInput(input: HTMLInputElement, errorMessage: Component) {
-		if (input.validity.valid) {
-			errorMessage.setProps({content: input.validationMessage, attr: {class: 'error-message'}});
+		if (this.checkInputValidity(input)) {
+			errorMessage.setProps({content: this.getValidationMessage(input), attr: {class: 'error-message'}});
 		} else {
-			errorMessage.setProps({content: input.validationMessage, attr: {class: 'error-message error-message_open'}});
+			errorMessage.setProps({content: this.getValidationMessage(input), attr: {class: 'error-message error-message_open'}});
+		}
+	}
+
+	validateInputDuble(input: HTMLInputElement, errorMessage: ErrorMessage) {
+		if (this.checkInputValidity(input)) {
+			errorMessage.hide();
+			errorMessage.setText('');
+		} else {
+			errorMessage.show();
+			errorMessage.setText(this.getValidationMessage(input));
 		}
 	}
 
@@ -32,10 +43,46 @@ export default class Form extends Block {
 	handleSumbit(event: SubmitEvent, onValidity: (formdata: Record<string, unknown>, event: SubmitEvent) => void, onInvalid: (event: SubmitEvent) => void) {
 		event.preventDefault();
 
-		if ((this.getContent() as HTMLFormElement).checkValidity()) {
+		if (this.checkFormValidity()) {
 			onValidity(this.getFormData(), event);
 		} else {
 			onInvalid(event);
 		}
+	}
+
+	handleSubmitDuble() {
+		return (event) => {
+			event.preventDefault();
+
+			this.onSubmit(this.getFormData(), event);
+		}
+	}
+
+	onSubmit(formData, event) {
+
+	}
+
+	reset() {
+		this.getContent().reset();
+	}
+
+	checkInputValidity(input) {
+		return input.validity.valid;
+	}
+
+	checkFormValidity() {
+		return this.getContent().checkValidity();
+	}
+
+	setCustomInputError(input, message) {
+		input.setCustomValidity(input, message);
+	}
+
+	resetCustomInputError(input) {
+		input.setCustomValidity(input, message);
+	}
+
+	getValidationMessage(input) {
+		return input.validationMessage;
 	}
 };

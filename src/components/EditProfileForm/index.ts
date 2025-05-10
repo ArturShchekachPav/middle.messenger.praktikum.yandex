@@ -3,18 +3,13 @@ import {default as layout} from './EditProfileForm.hbs?raw';
 import {Field} from "../index";
 import Component from "../../framework/Component";
 import {EDIT_PROFILE_FORM_CONFIG} from "../../utils/constants";
+import Controller from "../../controllers";
 
 export class EditProfileForm extends Form {
 	constructor({
-								defaultValues,
-								isEdit,
-								isHide,
-								onChangeProfileData
+								defaultValues
 							}: {
-		defaultValues: Record<string, unknown>,
-		isEdit: boolean,
-		isHide: boolean,
-		onChangeProfileData: () => void
+		defaultValues: Record<string, unknown>
 	}) {
 		super({
 			Fields: EDIT_PROFILE_FORM_CONFIG.map(({block, label, inputAttributs}) => {
@@ -57,6 +52,10 @@ export class EditProfileForm extends Form {
 		});
 
 		this.validateInput = this.validateInput.bind(this);
+		this.edit = this.edit.bind(this);
+		this.read = this.read.bind(this);
+		this.hide = this.hide.bind(this);
+		this.show = this.show.bind(this);
 
 		this.setProps({
 			events: {
@@ -64,8 +63,7 @@ export class EditProfileForm extends Form {
 					this.handleSumbit(
 						event,
 						formData => {
-							console.log(formData);
-							onChangeProfileData()
+							this.controller.emit('editUserData', formData);
 						},
 						() => {
 							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
@@ -77,15 +75,13 @@ export class EditProfileForm extends Form {
 			}
 		});
 
-		if (isHide) {
-			this.hide();
-		}
+		this.read();
 
-		if (isEdit) {
-			this.edit();
-		} else {
-			this.read();
-		}
+		this.controller = new Controller();
+		this.controller.on('enableEditProfileForm', this.edit);
+		this.controller.on('disableEditProfileForm', this.read);
+		this.controller.on('hideEditProfileForm', this.hide);
+		this.controller.on('showEditProfileForm', this.show);
 	}
 
 	render() {

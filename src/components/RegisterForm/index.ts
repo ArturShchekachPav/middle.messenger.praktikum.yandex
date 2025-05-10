@@ -3,11 +3,10 @@ import {default as layout} from './RegisterForm.hbs?raw';
 import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {REGISTER_FORM_CONFIG} from "../../utils/constants.js";
+import Controller from "../../controllers";
 
 export class RegisterForm extends Form {
-	constructor({onPageChange}: {
-		onPageChange: (page: string) => void
-	}) {
+	constructor() {
 		super({
 			Fields: REGISTER_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new Component({
@@ -57,11 +56,13 @@ export class RegisterForm extends Form {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						onPageChange('/sing-in');
+						this.controller.emit('changePage', '/sing-in');
 					}
 				}
 			})
 		});
+
+		this.controller = new Controller();
 
 		this.validateInput = this.validateInput.bind(this);
 
@@ -71,8 +72,7 @@ export class RegisterForm extends Form {
 					this.handleSumbit(
 						event,
 						formData => {
-							console.log(formData);
-							onPageChange('/');
+							this.controller.emit('register', formData);
 						},
 						() => {
 							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {

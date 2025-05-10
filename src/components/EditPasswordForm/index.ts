@@ -3,9 +3,10 @@ import {default as layout} from './EditPasswordForm.hbs?raw';
 import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {EDIT_PASSWORD_FORM_CONFIG} from "../../utils/constants.js";
+import Controller from "../../controllers";
 
 export class EditPasswordForm extends Form {
-	constructor({isHide, onChangePasswordData}: { isHide: boolean, onChangePasswordData: () => void }) {
+	constructor() {
 		super({
 			Fields: EDIT_PASSWORD_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new Component({
@@ -46,6 +47,8 @@ export class EditPasswordForm extends Form {
 		});
 
 		this.validateInput = this.validateInput.bind(this);
+		this.show = this.show.bind(this);
+		this.hide = this.hide.bind(this);
 
 		this.setProps({
 			events: {
@@ -53,8 +56,7 @@ export class EditPasswordForm extends Form {
 					this.handleSumbit(
 						event,
 						formData => {
-							console.log(formData);
-							onChangePasswordData();
+							this.controller.emit('changePassword', formData);
 						},
 						() => {
 							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
@@ -66,9 +68,11 @@ export class EditPasswordForm extends Form {
 			}
 		});
 
-		if (isHide) {
-			this.hide();
-		}
+		this.hide();
+
+		this.controller = new Controller();
+		this.controller.on('showEditPasswordForm', this.show);
+		this.controller.on('hideEditPasswordForm', this.hide);
 	}
 
 	render() {

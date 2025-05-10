@@ -3,9 +3,10 @@ import {default as layout} from './LoginForm.hbs?raw';
 import {Field} from "../index.js";
 import Component from "../../framework/Component.js";
 import {LOGIN_FORM_CONFIG} from "../../utils/constants.js";
+import Controller from "../../controllers";
 
 export class LoginForm extends Form {
-	constructor({onPageChange}: { onPageChange: (page: string) => void }) {
+	constructor() {
 		super({
 			Fields: LOGIN_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new Component({
@@ -54,11 +55,13 @@ export class LoginForm extends Form {
 					click: (event: Event) => {
 						event.preventDefault();
 
-						onPageChange('/sing-up');
+						this.controller.emit('changePage', '/sing-up')
 					}
 				}
 			})
 		});
+
+		this.controller = new Controller();
 
 		this.validateInput = this.validateInput.bind(this);
 
@@ -68,8 +71,7 @@ export class LoginForm extends Form {
 					this.handleSumbit(
 						event,
 						formData => {
-							console.log(formData);
-							onPageChange('/');
+							this.controller.emit('login', formData);
 						},
 						() => {
 							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {

@@ -2,14 +2,12 @@ import './ErrorPage.scss';
 import {default as layout} from './ErrorPage.hbs?raw';
 import Block from "../../framework/Block.js";
 import Component from "../../framework/Component";
+import Controller from "../../controllers";
 
 export class ErrorPage extends Block {
-	constructor({href, error, message, linkText, onChangePage}: {
-		href: string,
+	constructor({error, message}: {
 		error: string,
 		message: string,
-		linkText: string,
-		onChangePage: (page: string) => void
 	}) {
 		super({
 			error,
@@ -18,18 +16,20 @@ export class ErrorPage extends Block {
 				tag: 'a',
 				attr: {
 					class: "error-page__link",
-					href: href
+					href: '/'
 				},
 				events: {
 					click: (event: MouseEvent): void => {
 						event.preventDefault();
 
-						onChangePage(href);
+						this.controller.emit('changePage', '/');
 					}
 				},
-				content: linkText
+				content: 'Назад к чатам'
 			})
 		});
+
+		this.controller = new Controller();
 	}
 
 	render() {

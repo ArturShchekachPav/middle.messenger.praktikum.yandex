@@ -1,14 +1,17 @@
 import {default as layout} from './ChatsSearchForm.hbs?raw';
 import Block from "../../framework/Block.js";
 import Component from "../../framework/Component.js";
+import Controllers from "../../controllers";
 
 export class ChatsSearchForm extends Block {
-	constructor({onChange}: { onChange: (event: InputEvent) => void }) {
+	constructor() {
 		super({
 			SearchInput: new Component({
 				tag: 'input',
 				events: {
-					input: onChange
+					input: event => {
+						this.controller.emit('searchChats', event.target.value.toLowerCase());
+					}
 				},
 				attr: {
 					class: "messanger__search-input",
@@ -18,6 +21,8 @@ export class ChatsSearchForm extends Block {
 				}
 			})
 		});
+
+		this.controller = new Controllers();
 	}
 
 	render() {

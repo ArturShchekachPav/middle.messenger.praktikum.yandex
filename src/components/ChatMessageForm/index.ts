@@ -1,51 +1,13 @@
 import {default as layout} from './ChatMessageForm.hbs?raw';
-import {Menu, MenuItem} from "../index.js"
+import {AttachmentMenu} from "../index.js"
 import Component from "../../framework/Component.js";
 import Form from "../../framework/Form.js";
+import Controller from "../../controllers";
 
 export class ChatMessageForm extends Form {
-	constructor({onAddMediaButtonClick, onAddFileButtonClick}: Record<string, () => void>) {
+	constructor() {
 		super({
-			Menu: new Menu({
-				content: [
-					new MenuItem({
-						text: 'Фото или Видео',
-						icon: '/media-icon.svg',
-						events: {
-							click: () => {
-								if (this.children.Menu instanceof Menu) {
-									this.children.Menu.close();
-								}
-
-								onAddMediaButtonClick();
-							}
-						},
-					}),
-					new MenuItem({
-						text: 'Файл',
-						icon: '/file-menu-icon.svg',
-						events: {
-							click: () => {
-								if (this.children.Menu instanceof Menu) {
-									this.children.Menu.close()
-								}
-
-								onAddFileButtonClick();
-							}
-						}
-					}),
-					new MenuItem({
-						text: 'Локация',
-						icon: '/location-icon.svg',
-						events: {
-							click: () => {
-							}
-						}
-					})
-				],
-				isOpen: false,
-				addClass: 'chat-window__menu chat-window__menu_form'
-			}),
+			Menu: new AttachmentMenu(),
 			AddButton: new Component({
 				tag: 'button',
 				attr: {
@@ -56,10 +18,7 @@ export class ChatMessageForm extends Form {
 					click: (e: MouseEvent) => {
 						e.stopPropagation();
 
-						if (this.children.Menu instanceof Menu) {
-							this.children.Menu.open();
-						}
-
+						this.controller.emit('openAttachmentMenu');
 					}
 				}
 			}),
@@ -95,8 +54,8 @@ export class ChatMessageForm extends Form {
 					this.handleSumbit(
 						event,
 						formData => {
-							console.log(formData);
-							(this.getContent() as HTMLFormElement).reset();
+							this.controller.emit('sendMessage', formData)
+							this.reset();
 						},
 						() => {
 							this.validateInput();
@@ -105,6 +64,8 @@ export class ChatMessageForm extends Form {
 				}
 			}
 		});
+
+		this.controller = new Controller();
 	}
 
 	render() {

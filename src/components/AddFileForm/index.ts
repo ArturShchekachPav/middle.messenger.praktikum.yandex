@@ -7,11 +7,11 @@ type AddFileFormProps = {
 	inputName: string,
 	buttonText: string,
 	title: string,
-	onSuccessAction: () => void
+	onSubmit: () => void
 }
 
 export class AddFileForm extends Form {
-	constructor({formName, inputName, buttonText, title, onSuccessAction}: AddFileFormProps) {
+	constructor({formName, inputName, buttonText, title, onSubmit}: AddFileFormProps) {
 		super({
 			formName,
 			title,
@@ -71,11 +71,7 @@ export class AddFileForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						formData => {
-							console.log(formData);
-							onSuccessAction();
-							(this.getContent() as HTMLFormElement).reset();
-						},
+						onSubmit,
 						() => {
 							const input = this.children.Input.getContent() as HTMLInputElement;
 							const errorMessage = this.children.ErrorMessage;

@@ -5,11 +5,11 @@ import Component from "../../framework/Component.js";
 import {USER_ACTION_FORM_CONFIG} from "../../utils/constants.js";
 
 export class UserActionForm extends Form {
-	constructor({name, title, buttonText, onSuccessAction}: {
+	constructor({name, title, buttonText, onSumbit}: {
 		name: string,
 		title: string,
 		buttonText: string,
-		onSuccessAction: () => void
+		onSumbit: () => void
 	}) {
 		super({
 			name,
@@ -60,11 +60,7 @@ export class UserActionForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						formData => {
-							console.log(formData);
-							onSuccessAction();
-							(this.getContent() as HTMLFormElement).reset();
-						},
+						onSumbit,
 						() => {
 							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
 								this.validateInput(Input.getContent(), ErrorMessage);
