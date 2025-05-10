@@ -1,7 +1,7 @@
 import {default as layout} from './ChatsSearchForm.hbs?raw';
-import Block from "../../framework/Block.js";
-import Component from "../../framework/Component.js";
-import Controllers from "../../controllers";
+import Block from '../../framework/Block.js';
+import Component from '../../framework/Component.js';
+import Controllers from '../../controllers';
 
 export class ChatsSearchForm extends Block {
 	private controller: Controllers;
@@ -12,16 +12,19 @@ export class ChatsSearchForm extends Block {
 				tag: 'input',
 				events: {
 					input: (event: InputEvent) => {
-						this.controller.emit('searchChats', (event.target as HTMLInputElement).value.toLowerCase());
-					}
+						this.controller.emit(
+							'searchChats',
+							(event.target as HTMLInputElement).value.toLowerCase()
+						);
+					},
 				},
 				attr: {
-					class: "messanger__search-input",
-					name: "search",
-					placeholder: " ",
-					type: "text"
-				}
-			})
+					class: 'messanger__search-input',
+					name: 'search',
+					placeholder: ' ',
+					type: 'text',
+				},
+			}),
 		});
 
 		this.controller = new Controllers();

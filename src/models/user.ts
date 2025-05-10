@@ -1,6 +1,6 @@
-import Controller from "../controllers/Controller";
-import {CHATS_DATA} from "../utils/constants";
-import {ChangeAvatarProps, ChangePasswordProps, RegisterProps, UserData} from "../utils/types";
+import Controller from '../controllers/Controller';
+import {CHATS_DATA} from '../utils/constants';
+import {ChangeAvatarProps, ChangePasswordProps, RegisterProps, UserData,} from '../utils/types';
 
 class User {
 	private controller: Controller;
@@ -15,7 +15,7 @@ class User {
 		this.changeAvatar = this.changeAvatar.bind(this);
 	}
 
-	login(formData: {login: string, password: string}) {
+	login(formData: { login: string; password: string }) {
 		console.log(formData);
 		const userData = {
 			...formData,
@@ -27,13 +27,10 @@ class User {
 			avatar: '/default-avatar.png',
 		};
 
-		this.controller.emit(
-			'loggedIn',
-			{
-				userData,
-				chats: CHATS_DATA
-			}
-		);
+		this.controller.emit('loggedIn', {
+			userData,
+			chats: CHATS_DATA,
+		});
 	}
 
 	register(formData: RegisterProps) {
@@ -44,13 +41,10 @@ class User {
 			avatar: '/default-avatar.png',
 		};
 
-		this.controller.emit(
-			'loggedIn',
-			{
-				userData,
-				chats: CHATS_DATA
-			}
-		);
+		this.controller.emit('loggedIn', {
+			userData,
+			chats: CHATS_DATA,
+		});
 	}
 
 	logout() {
@@ -60,7 +54,7 @@ class User {
 	editUserData(formData: UserData) {
 		console.log(formData);
 		const userData = {
-			...formData
+			...formData,
 		};
 		this.controller.emit('userDataEdited', userData);
 	}
@@ -72,7 +66,7 @@ class User {
 	}
 
 	changePassword(formData: ChangePasswordProps) {
-		console.log(formData)
+		console.log(formData);
 		this.controller.emit('passwordChanged', formData);
 	}
 }

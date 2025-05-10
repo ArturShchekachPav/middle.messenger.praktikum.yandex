@@ -1,6 +1,6 @@
-import Block from "../../framework/Block.js";
+import Block from '../../framework/Block.js';
 import {default as layout} from './Popup.hbs?raw';
-import {PopupProps} from "../../utils/types";
+import {PopupProps} from '../../utils/types';
 
 export class Popup extends Block {
 	constructor({content, isOpen}: PopupProps) {
@@ -12,8 +12,8 @@ export class Popup extends Block {
 					if (currentTarget === target) {
 						this.close();
 					}
-				}
-			}
+				},
+			},
 		});
 
 		this.escapeClose = this.escapeClose.bind(this);

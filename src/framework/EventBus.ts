@@ -1,4 +1,4 @@
-import {EventCallback} from "../utils/types";
+import {EventCallback} from '../utils/types';
 
 export default class EventBus {
 	private listeners: Record<string, EventCallback[]>;
@@ -21,7 +21,7 @@ export default class EventBus {
 		}
 
 		this.listeners[event] = this.listeners[event].filter(
-			listener => listener !== callback,
+			(listener) => listener !== callback
 		);
 	}
 
@@ -30,7 +30,7 @@ export default class EventBus {
 			throw new Error(`No event: ${event}`);
 		}
 
-		this.listeners[event].forEach(listener => {
+		this.listeners[event].forEach((listener) => {
 			listener(...args);
 		});
 	}

@@ -1,13 +1,13 @@
-import Block from "../../framework/Block.js";
+import Block from '../../framework/Block.js';
 import {default as layout} from './Menu.hbs?raw';
-import {MenuProps} from "../../utils/types";
+import {MenuProps} from '../../utils/types';
 
 export class Menu extends Block {
 	constructor({content, isOpen, addClass}: MenuProps) {
 		super({
 			content,
 			isOpen,
-			addClass
+			addClass,
 		});
 
 		this._onOutsideClickClose = this._onOutsideClickClose.bind(this);
@@ -41,8 +41,11 @@ export class Menu extends Block {
 	_onOutsideClickClose({target}: MouseEvent) {
 		const menuElement = this.getContent();
 
-		if (!menuElement.contains(target as HTMLElement) && menuElement !== target) {
-			this.close()
+		if (
+			!menuElement.contains(target as HTMLElement) &&
+			menuElement !== target
+		) {
+			this.close();
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import EventBus from "../framework/EventBus";
+import EventBus from '../framework/EventBus';
 
 export default class Controller extends EventBus {
 	static __instance: Controller;

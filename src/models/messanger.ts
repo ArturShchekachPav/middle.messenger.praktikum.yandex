@@ -1,6 +1,6 @@
-import Controller from "../controllers/Controller";
-import {CHATS_DATA} from "../utils/constants";
-import {ChatActionProps, SendFileProps, SendMediaProps} from "../utils/types";
+import Controller from '../controllers/Controller';
+import {CHATS_DATA} from '../utils/constants';
+import {ChatActionProps, SendFileProps, SendMediaProps} from '../utils/types';
 
 class Messanger {
 	private controller: Controller;

@@ -1,5 +1,5 @@
-import {Menu, MenuItem} from "../index";
-import Controller from "../../controllers";
+import {Menu, MenuItem} from '../index';
+import Controller from '../../controllers';
 
 export class ChatActionsMenu extends Menu {
 	private controller: Controller;
@@ -15,8 +15,8 @@ export class ChatActionsMenu extends Menu {
 							this.close();
 
 							this.controller.emit('openAddUserPopup');
-						}
-					}
+						},
+					},
 				}),
 				new MenuItem({
 					text: 'Удалить пользователя',
@@ -26,12 +26,12 @@ export class ChatActionsMenu extends Menu {
 							this.close();
 
 							this.controller.emit('openRemoveUserPopup');
-						}
-					}
-				})
+						},
+					},
+				}),
 			],
 			isOpen: false,
-			addClass: 'chat-window__menu chat-window__menu_header'
+			addClass: 'chat-window__menu chat-window__menu_header',
 		});
 
 		this.controller = new Controller();

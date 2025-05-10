@@ -1,4 +1,4 @@
-import Controller from "./Controller";
+import Controller from './Controller';
 import messangerModel from '../models/messanger';
 
 const controller = new Controller();

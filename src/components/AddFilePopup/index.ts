@@ -1,5 +1,5 @@
-import {AddFileForm, Popup} from "../index";
-import Controller from "../../controllers";
+import {AddFileForm, Popup} from '../index';
+import Controller from '../../controllers';
 
 export class AddFilePopup extends Popup {
 	private controller: Controller;

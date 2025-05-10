@@ -1,9 +1,9 @@
-import Form from "../../framework/Form.js";
+import Form from '../../framework/Form.js';
 import {default as layout} from './LoginForm.hbs?raw';
-import {ErrorMessage, Field} from "../index.js";
-import Component from "../../framework/Component.js";
-import {LOGIN_FORM_CONFIG} from "../../utils/constants.js";
-import Controller from "../../controllers";
+import {ErrorMessage, Field} from '../index.js';
+import Component from '../../framework/Component.js';
+import {LOGIN_FORM_CONFIG} from '../../utils/constants.js';
+import Controller from '../../controllers';
 
 export class LoginForm extends Form {
 	private controller: Controller;
@@ -13,7 +13,7 @@ export class LoginForm extends Form {
 			Fields: LOGIN_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new ErrorMessage({
 					text: '',
-					isHide: true
+					isHide: true,
 				});
 
 				return new Field({
@@ -30,34 +30,34 @@ export class LoginForm extends Form {
 							blur: (event: InputEvent) => {
 								const input = event.target as HTMLInputElement;
 								this.validateInput(input, errorMessage);
-							}
-						}
-					})
-				})
+							},
+						},
+					}),
+				});
 			}),
 			Button: new Component({
 				tag: 'button',
 				attr: {
 					type: 'submit',
-					class: 'button'
+					class: 'button',
 				},
-				content: 'Войти'
+				content: 'Войти',
 			}),
 			Link: new Component({
 				tag: 'a',
 				attr: {
 					href: '/sing-up',
-					class: 'auth-form__link'
+					class: 'auth-form__link',
 				},
 				content: 'Нет аккаунта',
 				events: {
 					click: (event: Event) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/sing-up')
-					}
-				}
-			})
+						this.controller.emit('changePage', '/sing-up');
+					},
+				},
+			}),
 		});
 
 		this.validateInput = this.validateInput.bind(this);
@@ -69,17 +69,19 @@ export class LoginForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						formData => {
+						(formData) => {
 							this.controller.emit('login', formData);
 						},
 						() => {
-							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
-								this.validateInput(Input.getContent(), ErrorMessage);
-							});
+							this.lists.Fields.forEach(
+								({children: {ErrorMessage, Input}}) => {
+									this.validateInput(Input.getContent(), ErrorMessage);
+								}
+							);
 						}
-					)
-				}
-			}
+					);
+				},
+			},
 		});
 	}
 

@@ -1,4 +1,4 @@
-import Block from "./Block";
+import Block from './Block';
 
 export default class Component extends Block {
 	constructor(props: Record<string, unknown>) {

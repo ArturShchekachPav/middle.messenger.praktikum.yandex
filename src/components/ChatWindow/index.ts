@@ -1,8 +1,8 @@
-import Block from "../../framework/Block";
-import Component from "../../framework/Component";
-import {ChatHeader, ChatMessages, ChatMessageForm} from "../index";
-import {MESSAGES_DATA} from "../../utils/constants";
-import Controller from "../../controllers";
+import Block from '../../framework/Block';
+import Component from '../../framework/Component';
+import {ChatHeader, ChatMessageForm, ChatMessages} from '../index';
+import {MESSAGES_DATA} from '../../utils/constants';
+import Controller from '../../controllers';
 import {default as layout} from './ChatWindow.hbs?raw';
 
 export class ChatWindow extends Block {
@@ -14,11 +14,11 @@ export class ChatWindow extends Block {
 				new Component({
 					tag: 'p',
 					attr: {
-						class: "chat-window__default-message"
+						class: 'chat-window__default-message',
 					},
-					content: 'Выберите чат чтобы отправить сообщение'
-				})
-			]
+					content: 'Выберите чат чтобы отправить сообщение',
+				}),
+			],
 		});
 
 		this.controller = new Controller();
@@ -32,22 +32,20 @@ export class ChatWindow extends Block {
 		this.setProps({
 			content: [
 				new ChatHeader({
-					name: name,
-					avatarSrc: avatar
+					name,
+					avatarSrc: avatar,
 				}),
 				new ChatMessages({
-					dataMessages: MESSAGES_DATA
+					dataMessages: MESSAGES_DATA,
 				}),
-				new ChatMessageForm()
-			]
-		})
+				new ChatMessageForm(),
+			],
+		});
 	}
 
 	render() {
 		return layout;
 	}
-
-
 
 	handleMessageSend() {
 	}

@@ -1,7 +1,7 @@
-import Block from "../../framework/Block";
+import Block from '../../framework/Block';
 import {default as layout} from './ProfileActions.hbs?raw';
-import {ProfileActionButton} from "../index";
-import Controller from "../../controllers";
+import {ProfileActionButton} from '../index';
+import Controller from '../../controllers';
 
 export class ProfileActions extends Block {
 	private controller: Controller;
@@ -16,7 +16,7 @@ export class ProfileActions extends Block {
 						this.controller.emit('enableEditProfileForm');
 
 						this.hide();
-					}
+					},
 				}),
 				new ProfileActionButton({
 					content: 'Изменить пароль',
@@ -26,16 +26,16 @@ export class ProfileActions extends Block {
 						this.hide();
 
 						this.controller.emit('showEditPasswordForm');
-					}
+					},
 				}),
 				new ProfileActionButton({
 					content: 'Выйти',
 					type: 'exit',
 					onClick: () => {
 						this.controller.emit('logout');
-					}
-				})
-			]
+					},
+				}),
+			],
 		});
 
 		this.show = this.show.bind(this);

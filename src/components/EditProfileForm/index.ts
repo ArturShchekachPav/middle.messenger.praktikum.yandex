@@ -1,53 +1,51 @@
-import Form from "../../framework/Form";
+import Form from '../../framework/Form';
 import {default as layout} from './EditProfileForm.hbs?raw';
-import {ErrorMessage, Field} from "../index";
-import Component from "../../framework/Component";
-import {EDIT_PROFILE_FORM_CONFIG} from "../../utils/constants";
-import Controller from "../../controllers";
+import {ErrorMessage, Field} from '../index';
+import Component from '../../framework/Component';
+import {EDIT_PROFILE_FORM_CONFIG} from '../../utils/constants';
+import Controller from '../../controllers';
 
 export class EditProfileForm extends Form {
 	private controller: Controller;
 
-	constructor({
-								defaultValues
-							}: {
-		defaultValues: Record<string, unknown>
-	}) {
+	constructor({defaultValues}: { defaultValues: Record<string, unknown> }) {
 		super({
-			Fields: EDIT_PROFILE_FORM_CONFIG.map(({block, label, inputAttributs}) => {
-				const errorMessage = new ErrorMessage({
-					text: '',
-					isHide: true
-				});
+			Fields: EDIT_PROFILE_FORM_CONFIG.map(
+				({block, label, inputAttributs}) => {
+					const errorMessage = new ErrorMessage({
+						text: '',
+						isHide: true,
+					});
 
-				return new Field({
-					block,
-					label,
-					id: inputAttributs.id,
-					ErrorMessage: errorMessage,
-					Input: new Component({
-						tag: 'input',
-						attr: {
-							...inputAttributs,
-							value: defaultValues[inputAttributs.name]
-						},
-						events: {
-							blur: (event: InputEvent) => {
-								const input = event.target as HTMLInputElement;
-								this.validateInput(input, errorMessage);
-							}
-						}
-					})
-				})
-			}),
+					return new Field({
+						block,
+						label,
+						id: inputAttributs.id,
+						ErrorMessage: errorMessage,
+						Input: new Component({
+							tag: 'input',
+							attr: {
+								...inputAttributs,
+								value: defaultValues[inputAttributs.name],
+							},
+							events: {
+								blur: (event: InputEvent) => {
+									const input = event.target as HTMLInputElement;
+									this.validateInput(input, errorMessage);
+								},
+							},
+						}),
+					});
+				}
+			),
 			Button: new Component({
 				tag: 'button',
 				attr: {
 					type: 'submit',
-					class: 'button profile__form-button'
+					class: 'button profile__form-button',
 				},
-				content: 'Cохранить'
-			})
+				content: 'Cохранить',
+			}),
 		});
 
 		this.edit = this.edit.bind(this);
@@ -60,17 +58,19 @@ export class EditProfileForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						formData => {
+						(formData) => {
 							this.controller.emit('editUserData', formData);
 						},
 						() => {
-							this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
-								this.validateInput(Input.getContent(), ErrorMessage);
-							});
+							this.lists.Fields.forEach(
+								({children: {ErrorMessage, Input}}) => {
+									this.validateInput(Input.getContent(), ErrorMessage);
+								}
+							);
 						}
-					)
-				}
-			}
+					);
+				},
+			},
 		});
 
 		this.read();
@@ -87,12 +87,16 @@ export class EditProfileForm extends Form {
 	}
 
 	edit() {
-		this.lists.Fields.forEach(({children: {Input}}) => Input.removeAttributes(['disabled']));
+		this.lists.Fields.forEach(({children: {Input}}) =>
+			Input.removeAttributes(['disabled'])
+		);
 		this.children.Button.show();
 	}
 
 	read() {
-		this.lists.Fields.forEach(({children: {Input}}) => Input.setAttributes({disabled: true}));
+		this.lists.Fields.forEach(({children: {Input}}) =>
+			Input.setAttributes({disabled: true})
+		);
 		this.children.Button.hide();
 	}
 }

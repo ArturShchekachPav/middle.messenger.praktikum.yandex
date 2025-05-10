@@ -1,13 +1,19 @@
 import './ChatPreview.scss';
 import {default as layout} from './ChatPreview.hbs?raw';
-import Block from "../../framework/Block.js";
-import Controllers from "../../controllers";
-import {ChatPreviewProps} from "../../utils/types";
+import Block from '../../framework/Block.js';
+import Controllers from '../../controllers';
+import {ChatPreviewProps} from '../../utils/types';
 
 export class ChatPreview extends Block {
 	private controller: Controllers;
 
-	constructor({unreadMessagesCount, lastMessage, lastTime, name, avatar}: ChatPreviewProps) {
+	constructor({
+								unreadMessagesCount,
+								lastMessage,
+								lastTime,
+								name,
+								avatar,
+							}: ChatPreviewProps) {
 		super({
 			unreadMessagesCount,
 			lastMessage,
@@ -17,8 +23,8 @@ export class ChatPreview extends Block {
 			events: {
 				click: () => {
 					this.controller.emit('setCurrentChat', {name, avatar});
-				}
-			}
+				},
+			},
 		});
 
 		this.controller = new Controllers();
@@ -28,4 +34,3 @@ export class ChatPreview extends Block {
 		return layout;
 	}
 }
-

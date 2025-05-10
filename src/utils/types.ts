@@ -1,6 +1,6 @@
-import Component from "../framework/Component";
-import {ErrorMessage} from "../components";
-import {METHOD} from "./constants";
+import Component from '../framework/Component';
+import {ErrorMessage} from '../components';
+import {METHOD} from './constants';
 
 // Пропсом может быть что угодно, поэтому any как мне кажется должен подходить
 export type BlockProps = {
@@ -12,7 +12,7 @@ export type ChatData = {
 	avatar: string;
 	lastTime: string;
 	lastMessage: string;
-	unreadMessagesCount: string
+	unreadMessagesCount: string;
 };
 
 export type UserData = {
@@ -26,45 +26,45 @@ export type UserData = {
 };
 
 export type AddFileFormProps = {
-	formName: string,
-	inputName: string,
-	buttonText: string,
-	title: string,
-	onSubmit: (formData: Record<string, unknown>) => void
+	formName: string;
+	inputName: string;
+	buttonText: string;
+	title: string;
+	onSubmit: (formData: Record<string, unknown>) => void;
 };
 
 export type UserActionFormProps = {
-	name: string,
-	title: string,
-	buttonText: string,
-	onSubmit: (formData: Record<string, unknown>) => void
+	name: string;
+	title: string;
+	buttonText: string;
+	onSubmit: (formData: Record<string, unknown>) => void;
 };
 
 export type FieldProps = {
-	block: string,
-	label: string,
-	id: string,
-	ErrorMessage: ErrorMessage,
-	Input: Component
+	block: string;
+	label: string;
+	id: string;
+	ErrorMessage: ErrorMessage;
+	Input: Component;
 };
 
 export type ErrorMessageProps = {
-	text: string,
-	isHide: boolean
+	text: string;
+	isHide: boolean;
 };
 
 export type ChatPreviewProps = {
-	unreadMessagesCount: string,
-	lastMessage: string,
-	lastTime: string,
-	name: string,
-	avatar: string
+	unreadMessagesCount: string;
+	lastMessage: string;
+	lastTime: string;
+	name: string;
+	avatar: string;
 };
 
 export type ProfileActionButtonProps = {
-	content: string,
-	type: string,
-	onClick: () => void
+	content: string;
+	type: string;
+	onClick: () => void;
 };
 
 export type RegisterProps = {
@@ -78,10 +78,10 @@ export type RegisterProps = {
 };
 
 export type ChangePasswordProps = {
-	oldPassword: string,
-	newPassword: string,
-	repeat_password: string
-}
+	oldPassword: string;
+	newPassword: string;
+	repeat_password: string;
+};
 
 export type SendFileProps = { file: unknown };
 
@@ -89,7 +89,7 @@ export type SendMediaProps = { media: unknown };
 
 export type ChatActionProps = { login: string };
 
-export type ChangeAvatarProps = {avatar: unknown};
+export type ChangeAvatarProps = { avatar: unknown };
 
 // Дата может быть чем угодно, а также воообще может не быть ее
 export type Options = {
@@ -102,12 +102,12 @@ export type OptionsWithoutMethod = Omit<Options, 'method'>;
 // Получилась довольно сложная структура массива с сообщениями. Тип не получилось сделать, кроме any. Возможно его и действительно не нужно сейчас делать, ведь вполне вероятно, что данные из сервера будут приходить в другом формет
 export type ChatMessagesProps = { dataMessages: Record<string, any>[] };
 
-export type PopupProps = { content: unknown, isOpen: boolean };
+export type PopupProps = { content: unknown; isOpen: boolean };
 
 export type MenuProps = {
-	content: unknown,
-	isOpen: boolean,
-	addClass: string
+	content: unknown;
+	isOpen: boolean;
+	addClass: string;
 };
 
 // Аргументами коллбека может быть что-угодно

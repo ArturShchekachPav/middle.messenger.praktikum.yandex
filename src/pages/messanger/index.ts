@@ -1,21 +1,23 @@
 import './messanger.scss';
 import {default as layout} from './messanger.hbs?raw';
-import Block from "../../framework/Block";
-import {ChatsList, ChatsSearchForm, ChatWindow} from "../../components/index";
-import Component from "../../framework/Component";
-import Controller from "../../controllers";
+import Block from '../../framework/Block';
+import {ChatsList, ChatsSearchForm, ChatWindow} from '../../components/index';
+import Component from '../../framework/Component';
+import Controller from '../../controllers';
 
 export class MessangerPage extends Block {
 	private controller: Controller;
 
-	constructor({chats}: {
+	constructor({
+								chats,
+							}: {
 		chats: Array<{
-			name: string,
-			avatar: string,
-			lastTime: string,
-			lastMessage: string,
-			unreadMessagesCount: string
-		}>
+			name: string;
+			avatar: string;
+			lastTime: string;
+			lastMessage: string;
+			unreadMessagesCount: string;
+		}>;
 	}) {
 		super({
 			ChatsSearchForm: new ChatsSearchForm(),
@@ -25,7 +27,7 @@ export class MessangerPage extends Block {
 				tag: 'a',
 				attr: {
 					href: '/profile',
-					class: 'messanger__profile-link'
+					class: 'messanger__profile-link',
 				},
 				content: 'Профиль',
 				events: {
@@ -33,9 +35,9 @@ export class MessangerPage extends Block {
 						event.preventDefault();
 
 						this.controller.emit('changePage', '/profile');
-					}
-				}
-			})
+					},
+				},
+			}),
 		});
 
 		this.controller = new Controller();
@@ -45,5 +47,3 @@ export class MessangerPage extends Block {
 		return layout;
 	}
 }
-
-

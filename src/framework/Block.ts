@@ -1,7 +1,7 @@
 import EventBus from './EventBus';
 import Handlebars from 'handlebars';
 import {v4 as makeUUID} from 'uuid';
-import {BlockProps} from "../utils/types";
+import {BlockProps} from '../utils/types';
 
 export default class Block {
 	static EVENTS = {
@@ -10,6 +10,7 @@ export default class Block {
 		FLOW_CDU: 'flow:component-did-update',
 		FLOW_RENDER: 'flow:render',
 	};
+
 	protected _id: string = makeUUID();
 	protected props: BlockProps;
 	protected children: Record<string, Block>;
@@ -18,7 +19,8 @@ export default class Block {
 
 	constructor(propsWithChildren: BlockProps = {}) {
 		const eventBus = new EventBus();
-		const {props, children, lists} = this._getChildrenPropsAndProps(propsWithChildren);
+		const {props, children, lists} =
+			this._getChildrenPropsAndProps(propsWithChildren);
 		this.props = this._makePropsProxy({...props});
 		this.children = this._makePropsProxy({...children});
 		this.lists = this._makePropsProxy({...lists});
@@ -45,12 +47,15 @@ export default class Block {
 		});
 	}
 
-	public setProps = (nextProps: BlockProps | Record<string, unknown[]> | Record<string, Block>): void => {
+	public setProps = (
+		nextProps: BlockProps | Record<string, unknown[]> | Record<string, Block>
+	): void => {
 		if (!nextProps) {
 			return;
 		}
 
-		const {props, children, lists} = this._getChildrenPropsAndProps(nextProps);
+		const {props, children, lists} =
+			this._getChildrenPropsAndProps(nextProps);
 
 		if (Object.entries(props).length) {
 			Object.assign(this.props, props);
@@ -95,7 +100,10 @@ export default class Block {
 	protected componentDidMount(): void {
 	}
 
-	protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
+	protected componentDidUpdate(
+		oldProps: BlockProps,
+		newProps: BlockProps
+	): boolean {
 		console.log(oldProps, newProps);
 		return true;
 	}
@@ -111,7 +119,7 @@ export default class Block {
 	}
 
 	protected removeAttributes(attr: string[]): void {
-		attr.forEach(attribute => {
+		attr.forEach((attribute) => {
 			if (this._element) {
 				this._element.removeAttribute(attribute);
 			}
@@ -124,7 +132,7 @@ export default class Block {
 
 	private _addEvents(): void {
 		const {events = {}} = this.props;
-		Object.keys(events).forEach(eventName => {
+		Object.keys(events).forEach((eventName) => {
 			if (this._element) {
 				this._element.addEventListener(eventName, events[eventName]);
 			}
@@ -140,12 +148,15 @@ export default class Block {
 
 	private _componentDidMount(): void {
 		this.componentDidMount();
-		Object.values(this.children).forEach(child => {
+		Object.values(this.children).forEach((child) => {
 			child.dispatchComponentDidMount();
 		});
 	}
 
-	private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): void {
+	private _componentDidUpdate(
+		oldProps: BlockProps,
+		newProps: BlockProps
+	): void {
 		const response = this.componentDidUpdate(oldProps, newProps);
 		if (!response) {
 			return;
@@ -154,9 +165,9 @@ export default class Block {
 	}
 
 	private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-		children: Record<string, Block>,
-		props: BlockProps,
-		lists: Record<string, unknown[]>
+		children: Record<string, Block>;
+		props: BlockProps;
+		lists: Record<string, unknown[]>;
 	} {
 		const children: Record<string, Block> = {};
 		const props: BlockProps = {};
@@ -190,7 +201,7 @@ export default class Block {
 		const fragment = this._createDocumentElement('template');
 		fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
 
-		Object.values(this.children).forEach(child => {
+		Object.values(this.children).forEach((child) => {
 			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 			if (stub) {
 				stub.replaceWith(child.getContent());
@@ -199,7 +210,7 @@ export default class Block {
 
 		Object.entries(this.lists).forEach(([, child]) => {
 			const listCont = this._createDocumentElement('template');
-			child.forEach(item => {
+			child.forEach((item) => {
 				if (item instanceof Block) {
 					listCont.content.append(item.getContent());
 				} else {

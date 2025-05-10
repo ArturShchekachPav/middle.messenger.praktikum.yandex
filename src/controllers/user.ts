@@ -1,5 +1,5 @@
-import user from "../models/user";
-import Controller from "./Controller";
+import user from '../models/user';
+import Controller from './Controller';
 
 const controller = new Controller();
 

@@ -1,5 +1,5 @@
-import Block from "./Block";
-import {ErrorMessage} from "../components";
+import Block from './Block';
+import {ErrorMessage} from '../components';
 
 export default class Form extends Block {
 	constructor(propsWithChildren: Record<string, unknown>) {
@@ -17,15 +17,19 @@ export default class Form extends Block {
 	getFormData() {
 		const formData = new FormData(this.getContent() as HTMLFormElement);
 
-		let formObj: Record<string, unknown> = {};
-		for (let [key, value] of formData) {
+		const formObj: Record<string, unknown> = {};
+		for (const [key, value] of formData) {
 			formObj[key] = value;
 		}
 
 		return formObj;
 	}
 
-	handleSumbit(event: SubmitEvent, onValidity: (formdata: Record<string, unknown>, event: SubmitEvent) => void, onInvalid: (event: SubmitEvent) => void) {
+	handleSumbit(
+		event: SubmitEvent,
+		onValidity: (formdata: Record<string, unknown>, event: SubmitEvent) => void,
+		onInvalid: (event: SubmitEvent) => void
+	) {
 		event.preventDefault();
 
 		if (this.checkFormValidity()) {
@@ -54,4 +58,4 @@ export default class Form extends Block {
 	getContent(): HTMLFormElement {
 		return super.getContent() as HTMLFormElement;
 	}
-};
+}

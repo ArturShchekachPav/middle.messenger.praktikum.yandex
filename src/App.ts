@@ -1,17 +1,17 @@
 import {
+	AddFilePopup,
 	AddMediaPopup,
+	AddUserPopup,
+	ChangeAvatarPopup,
 	ErrorPage,
 	LoginForm,
-	AddFilePopup,
-	AddUserPopup,
 	RemoveUserPopup,
-	ChangeAvatarPopup
-} from "./components";
+} from './components';
 import './App.scss';
-import {LoginPage, MessangerPage, ProfilePage, RegistrationPage} from "./pages";
-import Controller from "./controllers";
-import {RegisterForm} from "./components/RegisterForm";
-import {ChatData, UserData} from "./utils/types";
+import {LoginPage, MessangerPage, ProfilePage, RegistrationPage,} from './pages';
+import Controller from './controllers';
+import {RegisterForm} from './components/RegisterForm';
+import {ChatData, UserData} from './utils/types';
 
 export default class App {
 	readonly appElement: HTMLElement | null;
@@ -48,13 +48,13 @@ export default class App {
 	}
 
 	render() {
-		if(this.appElement === null) {
+		if (this.appElement === null) {
 			return;
 		}
 
 		switch (this.currentPage) {
 			case '/':
-				if(!this.isLoggedIn) {
+				if (!this.isLoggedIn) {
 					this.onChangePage('/sing-in');
 					return;
 				}
@@ -65,7 +65,7 @@ export default class App {
 				const removeUserPopup = new RemoveUserPopup();
 
 				const messangerPage = new MessangerPage({
-					chats: this.chatsData
+					chats: this.chatsData,
 				});
 
 				this.appElement.replaceChildren(
@@ -78,12 +78,12 @@ export default class App {
 
 				break;
 			case '/profile':
-				if(!this.isLoggedIn) {
+				if (!this.isLoggedIn) {
 					this.onChangePage('/sing-in');
 					return;
 				}
 
-				if(!this.userData) {
+				if (!this.userData) {
 					this.onChangePage('/500');
 					return;
 				}
@@ -101,7 +101,7 @@ export default class App {
 
 				break;
 			case '/sing-up':
-				if(this.isLoggedIn) {
+				if (this.isLoggedIn) {
 					this.onChangePage('/');
 					return;
 				}
@@ -118,7 +118,7 @@ export default class App {
 
 				break;
 			case '/sing-in':
-				if(this.isLoggedIn) {
+				if (this.isLoggedIn) {
 					this.onChangePage('/');
 					return;
 				}
@@ -164,7 +164,13 @@ export default class App {
 		this.render();
 	}
 
-	handleLoggedIn ({ userData, chats }: {userData: UserData, chats: ChatData[]}) {
+	handleLoggedIn({
+									 userData,
+									 chats,
+								 }: {
+		userData: UserData;
+		chats: ChatData[];
+	}) {
 		this.isLoggedIn = true;
 
 		this.userData = userData;
@@ -198,10 +204,10 @@ export default class App {
 	}
 
 	handleChangeAvatar(avatar: string) {
-		if(this.userData) {
+		if (this.userData) {
 			this.userData = {
 				...this.userData,
-				avatar
+				avatar,
 			};
 		}
 	}

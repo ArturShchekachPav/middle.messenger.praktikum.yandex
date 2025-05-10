@@ -1,16 +1,22 @@
 import {default as layout} from './AddFileForm.hbs?raw';
-import Component from "../../framework/Component.js";
-import Form from "../../framework/Form.js";
-import {ErrorMessage} from "../ErrorMessage";
-import {AddFileFormProps} from "../../utils/types";
+import Component from '../../framework/Component.js';
+import Form from '../../framework/Form.js';
+import {ErrorMessage} from '../ErrorMessage';
+import {AddFileFormProps} from '../../utils/types';
 
 export class AddFileForm extends Form {
 	private readonly errorMessage: ErrorMessage;
 
-	constructor({formName, inputName, buttonText, title, onSubmit}: AddFileFormProps) {
+	constructor({
+								formName,
+								inputName,
+								buttonText,
+								title,
+								onSubmit,
+							}: AddFileFormProps) {
 		const errorMessage = new ErrorMessage({
 			text: '',
-			isHide: true
+			isHide: true,
 		});
 
 		super({
@@ -22,39 +28,40 @@ export class AddFileForm extends Form {
 					class: 'file-form__input',
 					name: inputName,
 					type: 'file',
-					required: true
+					required: true,
 				},
 				events: {
 					change: (event: InputEvent) => {
 						const inputElement = event.target as HTMLInputElement;
 
 						if (inputElement.files) {
-							this.children.FieldLabel.setProps({content: inputElement.files[0].name});
+							this.children.FieldLabel.setProps({
+								content: inputElement.files[0].name,
+							});
 						}
 
 						const input = this.children.Input.getContent() as HTMLInputElement;
 
-
 						this.validateInput(input, this.errorMessage);
-					}
-				}
+					},
+				},
 			}),
 			FieldLabel: new Component({
 				tag: 'span',
 				attr: {
-					class: 'file-form__file-text'
+					class: 'file-form__file-text',
 				},
-				content: 'Выбрать файл на компьютере'
+				content: 'Выбрать файл на компьютере',
 			}),
 			Button: new Component({
 				tag: 'button',
 				attr: {
 					type: 'submit',
-					class: 'button file-form__button'
+					class: 'button file-form__button',
 				},
-				content: buttonText
+				content: buttonText,
 			}),
-			ErrorMessage: errorMessage
+			ErrorMessage: errorMessage,
 		});
 
 		this.errorMessage = errorMessage;
@@ -62,17 +69,13 @@ export class AddFileForm extends Form {
 		this.setProps({
 			events: {
 				submit: (event: SubmitEvent) => {
-					this.handleSumbit(
-						event,
-						onSubmit,
-						() => {
-							const input = this.children.Input.getContent() as HTMLInputElement;
+					this.handleSumbit(event, onSubmit, () => {
+						const input = this.children.Input.getContent() as HTMLInputElement;
 
-							this.validateInput(input, this.errorMessage);
-						}
-					)
-				}
-			}
+						this.validateInput(input, this.errorMessage);
+					});
+				},
+			},
 		});
 	}
 

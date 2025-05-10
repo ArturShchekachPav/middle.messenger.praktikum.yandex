@@ -1,5 +1,5 @@
-import {AddFileForm, Popup} from "../index";
-import Controller from "../../controllers";
+import {AddFileForm, Popup} from '../index';
+import Controller from '../../controllers';
 
 export class AddMediaPopup extends Popup {
 	private controller: Controller;
@@ -19,7 +19,7 @@ export class AddMediaPopup extends Popup {
 
 		super({
 			isOpen: false,
-			content: addMediaForm
+			content: addMediaForm,
 		});
 
 		this.addMediaForm = addMediaForm;

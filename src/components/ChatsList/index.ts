@@ -1,8 +1,8 @@
-import Block from "../../framework/Block";
-import {ChatPreview} from "../ChatPreview";
-import Controller from "../../controllers";
+import Block from '../../framework/Block';
+import {ChatPreview} from '../ChatPreview';
+import Controller from '../../controllers';
 import {default as layout} from './ChatsList.hbs?raw';
-import {ChatData} from "../../utils/types";
+import {ChatData} from '../../utils/types';
 
 export class ChatsList extends Block {
 	private controller: Controller;
@@ -19,40 +19,41 @@ export class ChatsList extends Block {
 		this.updateChatList = this.updateChatList.bind(this);
 
 		this.setProps({
-			Chats: this.createChats()
-		})
+			Chats: this.createChats(),
+		});
 
 		this.controller.on('searchChats', this.searchChats);
 		this.controller.on('updateChatsList', this.updateChatList);
 	}
 
 	createChats() {
-		return this.chatsData.filter(({name}) => name.toLowerCase().includes(this.filter)).map(({name, avatar, lastTime, lastMessage, unreadMessagesCount}) => {
+		return this.chatsData
+			.filter(({name}) => name.toLowerCase().includes(this.filter))
+			.map(({name, avatar, lastTime, lastMessage, unreadMessagesCount}) => {
 				return new ChatPreview({
-					name: name,
-					avatar: avatar,
-					lastTime: lastTime,
-					lastMessage: lastMessage,
-					unreadMessagesCount: unreadMessagesCount
+					name,
+					avatar,
+					lastTime,
+					lastMessage,
+					unreadMessagesCount,
 				});
-			}
-		);
+			});
 	}
 
 	searchChats(searchValue: string) {
 		this.filter = searchValue;
 
 		this.setProps({
-			Chats: this.createChats()
-		})
+			Chats: this.createChats(),
+		});
 	}
 
 	updateChatList(chatsData: ChatData[]) {
 		this.chatsData = chatsData;
 
 		this.setProps({
-			Chats: this.createChats()
-		})
+			Chats: this.createChats(),
+		});
 	}
 
 	override render() {

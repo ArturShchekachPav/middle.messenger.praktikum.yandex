@@ -1,14 +1,14 @@
-import Block from "../../framework/Block";
+import Block from '../../framework/Block';
 import {default as layout} from './ErrorMessage.hbs?raw';
-import {ErrorMessageProps} from "../../utils/types";
+import {ErrorMessageProps} from '../../utils/types';
 
 export class ErrorMessage extends Block {
 	constructor({text, isHide}: ErrorMessageProps) {
 		super({
-			text
+			text,
 		});
 
-		if(isHide) {
+		if (isHide) {
 			this.hide();
 		}
 	}

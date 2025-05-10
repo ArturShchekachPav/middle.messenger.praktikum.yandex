@@ -1,5 +1,5 @@
-import {UserActionForm, Popup} from "../index";
-import Controller from "../../controllers";
+import {Popup, UserActionForm} from '../index';
+import Controller from '../../controllers';
 
 export class AddUserPopup extends Popup {
 	private controller: Controller;
@@ -18,7 +18,7 @@ export class AddUserPopup extends Popup {
 
 		super({
 			isOpen: false,
-			content: addChatForm
+			content: addChatForm,
 		});
 
 		this.addChatForm = addChatForm;

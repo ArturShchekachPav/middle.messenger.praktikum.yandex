@@ -1,9 +1,9 @@
-import Form from "../../framework/Form.js";
+import Form from '../../framework/Form.js';
 import {default as layout} from './RegisterForm.hbs?raw';
-import {ErrorMessage, Field} from "../index.js";
-import Component from "../../framework/Component.js";
-import {REGISTER_FORM_CONFIG} from "../../utils/constants.js";
-import Controller from "../../controllers";
+import {ErrorMessage, Field} from '../index.js';
+import Component from '../../framework/Component.js';
+import {REGISTER_FORM_CONFIG} from '../../utils/constants.js';
+import Controller from '../../controllers';
 
 export class RegisterForm extends Form {
 	private controller: Controller;
@@ -13,7 +13,7 @@ export class RegisterForm extends Form {
 			Fields: REGISTER_FORM_CONFIG.map(({block, label, inputAttributs}) => {
 				const errorMessage = new ErrorMessage({
 					text: '',
-					isHide: true
+					isHide: true,
 				});
 
 				return new Field({
@@ -31,24 +31,24 @@ export class RegisterForm extends Form {
 								const input = event.target as HTMLInputElement;
 
 								this.validateInput(input, errorMessage);
-							}
-						}
-					})
-				})
+							},
+						},
+					}),
+				});
 			}),
 			Button: new Component({
 				tag: 'button',
 				attr: {
 					type: 'submit',
-					class: 'button'
+					class: 'button',
 				},
-				content: 'Зарегистрироваться'
+				content: 'Зарегистрироваться',
 			}),
 			Link: new Component({
 				tag: 'a',
 				attr: {
 					href: '/sing-in',
-					class: 'auth-form__link'
+					class: 'auth-form__link',
 				},
 				content: 'Войти',
 				events: {
@@ -56,9 +56,9 @@ export class RegisterForm extends Form {
 						event.preventDefault();
 
 						this.controller.emit('changePage', '/sing-in');
-					}
-				}
-			})
+					},
+				},
+			}),
 		});
 
 		this.controller = new Controller();
@@ -68,13 +68,14 @@ export class RegisterForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						formData => {
+						(formData) => {
 							this.controller.emit('register', formData);
 						},
-						() => {}
-					)
-				}
-			}
+						() => {
+						}
+					);
+				},
+			},
 		});
 	}
 
