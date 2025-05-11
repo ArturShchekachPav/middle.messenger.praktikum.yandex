@@ -164,10 +164,7 @@ export default class App {
 		this.render();
 	}
 
-	handleLoggedIn({
-									 userData,
-									 chats,
-								 }: {
+	handleLoggedIn({userData, chats}: {
 		userData: UserData;
 		chats: ChatData[];
 	}) {
