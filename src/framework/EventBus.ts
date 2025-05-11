@@ -7,12 +7,15 @@ export default class EventBus {
 		this.listeners = {};
 	}
 
-	public on(event: string, callback: EventCallback): void {
+	public on<T extends unknown[]>(
+		event: string,
+		callback: EventCallback<T>
+	): void {
 		if (!this.listeners[event]) {
 			this.listeners[event] = [];
 		}
 
-		this.listeners[event].push(callback);
+		this.listeners[event].push(callback as EventCallback);
 	}
 
 	public off(event: string, callback: EventCallback): void {
@@ -25,7 +28,7 @@ export default class EventBus {
 		);
 	}
 
-	public emit(event: string, ...args: unknown[]): void {
+	public emit<T extends unknown[]>(event: string, ...args: T): void {
 		if (!this.listeners[event]) {
 			throw new Error(`No event: ${event}`);
 		}

@@ -1,29 +1,28 @@
 import EventBus from './EventBus';
 import Handlebars from 'handlebars';
 import {v4 as makeUUID} from 'uuid';
-import {BlockProps} from '../utils/types';
+import {BlockChildren, BlockList, BlockPropsWithChildren, BlockSimpleProps,} from '../utils/types';
 
-export default class Block {
+export default abstract class Block {
 	static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
 		FLOW_CDU: 'flow:component-did-update',
 		FLOW_RENDER: 'flow:render',
-	};
-
+	} as const;
+	public children: BlockChildren;
 	protected _id: string = makeUUID();
-	protected props: BlockProps;
-	protected children: Record<string, Block>;
-	protected lists: Record<string, any[]>;
+	protected props: BlockSimpleProps;
+	protected lists: BlockList;
 	protected eventBus: () => EventBus;
 
-	constructor(propsWithChildren: BlockProps = {}) {
+	constructor(propsWithChildren: BlockPropsWithChildren = {}) {
 		const eventBus = new EventBus();
 		const {props, children, lists} =
 			this._getChildrenPropsAndProps(propsWithChildren);
-		this.props = this._makePropsProxy({...props});
-		this.children = this._makePropsProxy({...children});
-		this.lists = this._makePropsProxy({...lists});
+		this.props = this._makePropsProxy<BlockSimpleProps>({...props});
+		this.children = this._makePropsProxy<BlockChildren>({...children});
+		this.lists = this._makePropsProxy<BlockList>({...lists});
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
 		eventBus.emit(Block.EVENTS.INIT);
@@ -47,9 +46,7 @@ export default class Block {
 		});
 	}
 
-	public setProps = (
-		nextProps: BlockProps | Record<string, unknown[]> | Record<string, Block>
-	): void => {
+	public setProps = (nextProps: BlockPropsWithChildren): void => {
 		if (!nextProps) {
 			return;
 		}
@@ -93,6 +90,14 @@ export default class Block {
 		}
 	}
 
+	public removeAttributes(attr: string[]): void {
+		attr.forEach((attribute) => {
+			if (this._element) {
+				this._element.removeAttribute(attribute);
+			}
+		});
+	}
+
 	protected init(): void {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
@@ -101,8 +106,8 @@ export default class Block {
 	}
 
 	protected componentDidUpdate(
-		oldProps: BlockProps,
-		newProps: BlockProps
+		oldProps: BlockPropsWithChildren,
+		newProps: BlockPropsWithChildren
 	): boolean {
 		console.log(oldProps, newProps);
 		return true;
@@ -118,14 +123,6 @@ export default class Block {
 		});
 	}
 
-	protected removeAttributes(attr: string[]): void {
-		attr.forEach((attribute) => {
-			if (this._element) {
-				this._element.removeAttribute(attribute);
-			}
-		});
-	}
-
 	protected render(): string {
 		return '';
 	}
@@ -135,6 +132,15 @@ export default class Block {
 		Object.keys(events).forEach((eventName) => {
 			if (this._element) {
 				this._element.addEventListener(eventName, events[eventName]);
+			}
+		});
+	}
+
+	private _removeEvents(): void {
+		const {events = {}} = this.props;
+		Object.keys(events).forEach((eventName) => {
+			if (this._element) {
+				this._element.removeEventListener(eventName, events[eventName]);
 			}
 		});
 	}
@@ -154,8 +160,8 @@ export default class Block {
 	}
 
 	private _componentDidUpdate(
-		oldProps: BlockProps,
-		newProps: BlockProps
+		oldProps: BlockPropsWithChildren,
+		newProps: BlockPropsWithChildren
 	): void {
 		const response = this.componentDidUpdate(oldProps, newProps);
 		if (!response) {
@@ -164,14 +170,14 @@ export default class Block {
 		this._render();
 	}
 
-	private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-		children: Record<string, Block>;
-		props: BlockProps;
-		lists: Record<string, unknown[]>;
+	private _getChildrenPropsAndProps(propsAndChildren: BlockPropsWithChildren): {
+		children: BlockChildren;
+		props: BlockSimpleProps;
+		lists: BlockList;
 	} {
-		const children: Record<string, Block> = {};
-		const props: BlockProps = {};
-		const lists: Record<string, unknown[]> = {};
+		const children: BlockChildren = {};
+		const props: BlockSimpleProps = {};
+		const lists: BlockList = {};
 
 		Object.entries(propsAndChildren).forEach(([key, value]) => {
 			if (value instanceof Block) {
@@ -226,6 +232,8 @@ export default class Block {
 		const newElement = fragment.content.firstElementChild as HTMLElement;
 
 		if (this._element && newElement) {
+			this._removeEvents();
+
 			this._element.replaceWith(newElement);
 		}
 
@@ -234,10 +242,12 @@ export default class Block {
 		this.addAttributes();
 	}
 
-	private _makePropsProxy(props: Record<string, unknown>): any {
+	private _makePropsProxy<Type extends Record<string, unknown>>(
+		props: Type
+	): Type {
 		const self = this;
 
-		return new Proxy(props, {
+		return new Proxy<Type>(props, {
 			get(target: Record<string, unknown>, prop: string) {
 				const value = target[prop];
 				return typeof value === 'function' ? value.bind(target) : value;

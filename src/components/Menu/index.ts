@@ -41,10 +41,11 @@ export class Menu extends Block {
 	_onOutsideClickClose({target}: MouseEvent) {
 		const menuElement = this.getContent();
 
-		if (
-			!menuElement.contains(target as HTMLElement) &&
-			menuElement !== target
-		) {
+		if (!(target instanceof HTMLElement)) {
+			return;
+		}
+
+		if (!menuElement.contains(target) && menuElement !== target) {
 			this.close();
 		}
 	}

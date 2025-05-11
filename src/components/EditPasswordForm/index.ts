@@ -98,8 +98,22 @@ export class EditPasswordForm extends Form {
 	}
 
 	checkFormValidity() {
-		this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
-			this.validateInput(Input.getContent(), ErrorMessage);
+		this.lists.Fields.forEach((field) => {
+			if (!(field instanceof Field)) {
+				return;
+			}
+
+			const {input, errorMessage} = field.getFieldComponents();
+
+			if (!input || !errorMessage) {
+				return;
+			}
+
+			const inputElement = input.getContent();
+
+			if (inputElement instanceof HTMLInputElement) {
+				this.validateInput(inputElement, errorMessage);
+			}
 		});
 
 		return super.checkFormValidity();

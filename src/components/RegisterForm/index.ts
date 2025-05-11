@@ -101,8 +101,22 @@ export class RegisterForm extends Form {
 	}
 
 	checkFormValidity() {
-		this.lists.Fields.forEach(({children: {ErrorMessage, Input}}) => {
-			this.validateInput(Input.getContent(), ErrorMessage);
+		this.lists.Fields.forEach((field) => {
+			if (!(field instanceof Field)) {
+				return;
+			}
+
+			const {errorMessage, input} = field.getFieldComponents();
+
+			if (!errorMessage || !input) {
+				return;
+			}
+
+			const inputElement = input.getContent();
+
+			if (inputElement instanceof HTMLInputElement) {
+				this.validateInput(inputElement, errorMessage);
+			}
 		});
 
 		return super.checkFormValidity();

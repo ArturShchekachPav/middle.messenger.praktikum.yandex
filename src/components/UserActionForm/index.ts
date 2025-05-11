@@ -52,11 +52,23 @@ export class UserActionForm extends Form {
 			events: {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(event, onSubmit, () => {
-						this.lists.Fields.forEach(
-							({children: {ErrorMessage, Input}}) => {
-								this.validateInput(Input.getContent(), ErrorMessage);
+						this.lists.Fields.forEach((field) => {
+							if (!(field instanceof Field)) {
+								return;
 							}
-						);
+
+							const {errorMessage, input} = field.getFieldComponents();
+
+							if (!errorMessage || !input) {
+								return;
+							}
+
+							const inputElement = input.getContent();
+
+							if (inputElement instanceof HTMLInputElement) {
+								this.validateInput(inputElement, errorMessage);
+							}
+						});
 					});
 				},
 			},
@@ -68,8 +80,16 @@ export class UserActionForm extends Form {
 	}
 
 	reset() {
-		this.lists.Fields.forEach(({children: {ErrorMessage}}) => {
-			ErrorMessage.reset();
+		this.lists.Fields.forEach((field) => {
+			if (!(field instanceof Field)) {
+				return;
+			}
+
+			const {errorMessage} = field.getFieldComponents();
+
+			if (errorMessage) {
+				errorMessage.reset();
+			}
 		});
 
 		super.reset();

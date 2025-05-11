@@ -1,11 +1,7 @@
 import Component from '../framework/Component';
 import {ErrorMessage} from '../components';
 import {METHOD} from './constants';
-
-// Пропсом может быть что угодно, поэтому any как мне кажется должен подходить
-export type BlockProps = {
-	[key: string]: any;
-};
+import Block from '../framework/Block';
 
 export type ChatData = {
 	name: string;
@@ -99,7 +95,7 @@ export type Options = {
 
 export type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-// Получилась довольно сложная структура массива с сообщениями. Тип не получилось сделать, кроме any. Возможно его и действительно не нужно сейчас делать, ведь вполне вероятно, что данные из сервера будут приходить в другом формет
+// Получилась довольно сложная структура массива с сообщениями. Тип не получилось сделать, кроме any. Возможно его и действительно не нужно сейчас делать, ведь вполне вероятно, что данные из сервера будут приходить в другом формате
 export type ChatMessagesProps = { dataMessages: Record<string, any>[] };
 
 export type PopupProps = { content: unknown; isOpen: boolean };
@@ -110,5 +106,26 @@ export type MenuProps = {
 	addClass: string;
 };
 
-// Аргументами коллбека может быть что-угодно
-export type EventCallback = (...args: any[]) => void;
+export type EventCallback<T extends unknown[] = unknown[]> = (
+	...args: T
+) => void;
+
+export type HTTPMethod = (
+	url: string,
+	options?: OptionsWithoutMethod
+) => Promise<XMLHttpRequest>;
+
+export type BlockSimpleProps = {
+	[key: string]: unknown;
+} & {
+	events?: Record<string, (event: Event) => void>;
+	attr?: Record<string, string | number | boolean>;
+};
+
+export type BlockChildren = Record<string, Block>;
+
+export type BlockList = Record<string, unknown[]>;
+
+export type BlockPropsWithChildren = {
+	[key: string]: unknown;
+};

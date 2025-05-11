@@ -1,40 +1,19 @@
 import {METHOD} from './constants';
-import {Options, OptionsWithoutMethod} from './types';
+import {HTTPMethod, Options} from './types';
 
 export default class HTTPTransport {
-	public get(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
-		return this.request(url, {...options, method: METHOD.GET});
-	}
+	public get = this.createMethod(METHOD.GET);
 
-	public post(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
-		return this.request(url, {...options, method: METHOD.POST});
-	}
+	public put = this.createMethod(METHOD.PUT);
 
-	public put(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
-		return this.request(url, {...options, method: METHOD.PUT});
-	}
+	public post = this.createMethod(METHOD.POST);
 
-	public delete(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
-		return this.request(url, {...options, method: METHOD.DELETE});
-	}
+	public delete = this.createMethod(METHOD.DELETE);
 
-	public patch(
-		url: string,
-		options: OptionsWithoutMethod = {}
-	): Promise<XMLHttpRequest> {
-		return this.request(url, {...options, method: METHOD.PATCH});
+	public patch = this.createMethod(METHOD.PATCH);
+
+	private createMethod(method: METHOD): HTTPMethod {
+		return (url, options = {}) => this.request(url, {...options, method});
 	}
 
 	private request(

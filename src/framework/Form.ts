@@ -1,8 +1,9 @@
 import Block from './Block';
 import {ErrorMessage} from '../components';
+import {BlockPropsWithChildren} from '../utils/types';
 
 export default class Form extends Block {
-	constructor(propsWithChildren: Record<string, unknown>) {
+	constructor(propsWithChildren: BlockPropsWithChildren) {
 		super(propsWithChildren);
 	}
 

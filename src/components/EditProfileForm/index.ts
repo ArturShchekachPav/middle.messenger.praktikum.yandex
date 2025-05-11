@@ -62,11 +62,23 @@ export class EditProfileForm extends Form {
 							this.controller.emit('editUserData', formData);
 						},
 						() => {
-							this.lists.Fields.forEach(
-								({children: {ErrorMessage, Input}}) => {
-									this.validateInput(Input.getContent(), ErrorMessage);
+							this.lists.Fields.forEach((field) => {
+								if (!(field instanceof Field)) {
+									return;
 								}
-							);
+
+								const {input, errorMessage} = field.getFieldComponents();
+
+								if (!input || !errorMessage) {
+									return;
+								}
+
+								const inputElement = input.getContent();
+
+								if (inputElement instanceof HTMLInputElement) {
+									this.validateInput(inputElement, errorMessage);
+								}
+							});
 						}
 					);
 				},
@@ -87,16 +99,36 @@ export class EditProfileForm extends Form {
 	}
 
 	edit() {
-		this.lists.Fields.forEach(({children: {Input}}) =>
-			Input.removeAttributes(['disabled'])
-		);
+		this.lists.Fields.forEach((field) => {
+			if (!(field instanceof Field)) {
+				return;
+			}
+
+			const {input} = field.getFieldComponents();
+
+			if (!input) {
+				return;
+			}
+
+			input.removeAttributes(['disabled']);
+		});
 		this.children.Button.show();
 	}
 
 	read() {
-		this.lists.Fields.forEach(({children: {Input}}) =>
-			Input.setAttributes({disabled: true})
-		);
+		this.lists.Fields.forEach((field) => {
+			if (!(field instanceof Field)) {
+				return;
+			}
+
+			const {input} = field.getFieldComponents();
+
+			if (!input) {
+				return;
+			}
+
+			input.setAttributes({disabled: true});
+		});
 		this.children.Button.hide();
 	}
 }
