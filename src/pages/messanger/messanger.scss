@@ -4,7 +4,7 @@
 	grid-template-columns: 310px 1fr;
 
 	&__side-bar {
-		padding: 21px 10px 0 10px;
+		padding: 21px 10px 0;
 		box-sizing: border-box;
 		max-height: 100vh;
 	}
@@ -22,9 +22,9 @@
 		align-items: center;
 		gap: 8px;
 
-		&:after {
+		&::after {
 			content: '';
-			background-image: url(/chevron.svg);
+			background-image: url('/chevron.svg');
 			display: block;
 			width: 6px;
 			height: 10px;
@@ -35,6 +35,10 @@
 
 	&__search-form {
 		margin-bottom: 14px;
+	}
+
+	&__search-text {
+		display: none;
 	}
 
 	&__search-label {
@@ -68,10 +72,6 @@
 		align-items: center;
 		gap: 6px;
 		color: var(--secondary-color);
-	}
-
-	&__search-text {
-		display: none;
 	}
 
 	&__search-input {
@@ -170,7 +170,7 @@
 
 	&__options-button {
 		margin-left: auto;
-		background-image: url(/options-icon.svg);
+		background-image: url('/options-icon.svg');
 		width: 3px;
 		height: 15px;
 		padding: 0;
@@ -199,7 +199,7 @@
 	}
 
 	&__file-button {
-		background-image: url(/file-icon.svg);
+		background-image: url('/file-icon.svg');
 		aspect-ratio: 1/1;
 		width: 32px;
 		background-size: contain;
@@ -236,7 +236,7 @@
 		background-color: var(--accent-color);
 		padding: 0;
 		border: none;
-		background-image: url(/arrow.svg);
+		background-image: url('/arrow.svg');
 		rotate: 180deg;
 		background-position: center center;
 		background-size: 16px 14px;

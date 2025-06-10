@@ -1,0 +1,12 @@
+{
+	"plugins": [
+		"stylelint-scss"
+	],
+	"extends": "stylelint-config-standard-scss",
+	"rules": {
+		"selector-class-pattern": null
+	},
+	"ignoreFiles": [
+		"build/*"
+	]
+}
