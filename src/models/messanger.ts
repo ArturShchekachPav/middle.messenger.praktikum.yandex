@@ -1,9 +1,12 @@
 import Controller from '../controllers/Controller';
 import {CHATS_DATA} from '../utils/constants';
 import {ChatActionProps, SendFileProps, SendMediaProps} from '../utils/types';
+import HTTPTransport from '../utils/HTTTPTransport';
 
 class Messanger {
 	private controller: Controller;
+	private httpTransport: HTTPTransport;
+	private baseUrl: string;
 
 	constructor() {
 		this.controller = new Controller();
@@ -12,6 +15,8 @@ class Messanger {
 		this.sendMedia = this.sendMedia.bind(this);
 		this.addChat = this.addChat.bind(this);
 		this.removeChat = this.removeChat.bind(this);
+		this.httpTransport = new HTTPTransport();
+		this.baseUrl = 'ya-praktikum.tech/api/v2';
 	}
 
 	addChat(formData: ChatActionProps) {
@@ -30,11 +35,19 @@ class Messanger {
 	}
 
 	sendFile(formData: SendFileProps) {
+		this.httpTransport.post(`${this.baseUrl}/resource`, {
+			data: formData
+		});
+
 		console.log(formData);
 		this.controller.emit('fileSent', formData);
 	}
 
 	sendMedia(formData: SendMediaProps) {
+		this.httpTransport.post(`${this.baseUrl}/resource`, {
+			data: formData
+		});
+
 		console.log(formData);
 		this.controller.emit('mediaSent', formData);
 	}
