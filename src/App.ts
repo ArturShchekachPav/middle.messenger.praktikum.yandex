@@ -53,9 +53,9 @@ export default class App {
 		}
 
 		switch (this.currentPage) {
-			case '/':
+			case '/messenger':
 				if (!this.isLoggedIn) {
-					this.onChangePage('/sing-in');
+					this.onChangePage('/');
 					return;
 				}
 
@@ -77,9 +77,9 @@ export default class App {
 				);
 
 				break;
-			case '/profile':
+			case '/settings':
 				if (!this.isLoggedIn) {
-					this.onChangePage('/sing-in');
+					this.onChangePage('/');
 					return;
 				}
 
@@ -102,7 +102,7 @@ export default class App {
 				break;
 			case '/sing-up':
 				if (this.isLoggedIn) {
-					this.onChangePage('/');
+					this.onChangePage('/messenger');
 					return;
 				}
 
@@ -117,9 +117,9 @@ export default class App {
 				}
 
 				break;
-			case '/sing-in':
+			case '/':
 				if (this.isLoggedIn) {
-					this.onChangePage('/');
+					this.onChangePage('/messenger');
 					return;
 				}
 
@@ -173,7 +173,7 @@ export default class App {
 		this.userData = userData;
 		this.chatsData = chats;
 
-		this.onChangePage('/');
+		this.onChangePage('/messenger');
 	}
 
 	handleLogOut() {
@@ -182,7 +182,7 @@ export default class App {
 		this.userData = null;
 		this.chatsData = [];
 
-		this.onChangePage('/sing-in');
+		this.onChangePage('/');
 	}
 
 	handleChangeProfileData(userData: UserData) {

@@ -41,14 +41,14 @@ export class ProfilePage extends Block {
 			MessangerLink: new Component({
 				tag: 'a',
 				attr: {
-					href: '/',
+					href: '/messenger',
 					class: 'side-bar__back-button',
 				},
 				events: {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/');
+						this.controller.emit('changePage', '/messenger');
 					},
 				},
 			}),

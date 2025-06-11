@@ -26,7 +26,7 @@ export class MessangerPage extends Block {
 			ProfileLink: new Component({
 				tag: 'a',
 				attr: {
-					href: '/profile',
+					href: '/settings',
 					class: 'messanger__profile-link',
 				},
 				content: 'Профиль',
@@ -34,7 +34,7 @@ export class MessangerPage extends Block {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/profile');
+						this.controller.emit('changePage', '/settings');
 					},
 				},
 			}),

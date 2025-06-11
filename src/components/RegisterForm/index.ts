@@ -47,7 +47,7 @@ export class RegisterForm extends Form {
 			Link: new Component({
 				tag: 'a',
 				attr: {
-					href: '/sing-in',
+					href: '/',
 					class: 'auth-form__link',
 				},
 				content: 'Войти',
@@ -55,7 +55,7 @@ export class RegisterForm extends Form {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/sing-in');
+						this.controller.emit('changePage', '/');
 					},
 				},
 			}),

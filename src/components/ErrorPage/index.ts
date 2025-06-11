@@ -15,13 +15,13 @@ export class ErrorPage extends Block {
 				tag: 'a',
 				attr: {
 					class: 'error-page__link',
-					href: '/',
+					href: '/messenger',
 				},
 				events: {
 					click: (event: MouseEvent): void => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/');
+						this.controller.emit('changePage', '/messenger');
 					},
 				},
 				content: 'Назад к чатам',
