@@ -129,3 +129,11 @@ export type BlockList = Record<string, unknown[]>;
 export type BlockPropsWithChildren = {
 	[key: string]: unknown;
 };
+
+type PlainObject<T = any> = {
+    [k in string]: T;
+};
+
+type Indexed<T = any> = {
+    [key in string]: T;
+};
