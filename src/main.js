@@ -1,7 +1,8 @@
 import '@fontsource/inter'
-import App from './App'
+import App from './App.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-	const app = new App(window.location.pathname)
-	app.render()
+	const app = new App();
+
+	app.enable();
 })

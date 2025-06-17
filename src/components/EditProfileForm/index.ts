@@ -3,7 +3,7 @@ import {default as layout} from './EditProfileForm.hbs?raw';
 import {ErrorMessage, Field} from '../index';
 import Component from '../../framework/Component';
 import {EDIT_PROFILE_FORM_CONFIG} from '../../utils/constants';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class EditProfileForm extends Form {
 	private controller: Controller;

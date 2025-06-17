@@ -1,6 +1,6 @@
 import Block from '../../framework/Block';
 import {ChatPreview} from '../ChatPreview';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 import {default as layout} from './ChatsList.hbs?raw';
 import {ChatData} from '../../utils/types';
 

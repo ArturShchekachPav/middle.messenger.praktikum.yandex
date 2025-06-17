@@ -2,7 +2,7 @@ import {default as layout} from './ChatMessageForm.hbs?raw';
 import {AttachmentMenu} from '../index.js';
 import Component from '../../framework/Component.js';
 import Form from '../../framework/Form.js';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ChatMessageForm extends Form {
 	private controller: Controller;

@@ -4,9 +4,9 @@ import '../register/register.scss';
 import {LoginForm} from '../../components';
 
 export class LoginPage extends Block {
-	constructor({LoginForm}: { LoginForm: LoginForm }) {
+	constructor() {
 		super({
-			LoginForm,
+			LoginForm: new LoginForm(),
 		});
 	}
 

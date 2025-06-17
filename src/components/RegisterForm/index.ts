@@ -3,10 +3,12 @@ import {default as layout} from './RegisterForm.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {REGISTER_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../controllers';
+import Actions from '../../actions';
+import Router from "../../router/Router";
 
 export class RegisterForm extends Form {
-	private controller: Controller;
+	private controller: Actions = new Actions();
+	private router: Router = new Router();
 
 	constructor() {
 		super({
@@ -55,13 +57,11 @@ export class RegisterForm extends Form {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/');
+						this.router.go('/');
 					},
 				},
 			}),
 		});
-
-		this.controller = new Controller();
 
 		this.setProps({
 			events: {

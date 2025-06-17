@@ -2,7 +2,7 @@ import './ErrorPage.scss';
 import {default as layout} from './ErrorPage.hbs?raw';
 import Block from '../../framework/Block.js';
 import Component from '../../framework/Component';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ErrorPage extends Block {
 	private controller: Controller;

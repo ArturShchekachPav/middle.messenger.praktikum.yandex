@@ -1,7 +1,7 @@
 import './ChatPreview.scss';
 import {default as layout} from './ChatPreview.hbs?raw';
 import Block from '../../framework/Block.js';
-import Controllers from '../../controllers';
+import Controllers from '../../actions';
 import {ChatPreviewProps} from '../../utils/types';
 
 export class ChatPreview extends Block {

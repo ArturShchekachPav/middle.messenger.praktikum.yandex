@@ -1,7 +1,7 @@
 import Block from '../../framework/Block';
 import {default as layout} from './ProfileActions.hbs?raw';
 import {ProfileActionButton} from '../index';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ProfileActions extends Block {
 	private controller: Controller;

@@ -1,5 +1,5 @@
 import {AddFileForm, Popup} from '../index';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ChangeAvatarPopup extends Popup {
 	private controller: Controller;

@@ -2,7 +2,7 @@ import Block from '../../framework/Block';
 import Component from '../../framework/Component';
 import {ChatHeader, ChatMessageForm, ChatMessages} from '../index';
 import {MESSAGES_DATA} from '../../utils/constants';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 import {default as layout} from './ChatWindow.hbs?raw';
 
 export class ChatWindow extends Block {

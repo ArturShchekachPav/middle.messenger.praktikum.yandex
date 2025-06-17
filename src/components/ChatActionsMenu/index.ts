@@ -1,5 +1,5 @@
 import {Menu, MenuItem} from '../index';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ChatActionsMenu extends Menu {
 	private controller: Controller;

@@ -2,7 +2,7 @@ import {default as layout} from './ChatHeader.hbs?raw';
 import Block from '../../framework/Block.js';
 import {ChatActionsMenu} from '../index.js';
 import Component from '../../framework/Component.js';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ChatHeader extends Block {
 	private controller: Controller;

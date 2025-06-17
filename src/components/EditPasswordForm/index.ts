@@ -3,7 +3,7 @@ import {default as layout} from './EditPasswordForm.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {EDIT_PASSWORD_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class EditPasswordForm extends Form {
 	private controller: Controller;

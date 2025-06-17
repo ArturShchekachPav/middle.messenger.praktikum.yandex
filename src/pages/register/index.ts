@@ -4,9 +4,9 @@ import '../register/register.scss';
 import {RegisterForm} from '../../components/RegisterForm';
 
 export class RegistrationPage extends Block {
-	constructor({RegisterForm}: { RegisterForm: RegisterForm }) {
+	constructor() {
 		super({
-			RegisterForm,
+			RegisterForm: new RegisterForm(),
 		});
 	}
 

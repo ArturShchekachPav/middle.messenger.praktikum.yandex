@@ -3,7 +3,7 @@ import {default as layout} from './messanger.hbs?raw';
 import Block from '../../framework/Block';
 import {ChatsList, ChatsSearchForm, ChatWindow} from '../../components/index';
 import Component from '../../framework/Component';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class MessangerPage extends Block {
 	private controller: Controller;

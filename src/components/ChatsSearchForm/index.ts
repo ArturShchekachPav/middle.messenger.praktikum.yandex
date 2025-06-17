@@ -1,7 +1,7 @@
 import {default as layout} from './ChatsSearchForm.hbs?raw';
 import Block from '../../framework/Block.js';
 import Component from '../../framework/Component.js';
-import Controllers from '../../controllers';
+import Controllers from '../../actions';
 
 export class ChatsSearchForm extends Block {
 	private controller: Controllers;

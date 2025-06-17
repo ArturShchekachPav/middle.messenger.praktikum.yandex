@@ -1,0 +1,137 @@
+import Api from "./Api";
+import {queryString} from "../utils/utils";
+import {
+	UsersToChatParams,
+	ChatsUsersQueryParams,
+	GetChatsArguments
+} from "../utils/types";
+
+export default class ChatsApi extends Api{
+	constructor() {
+		super('https://ya-praktikum.tech/api/v2/chats');
+	}
+
+	public getChats(chatsQueryParams: GetChatsArguments = {}) {
+		return this.http.get(`${this.baseUrl}${queryString(chatsQueryParams)}`).then(this.checkResponse);
+	}
+
+	public createChat(title: string) {
+		return this.http.post(
+			`${this.baseUrl}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					title
+				})
+			}
+		).then(this.checkResponse);
+	}
+
+	public deleteChat(chatId: number) {
+		return this.http.delete(
+			`${this.baseUrl}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					chatId
+				})
+			}
+		).then(this.checkResponse);
+	}
+
+	public getChatSentFiles(chatId: number) {
+		return this.http.get(`${this.baseUrl}/${chatId}/files`).then(this.checkResponse);
+	}
+
+	public getArchivedChats(chatsQueryParams: GetChatsArguments = {}) {
+		return this.http.get(`${this.baseUrl}/archive${queryString(chatsQueryParams)}`).then(this.checkResponse);
+	}
+
+	public archiveChatById(chatId: number) {
+		return this.http.post(
+			`${this.baseUrl}/archive`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					chatId
+				})
+			}
+		).then(this.checkResponse);
+	}
+
+	public unarchiveChatById(chatId: number) {
+		return this.http.post(
+			`${this.baseUrl}/unarchive`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					chatId
+				})
+			}
+		).then(this.checkResponse);
+	}
+
+	public getCommonChatsWithCurrentChatUser(chatId: number) {
+		return this.http.get(`${this.baseUrl}/${chatId}/common`).then(this.checkResponse);
+	}
+
+	public getChatUsers(chatId: number, chatsUsersQueryParams: ChatsUsersQueryParams = {}) {
+		return this.http.get(`${this.baseUrl}/${chatId}/users${queryString(chatsUsersQueryParams)}`).then(this.checkResponse);
+	}
+
+	public getNewMessagesCount(chatId: number) {
+		return this.http.get(`${this.baseUrl}/new/${chatId}`).then(this.checkResponse);
+	}
+
+	public uploadChatAvatar(formData: FormData) {
+		if(!formData.has('avatar') || !formData.has('chatId')) {
+			return;
+		}
+
+		return this.http.put(
+			`${this.baseUrl}/avatar`,
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+				body: formData
+			}
+		).then(this.checkResponse);
+	}
+
+	public addUsersToChat(params: UsersToChatParams) {
+		return this.http.put(
+			`${this.baseUrl}/users`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(params)
+			}
+		).then(this.checkResponse);
+	}
+
+	public deleteUsersFromChat(params: UsersToChatParams) {
+		return this.http.delete(
+			`${this.baseUrl}/users`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(params)
+			}
+		).then(this.checkResponse);
+	}
+
+	public getChatToken(chatId: number) {
+		return this.http.post(`${this.baseUrl}/token/${chatId}`).then(this.checkResponse);
+	}
+}

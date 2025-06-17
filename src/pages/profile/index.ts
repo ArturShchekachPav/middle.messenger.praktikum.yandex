@@ -3,7 +3,7 @@ import {default as layout} from './profile.hbs?raw';
 import Block from '../../framework/Block';
 import {EditPasswordForm, EditProfileForm, ProfileActions,} from '../../components/index.js';
 import Component from '../../framework/Component';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class ProfilePage extends Block {
 	private controller: Controller;

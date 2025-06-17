@@ -1,5 +1,5 @@
 import {Popup, UserActionForm} from '../index';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class AddUserPopup extends Popup {
 	private controller: Controller;

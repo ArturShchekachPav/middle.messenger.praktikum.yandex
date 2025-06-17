@@ -2,6 +2,9 @@ import Component from '../framework/Component';
 import {ErrorMessage} from '../components';
 import {METHOD} from './constants';
 import Block from '../framework/Block';
+import AuthApi from "../api/AuthApi";
+import ChatsApi from "../api/ChatsApi";
+import UsersApi from "../api/UsersApi";
 
 export type ChatData = {
 	name: string;
@@ -90,7 +93,9 @@ export type ChangeAvatarProps = { avatar: unknown };
 // Дата может быть чем угодно, а также воообще может не быть ее
 export type Options = {
 	method: METHOD;
-	data?: any;
+	body?: any;
+	headers?: Record<string, string>;
+	withCredentials?: boolean;
 };
 
 export type OptionsWithoutMethod = Omit<Options, 'method'>;
@@ -130,10 +135,68 @@ export type BlockPropsWithChildren = {
 	[key: string]: unknown;
 };
 
-type PlainObject<T = any> = {
+export type PlainObject<T = any> = {
     [k in string]: T;
 };
 
-type Indexed<T = any> = {
+export type Indexed<T = any> = {
     [key in string]: T;
+};
+
+export type RouteProps = {
+	rootQuery: string
+};
+
+export type BlockConstructor = new (...args: any[]) => Block;
+
+export type SignInArguments = {
+	login: string;
+	password: string;
+};
+
+export type SignUpArguments = {
+	first_name: string;
+	second_name: string;
+	login: string;
+	email: string;
+	password: string;
+	phone: string;
+};
+
+export type ChangeUserProfileArguments = {
+	first_name: string;
+	second_name: string;
+	display_name: string;
+	login: string;
+	email: string;
+	phone: string;
+};
+
+export type ChangeUserPasswordArguments = {
+	oldPassword: string;
+	newPassword: string;
+};
+
+export type GetChatsArguments = {
+	offset?: number;
+	limit?: number;
+	title?: string;
+};
+
+export type ChatsUsersQueryParams = {
+	offset?: number;
+	limit?: number;
+	name?: string;
+	email?: string;
+};
+
+export type UsersToChatParams = {
+	users: number[];
+	chatId: string;
+};
+
+export type ApiType = {
+	auth: AuthApi;
+	chats: ChatsApi;
+	users: UsersApi;
 };

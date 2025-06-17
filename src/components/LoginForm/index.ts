@@ -3,10 +3,12 @@ import {default as layout} from './LoginForm.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {LOGIN_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../controllers';
+import Controller from '../../actions';
+import Router from "../../router/Router";
 
 export class LoginForm extends Form {
 	private controller: Controller;
+	private router: Router = new Router();
 
 	constructor() {
 		super({
@@ -54,7 +56,7 @@ export class LoginForm extends Form {
 					click: (event: Event) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/sing-up');
+						this.router.go('/sing-up')
 					},
 				},
 			}),

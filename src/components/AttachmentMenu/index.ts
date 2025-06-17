@@ -1,5 +1,5 @@
 import {Menu, MenuItem} from '../index';
-import Controller from '../../controllers';
+import Controller from '../../actions';
 
 export class AttachmentMenu extends Menu {
 	private controller: Controller;

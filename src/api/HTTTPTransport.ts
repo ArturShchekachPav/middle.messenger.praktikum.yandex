@@ -1,5 +1,5 @@
-import {METHOD} from './constants';
-import {HTTPMethod, Options} from './types';
+import {METHOD} from '../utils/constants';
+import {HTTPMethod, Options} from '../utils/types';
 
 export default class HTTPTransport {
 	public get = this.createMethod(METHOD.GET);
@@ -20,7 +20,12 @@ export default class HTTPTransport {
 		url: string,
 		options: Options = {method: METHOD.GET}
 	): Promise<XMLHttpRequest> {
-		const {method, data} = options;
+		const {
+			method,
+			body,
+			headers,
+			withCredentials
+		} = options;
 
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
@@ -34,10 +39,20 @@ export default class HTTPTransport {
 			xhr.onerror = reject;
 			xhr.ontimeout = reject;
 
-			if (method === METHOD.GET || !data) {
+			if(headers) {
+				Object.entries(headers).forEach(([key, value]) => {
+					xhr.setRequestHeader(key, value);
+				})
+			}
+
+			if(withCredentials) {
+				xhr.withCredentials = withCredentials;
+			}
+
+			if (method === METHOD.GET || !body) {
 				xhr.send();
 			} else {
-				xhr.send(data);
+				xhr.send(body);
 			}
 		});
 	}
