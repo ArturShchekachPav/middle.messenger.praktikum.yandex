@@ -7,7 +7,7 @@ import Actions from '../../actions';
 import Router from "../../router/Router";
 
 export class RegisterForm extends Form {
-	private controller: Actions = new Actions();
+	private actions: Actions = new Actions();
 	private router: Router = new Router();
 
 	constructor() {
@@ -69,7 +69,7 @@ export class RegisterForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('register', formData);
+							this.actions.auth.signUp(formData);
 						},
 						() => {
 						}

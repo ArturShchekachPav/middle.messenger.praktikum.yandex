@@ -3,10 +3,12 @@ import {default as layout} from './profile.hbs?raw';
 import Block from '../../framework/Block';
 import {EditPasswordForm, EditProfileForm, ProfileActions,} from '../../components/index.js';
 import Component from '../../framework/Component';
-import Controller from '../../actions';
+import Actions from '../../actions';
+import Router from "../../router/Router";
 
 export class ProfilePage extends Block {
-	private controller: Controller;
+	private actions: Actions = new Actions();
+	private router: Router = new Router;
 
 	constructor({
 								email,
@@ -48,7 +50,7 @@ export class ProfilePage extends Block {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/messenger');
+						this.router.go('/messanger');
 					},
 				},
 			}),
@@ -68,14 +70,12 @@ export class ProfilePage extends Block {
 				}),
 				events: {
 					click: () => {
-						this.controller.emit('openEditAvatarPopup');
+						this.actions.emit('openEditAvatarPopup');
 					},
 				},
 			}),
 			ProfileActions: new ProfileActions(),
 		});
-
-		this.controller = new Controller();
 	}
 
 	render() {

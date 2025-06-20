@@ -1,8 +1,8 @@
 import {Popup, UserActionForm} from '../index';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class AddUserPopup extends Popup {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private addChatForm: UserActionForm;
 
 	constructor() {
@@ -11,7 +11,7 @@ export class AddUserPopup extends Popup {
 			buttonText: 'Добавить',
 			title: 'Добавить пользователя',
 			onSubmit: (formData) => {
-				this.controller.emit('addChat', formData);
+				this.actions.emit('addChat', formData);
 				this.close();
 			},
 		});
@@ -22,8 +22,8 @@ export class AddUserPopup extends Popup {
 		});
 
 		this.addChatForm = addChatForm;
-		this.controller = new Controller();
-		this.controller.on('openAddUserPopup', this.open.bind(this));
+
+		this.actions.on('openAddUserPopup', this.open.bind(this));
 	}
 
 	close() {

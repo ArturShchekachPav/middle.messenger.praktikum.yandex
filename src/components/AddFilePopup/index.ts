@@ -1,8 +1,8 @@
 import {AddFileForm, Popup} from '../index';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class AddFilePopup extends Popup {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private addFileForm: AddFileForm;
 
 	constructor() {
@@ -12,7 +12,7 @@ export class AddFilePopup extends Popup {
 			buttonText: 'Добавить',
 			title: 'Добавить файл',
 			onSubmit: (formData) => {
-				this.controller.emit('sendFile', formData);
+				this.actions.emit('sendFile', formData);
 				this.close();
 			},
 		});
@@ -23,8 +23,7 @@ export class AddFilePopup extends Popup {
 		});
 
 		this.addFileForm = addFileForm;
-		this.controller = new Controller();
-		this.controller.on('openAddFilePopup', this.open.bind(this));
+		this.actions.on('openAddFilePopup', this.open.bind(this));
 	}
 
 	close() {

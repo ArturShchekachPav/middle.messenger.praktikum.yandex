@@ -2,10 +2,10 @@ import {default as layout} from './ChatMessageForm.hbs?raw';
 import {AttachmentMenu} from '../index.js';
 import Component from '../../framework/Component.js';
 import Form from '../../framework/Form.js';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class ChatMessageForm extends Form {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 
 	constructor() {
 		super({
@@ -20,7 +20,7 @@ export class ChatMessageForm extends Form {
 					click: (e: MouseEvent) => {
 						e.stopPropagation();
 
-						this.controller.emit('openAttachmentMenu');
+						this.actions.emit('openAttachmentMenu');
 					},
 				},
 			}),
@@ -54,7 +54,7 @@ export class ChatMessageForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('sendMessage', formData);
+							this.actions.emit('sendMessage', formData);
 							this.reset();
 						},
 						() => {
@@ -64,8 +64,6 @@ export class ChatMessageForm extends Form {
 				},
 			},
 		});
-
-		this.controller = new Controller();
 	}
 
 	render() {

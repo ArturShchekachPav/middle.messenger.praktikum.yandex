@@ -1,8 +1,8 @@
 import {Menu, MenuItem} from '../index';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class AttachmentMenu extends Menu {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 
 	constructor() {
 		super({
@@ -14,7 +14,7 @@ export class AttachmentMenu extends Menu {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openAddMediaPopup');
+							this.actions.emit('openAddMediaPopup');
 						},
 					},
 				}),
@@ -25,7 +25,7 @@ export class AttachmentMenu extends Menu {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openAddFilePopup');
+							this.actions.emit('openAddFilePopup');
 						},
 					},
 				}),
@@ -43,7 +43,6 @@ export class AttachmentMenu extends Menu {
 			addClass: 'chat-window__menu chat-window__menu_form',
 		});
 
-		this.controller = new Controller();
-		this.controller.on('openAttachmentMenu', this.open.bind(this));
+		this.actions.on('openAttachmentMenu', this.open.bind(this));
 	}
 }

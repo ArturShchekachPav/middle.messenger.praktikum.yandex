@@ -1,8 +1,8 @@
 import {Menu, MenuItem} from '../index';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class ChatActionsMenu extends Menu {
-	private controller: Controller;
+	private actions: Actions;
 
 	constructor() {
 		super({
@@ -14,7 +14,7 @@ export class ChatActionsMenu extends Menu {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openAddUserPopup');
+							this.actions.emit('openAddUserPopup');
 						},
 					},
 				}),
@@ -25,7 +25,7 @@ export class ChatActionsMenu extends Menu {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openRemoveUserPopup');
+							this.actions.emit('openRemoveUserPopup');
 						},
 					},
 				}),
@@ -34,7 +34,7 @@ export class ChatActionsMenu extends Menu {
 			addClass: 'chat-window__menu chat-window__menu_header',
 		});
 
-		this.controller = new Controller();
-		this.controller.on('openChatActionsMenu', this.open.bind(this));
+		this.actions = new Controller();
+		this.actions.on('openChatActionsMenu', this.open.bind(this));
 	}
 }

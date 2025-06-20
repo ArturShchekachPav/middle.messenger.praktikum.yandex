@@ -3,11 +3,11 @@ import {default as layout} from './LoginForm.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {LOGIN_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../actions';
+import Actions from '../../actions';
 import Router from "../../router/Router";
 
 export class LoginForm extends Form {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private router: Router = new Router();
 
 	constructor() {
@@ -64,15 +64,13 @@ export class LoginForm extends Form {
 
 		this.validateInput = this.validateInput.bind(this);
 
-		this.controller = new Controller();
-
 		this.setProps({
 			events: {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('login', formData);
+							this.actions.auth.signIn(formData);
 						},
 						() => {
 							this.lists.Fields.forEach((field) => {

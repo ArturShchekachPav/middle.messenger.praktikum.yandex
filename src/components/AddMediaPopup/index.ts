@@ -1,8 +1,8 @@
 import {AddFileForm, Popup} from '../index';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class AddMediaPopup extends Popup {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private addMediaForm: AddFileForm;
 
 	constructor() {
@@ -12,7 +12,7 @@ export class AddMediaPopup extends Popup {
 			buttonText: 'Добавить',
 			title: 'Добавить фото/видео',
 			onSubmit: (formData) => {
-				this.controller.emit('sendMedia', formData);
+				this.actions.emit('sendMedia', formData);
 				this.close();
 			},
 		});
@@ -23,8 +23,8 @@ export class AddMediaPopup extends Popup {
 		});
 
 		this.addMediaForm = addMediaForm;
-		this.controller = new Controller();
-		this.controller.on('openAddMediaPopup', this.open.bind(this));
+
+		this.actions.on('openAddMediaPopup', this.open.bind(this));
 	}
 
 	close() {
