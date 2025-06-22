@@ -2,11 +2,11 @@ import Block from '../../framework/Block';
 import Component from '../../framework/Component';
 import {ChatHeader, ChatMessageForm, ChatMessages} from '../index';
 import {MESSAGES_DATA} from '../../utils/constants';
-import Controller from '../../actions';
-import {default as layout} from './ChatWindow.hbs?raw';
+import Actions from '../../actions';
+import {default as template} from './template.hbs?raw';
 
 export class ChatWindow extends Block {
-	private controller: Controller;
+	private actions: Actions;
 
 	constructor() {
 		super({
@@ -21,11 +21,11 @@ export class ChatWindow extends Block {
 			],
 		});
 
-		this.controller = new Controller();
-		this.controller.on('setCurrentChat', this.setCurrentChat.bind(this));
-		this.controller.on('messageSent', this.handleMessageSend.bind(this));
-		this.controller.on('fileSent', this.handleFileSend.bind(this));
-		this.controller.on('mediaSent', this.handleMediaSend.bind(this));
+		this.actions = new Actions();
+		this.actions.on('setCurrentChat', this.setCurrentChat.bind(this));
+		this.actions.on('messageSent', this.handleMessageSend.bind(this));
+		this.actions.on('fileSent', this.handleFileSend.bind(this));
+		this.actions.on('mediaSent', this.handleMediaSend.bind(this));
 	}
 
 	setCurrentChat({name, avatar}: Record<string, string>) {
@@ -44,7 +44,7 @@ export class ChatWindow extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	handleMessageSend() {

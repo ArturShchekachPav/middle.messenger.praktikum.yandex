@@ -29,7 +29,7 @@ export type AddFileFormProps = {
 	inputName: string;
 	buttonText: string;
 	title: string;
-	onSubmit: (formData: Record<string, unknown>) => void;
+	onSubmit: (formData: Record<string, unknown>, event: SubmitEvent) => void;
 };
 
 export type UserActionFormProps = {
@@ -199,4 +199,61 @@ export type ApiType = {
 	auth: AuthApi;
 	chats: ChatsApi;
 	users: UsersApi;
+};
+
+export type CurrentUserType = {
+	id: number;
+	first_name: string;
+	second_name: string;
+	display_name: string | null;
+	phone: string;
+	login: string;
+	avatar: string | null;
+	email: string
+};
+
+export type ChatType = {
+	id: number;
+	title: string;
+	avatar: string | null;
+	unread_count: number;
+	created_by: number;
+	last_message: {
+		user: {
+			first_name: string;
+			second_name: string;
+			avatar: string;
+			email: string;
+			login: string;
+			phone: string
+		};
+		time: string;
+		content: string;
+	} | null
+};
+
+export type MessageType = {
+	id: string;
+	time: string;
+	user_id: string;
+	content: string;
+	type: string;
+	file?: {
+		id: number;
+		user_id: number;
+		path: string;
+		filename: string;
+		content_type: string;
+		content_size: number;
+		upload_date: string;
+	}
+};
+
+export type CurrentChatType = (ChatType & { messages: MessageType[]}) | null ;
+
+export type StateType = {
+	isLoggedIn: boolean | null,
+	currentUser: CurrentUserType | null,
+	chats: ChatType[],
+	currentChat: CurrentChatType,
 };

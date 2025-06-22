@@ -1,5 +1,5 @@
 import Block from '../../framework/Block';
-import {default as layout} from './MenuItem.hbs?raw';
+import {default as template} from './template.hbs?raw';
 
 export class MenuItem extends Block {
 	constructor({
@@ -19,6 +19,6 @@ export class MenuItem extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

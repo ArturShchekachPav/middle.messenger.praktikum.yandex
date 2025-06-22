@@ -2,7 +2,7 @@ import {Menu, MenuItem} from '../index';
 import Actions from '../../actions';
 
 export class ChatActionsMenu extends Menu {
-	private actions: Actions;
+	private actions: Actions = new Actions();
 
 	constructor() {
 		super({
@@ -34,7 +34,6 @@ export class ChatActionsMenu extends Menu {
 			addClass: 'chat-window__menu chat-window__menu_header',
 		});
 
-		this.actions = new Controller();
 		this.actions.on('openChatActionsMenu', this.open.bind(this));
 	}
 }

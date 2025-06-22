@@ -1,6 +1,6 @@
 import Block from '../../framework/Block';
-import {default as layout} from './login.hbs?raw';
-import '../register/register.scss';
+import {default as template} from './login.hbs?raw';
+import '../RegistrationPage/styles.scss';
 import {LoginForm} from '../../components';
 
 export class LoginPage extends Block {
@@ -11,6 +11,6 @@ export class LoginPage extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

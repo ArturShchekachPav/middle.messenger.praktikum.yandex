@@ -1,4 +1,4 @@
-import {default as layout} from './ChatHeader.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block.js';
 import {ChatActionsMenu} from '../index.js';
 import Component from '../../framework/Component.js';
@@ -29,6 +29,6 @@ export class ChatHeader extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

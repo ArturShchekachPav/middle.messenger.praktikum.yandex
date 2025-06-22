@@ -102,8 +102,7 @@ export default abstract class Block {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
-	protected componentDidMount(): void {
-	}
+	protected componentDidMount(): void {}
 
 	protected componentDidUpdate(
 		oldProps: BlockPropsWithChildren,
@@ -154,9 +153,6 @@ export default abstract class Block {
 
 	private _componentDidMount(): void {
 		this.componentDidMount();
-		Object.values(this.children).forEach((child) => {
-			child.dispatchComponentDidMount();
-		});
 	}
 
 	private _componentDidUpdate(
@@ -240,6 +236,8 @@ export default abstract class Block {
 		this._element = newElement;
 		this._addEvents();
 		this.addAttributes();
+
+		this._componentDidMount();
 	}
 
 	private _makePropsProxy<Type extends Record<string, unknown>>(

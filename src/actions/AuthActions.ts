@@ -1,25 +1,50 @@
 import Action from "./Action";
 import {SignInArguments, SignUpArguments} from "../utils/types";
 import AuthApi from "../api/AuthApi";
+import {matchesStructure} from "../utils/utils";
 
 export default class AuthActions extends Action {
 	private api: AuthApi = new AuthApi();
 
-	public signUp(userData: SignUpArguments) {
-		this.api.signUp(userData)
-			.then(console.log)
-			.catch(console.log)
+	public signUp(userData: Record<string, unknown>) {
+		if(matchesStructure<SignUpArguments>(userData, {
+			first_name: 'string',
+			second_name: 'string',
+			login: 'string',
+			email: 'string',
+			password: 'string',
+			phone: 'string',
+		})) {
+			return this.api.signUp(userData);
+		} else {
+			return Promise.reject();
+		}
 	}
 
-	public signIn(userData: SignInArguments) {
-		this.api.signIn(userData)
-			.then(console.log)
-			.catch(console.log)
+	public signIn(userData: Record<string, unknown>) {
+		if(matchesStructure<SignInArguments>(userData, {
+			login: 'string',
+			password: 'string'
+		})) {
+			return this.api.signIn(userData);
+		} else {
+			return Promise.reject();
+		}
+	}
+
+	public getUserData() {
+		return this.api.getUserData();
 	}
 
 	public logOut() {
 		this.api.logOut()
-			.then(console.log)
+			.then(() => {
+				this.store.set('isLoggedIn', false);
+				this.store.set('currentUser', null);
+				this.store.set('chats', []);
+				this.store.set('currentChat', null);
+				console.log(this.store.getState());
+			})
 			.catch(console.log)
 	}
 }

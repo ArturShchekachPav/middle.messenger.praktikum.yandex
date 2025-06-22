@@ -1,8 +1,8 @@
 import {Popup, UserActionForm} from '../index';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class RemoveUserPopup extends Popup {
-	private controller: Controller;
+	private actions: Actions;
 	private removeChatForm: UserActionForm;
 
 	constructor() {
@@ -11,7 +11,7 @@ export class RemoveUserPopup extends Popup {
 			buttonText: 'Удалить',
 			title: 'Удалить пользователя',
 			onSubmit: (formData) => {
-				this.controller.emit('addChat', formData);
+				this.actions.emit('addChat', formData);
 				this.close();
 			},
 		});
@@ -22,8 +22,8 @@ export class RemoveUserPopup extends Popup {
 		});
 
 		this.removeChatForm = removeChatForm;
-		this.controller = new Controller();
-		this.controller.on('openRemoveUserPopup', this.open.bind(this));
+		this.actions = new Actions();
+		this.actions.on('openRemoveUserPopup', this.open.bind(this));
 	}
 
 	close() {

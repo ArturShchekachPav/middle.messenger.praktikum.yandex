@@ -1,14 +1,20 @@
 import Form from '../../framework/Form';
-import {default as layout} from './EditProfileForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {ErrorMessage, Field} from '../index';
 import Component from '../../framework/Component';
 import {EDIT_PROFILE_FORM_CONFIG} from '../../utils/constants';
-import Controller from '../../actions';
+import Actions from '../../actions';
+import withCurrentUser from "../../HOC/withCurrentUser";
+import {CurrentUserType} from "../../utils/types";
 
-export class EditProfileForm extends Form {
-	private controller: Controller;
+class EditProfileForm extends Form {
+	private actions: Actions = new Actions();
 
-	constructor({defaultValues}: { defaultValues: Record<string, unknown> }) {
+	constructor({currentUser}: { currentUser: CurrentUserType }) {
+		if(!currentUser) {
+			return;
+		}
+
 		super({
 			Fields: EDIT_PROFILE_FORM_CONFIG.map(
 				({block, label, inputAttributs}) => {
@@ -26,7 +32,7 @@ export class EditProfileForm extends Form {
 							tag: 'input',
 							attr: {
 								...inputAttributs,
-								value: defaultValues[inputAttributs.name],
+								value: currentUser[inputAttributs.name],
 							},
 							events: {
 								blur: (event: InputEvent) => {
@@ -59,7 +65,12 @@ export class EditProfileForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('editUserData', formData);
+							this.actions.users.changeUserProfile(formData)
+								.then(() => {
+									this.read();
+									this.actions.emit('showProfileActions');
+								})
+								.catch(console.log);
 						},
 						() => {
 							this.lists.Fields.forEach((field) => {
@@ -87,15 +98,14 @@ export class EditProfileForm extends Form {
 
 		this.read();
 
-		this.controller = new Controller();
-		this.controller.on('enableEditProfileForm', this.edit);
-		this.controller.on('disableEditProfileForm', this.read);
-		this.controller.on('hideEditProfileForm', this.hide);
-		this.controller.on('showEditProfileForm', this.show);
+		this.actions.on('enableEditProfileForm', this.edit);
+		this.actions.on('disableEditProfileForm', this.read);
+		this.actions.on('hideEditProfileForm', this.hide);
+		this.actions.on('showEditProfileForm', this.show);
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	edit() {
@@ -132,3 +142,5 @@ export class EditProfileForm extends Form {
 		this.children.Button.hide();
 	}
 }
+
+export default withCurrentUser(EditProfileForm);

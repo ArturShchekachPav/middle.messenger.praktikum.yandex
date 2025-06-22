@@ -1,5 +1,5 @@
-import './Message.scss';
-import {default as layout} from './Message.hbs?raw';
+import './styles.scss';
+import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block.js';
 
 export class Message extends Block {
@@ -15,6 +15,6 @@ export class Message extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

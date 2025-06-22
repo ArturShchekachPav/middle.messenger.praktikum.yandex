@@ -1,5 +1,5 @@
 import Api from "./Api";
-import {SignInArguments, SignUpArguments} from "../utils/types";
+import {CurrentUserType, SignInArguments, SignUpArguments} from "../utils/types";
 
 export default class AuthApi extends Api{
 	constructor() {
@@ -16,7 +16,9 @@ export default class AuthApi extends Api{
 				withCredentials: true,
 				body: JSON.stringify(userData)
 			}
-		).then(this.checkResponse);
+		)
+			.then(this.checkResponse)
+			.then(this.parseResponse);
 	}
 
 	public signIn(userData: SignInArguments) {
@@ -33,10 +35,13 @@ export default class AuthApi extends Api{
 	}
 
 	public getUserData() {
-		return this.http.get(`${this.baseUrl}/user`, {withCredentials: true}).then(this.checkResponse);
+		return this.http.get(`${this.baseUrl}/user`, {withCredentials: true})
+			.then(this.checkResponse)
+			.then(this.parseResponse<CurrentUserType>);
 	}
 
 	public logOut() {
-		return this.http.post(`${this.baseUrl}/logout`, {withCredentials: true}).then(this.checkResponse);
+		return this.http.post(`${this.baseUrl}/logout`, {withCredentials: true})
+			.then(this.checkResponse);
 	}
 }

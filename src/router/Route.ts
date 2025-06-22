@@ -1,19 +1,21 @@
 import {render} from "../utils/utils";
 import Block from "../framework/Block";
-import {BlockConstructor, RouteProps} from "../utils/types";
+import {BlockConstructor, BlockPropsWithChildren, RouteProps} from "../utils/types";
 
 export default class Route {
-	private pathname: string;
+	protected pathname: string;
 	private blockClass: BlockConstructor;
 	private block: Block | null;
 	private props: RouteProps;
+	private blockProps: BlockPropsWithChildren;
 
 
-	constructor(pathname: string, view: BlockConstructor, props: RouteProps) {
+	constructor(pathname: string, view: BlockConstructor, props: RouteProps, blockProps: BlockPropsWithChildren) {
 		this.pathname = pathname;
 		this.blockClass = view;
 		this.block = null;
 		this.props = props;
+		this.blockProps = blockProps;
 	}
 
 	public navigate(pathname: string) : void {
@@ -24,9 +26,7 @@ export default class Route {
 	}
 
 	public leave() : void {
-		if (this.block) {
-			this.block.hide();
-		}
+		this.block = null;
 	}
 
 	public match(pathname: string) {
@@ -34,12 +34,7 @@ export default class Route {
 	}
 
 	public render() : void {
-		if (!this.block) {
-			this.block = new this.blockClass();
-			render(this.props.rootQuery, this.block);
-			return;
-		}
-
-		this.block.show();
+		this.block = new this.blockClass(this.blockProps);
+		render(this.props.rootQuery, this.block);
 	}
 }

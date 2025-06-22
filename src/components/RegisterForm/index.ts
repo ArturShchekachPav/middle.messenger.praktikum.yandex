@@ -1,12 +1,12 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './RegisterForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {REGISTER_FORM_CONFIG} from '../../utils/constants.js';
 import Actions from '../../actions';
 import Router from "../../router/Router";
 
-export class RegisterForm extends Form {
+export default class RegisterForm extends Form {
 	private actions: Actions = new Actions();
 	private router: Router = new Router();
 
@@ -69,7 +69,11 @@ export class RegisterForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.actions.auth.signUp(formData);
+								this.actions.auth.signUp(formData)
+									.then(() => {
+										return this.actions.getUserAndChats();
+									})
+									.catch(console.log);
 						},
 						() => {
 						}
@@ -80,20 +84,22 @@ export class RegisterForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {
-		this.validateConfirmPassword(input);
+		this.setValidationsMessages(input);
 
 		super.validateInput(input, errorMessage);
 	}
 
-	validateConfirmPassword(input: HTMLInputElement) {
+	setValidationsMessages(input: HTMLInputElement) {
 		const {value, name} = input;
 		const {repeat_password, password} = this.getFormData();
 
-		if (name === 'repeat_password' && value && repeat_password !== password) {
+		if(input.validity.patternMismatch && input.title) {
+			input.setCustomValidity(input.title);
+		} else if (name === 'repeat_password' && value && repeat_password !== password) {
 			input.setCustomValidity('Пароли не совпадают');
 		} else if (name === 'repeat_password') {
 			input.setCustomValidity('');

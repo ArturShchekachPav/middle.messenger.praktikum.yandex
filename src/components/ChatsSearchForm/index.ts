@@ -1,10 +1,10 @@
-import {default as layout} from './ChatsSearchForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block.js';
 import Component from '../../framework/Component.js';
-import Controllers from '../../actions';
+import Actionss from '../../actions';
 
 export class ChatsSearchForm extends Block {
-	private controller: Controllers;
+	private actions: Actionss;
 
 	constructor() {
 		super({
@@ -12,7 +12,7 @@ export class ChatsSearchForm extends Block {
 				tag: 'input',
 				events: {
 					input: (event: InputEvent) => {
-						this.controller.emit(
+						this.actions.emit(
 							'searchChats',
 							(event.target as HTMLInputElement).value.toLowerCase()
 						);
@@ -27,10 +27,10 @@ export class ChatsSearchForm extends Block {
 			}),
 		});
 
-		this.controller = new Controllers();
+		this.actions = new Actionss();
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

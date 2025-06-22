@@ -11,8 +11,12 @@ export class ChangeAvatarPopup extends Popup {
 			inputName: 'avatar',
 			buttonText: 'Заменить',
 			title: 'Изменить аватар',
-			onSubmit: (formData) => {
-				this.actions.emit('changeAvatar', formData);
+			onSubmit: (_, event: SubmitEvent) => {
+				const formData = new FormData(event.target as HTMLFormElement);
+				console.log(event);
+				console.log(event.target);
+				console.log(formData);
+				this.actions.users.changeUserAvatar(formData)
 				this.close();
 			},
 		});

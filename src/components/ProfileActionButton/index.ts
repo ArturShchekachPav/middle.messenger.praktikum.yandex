@@ -1,5 +1,5 @@
 import Block from '../../framework/Block';
-import {default as layout} from './ProfileActionButton.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {ProfileActionButtonProps} from '../../utils/types';
 
 export class ProfileActionButton extends Block {
@@ -14,6 +14,6 @@ export class ProfileActionButton extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

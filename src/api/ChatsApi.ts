@@ -12,7 +12,14 @@ export default class ChatsApi extends Api{
 	}
 
 	public getChats(chatsQueryParams: GetChatsArguments = {}) {
-		return this.http.get(`${this.baseUrl}${queryString(chatsQueryParams)}`).then(this.checkResponse);
+		return this.http.get(
+			`${this.baseUrl}${queryString(chatsQueryParams)}`,
+			{
+				withCredentials: true
+			}
+		)
+			.then(this.checkResponse)
+			.then(this.parseResponse);
 	}
 
 	public createChat(title: string) {
@@ -22,11 +29,14 @@ export default class ChatsApi extends Api{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify({
 					title
 				})
 			}
-		).then(this.checkResponse);
+		)
+			.then(this.checkResponse)
+			.then(this.parseResponse<{id: number}>);
 	}
 
 	public deleteChat(chatId: number) {

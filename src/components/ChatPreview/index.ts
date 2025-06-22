@@ -1,36 +1,24 @@
-import './ChatPreview.scss';
-import {default as layout} from './ChatPreview.hbs?raw';
+import './styles.scss';
+import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block.js';
-import Controllers from '../../actions';
-import {ChatPreviewProps} from '../../utils/types';
+import {ChatType} from '../../utils/types';
 
 export class ChatPreview extends Block {
-	private controller: Controllers;
 
-	constructor({
-								unreadMessagesCount,
-								lastMessage,
-								lastTime,
-								name,
-								avatar,
-							}: ChatPreviewProps) {
+	constructor(chat: ChatType) {
 		super({
-			unreadMessagesCount,
-			lastMessage,
-			lastTime,
-			name,
-			avatar,
+			unreadMessagesCount: chat.unread_count,
+			lastMessage: chat.last_message ? chat.last_message.content : 'Нет сообщений',
+			lastTime: chat.last_message ? chat.last_message.time : '',
+			name: chat.title,
+			avatar: chat.avatar ? `https://ya-praktikum.tech/api/v2/resources${chat.avatar}` : 'default-avatar.png',
 			events: {
-				click: () => {
-					this.controller.emit('setCurrentChat', {name, avatar});
-				},
+				click: () => {},
 			},
 		});
-
-		this.controller = new Controllers();
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

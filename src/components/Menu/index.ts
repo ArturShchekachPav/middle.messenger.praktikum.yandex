@@ -1,5 +1,5 @@
 import Block from '../../framework/Block.js';
-import {default as layout} from './Menu.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {MenuProps} from '../../utils/types';
 
 export class Menu extends Block {
@@ -15,7 +15,7 @@ export class Menu extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	open() {

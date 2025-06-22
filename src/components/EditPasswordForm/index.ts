@@ -1,12 +1,12 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './EditPasswordForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {EDIT_PASSWORD_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../actions';
+import Actions from '../../actions';
 
 export class EditPasswordForm extends Form {
-	private controller: Controller;
+	private actions: Actions;
 
 	constructor() {
 		super({
@@ -56,7 +56,15 @@ export class EditPasswordForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('changePassword', formData);
+							this.actions.users.changeUserPassword(formData)
+								.then(() => {
+									this.actions.emit('showEditProfileForm');
+									this.actions.emit('showProfileActions');
+									this.actions.emit('hideEditPasswordForm');
+
+									this.reset();
+								})
+								.catch(console.log);
 						},
 						() => {
 						}
@@ -67,13 +75,13 @@ export class EditPasswordForm extends Form {
 
 		this.hide();
 
-		this.controller = new Controller();
-		this.controller.on('showEditPasswordForm', this.show);
-		this.controller.on('hideEditPasswordForm', this.hide);
+		this.actions = new Actions();
+		this.actions.on('showEditPasswordForm', this.show);
+		this.actions.on('hideEditPasswordForm', this.hide);
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {

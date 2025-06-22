@@ -1,4 +1,4 @@
-import {Indexed} from '../utils/types';
+import {StateType} from '../utils/types';
 import EventBus from "../framework/EventBus";
 import { set } from "../utils/utils";
 
@@ -8,10 +8,11 @@ export enum StoreEvents {
 
 export default class Store extends EventBus {
 	private static instance: Store;
-	private state: Indexed = {
+	private state: StateType = {
+		isLoggedIn: null,
 		currentUser: null,
 		chats: [],
-		currentCat: null
+		currentChat: null
 	};
 
 	constructor() {

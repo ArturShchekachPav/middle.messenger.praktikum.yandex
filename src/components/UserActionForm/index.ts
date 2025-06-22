@@ -1,5 +1,5 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './UserActionForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {ErrorMessage, Field} from '../index.js';
 import Component from '../../framework/Component.js';
 import {USER_ACTION_FORM_CONFIG} from '../../utils/constants.js';
@@ -76,7 +76,7 @@ export class UserActionForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	reset() {

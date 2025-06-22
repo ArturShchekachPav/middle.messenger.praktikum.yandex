@@ -1,5 +1,5 @@
 import Block from '../../framework/Block';
-import {default as layout} from './ErrorMessage.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {ErrorMessageProps} from '../../utils/types';
 
 export class ErrorMessage extends Block {
@@ -18,7 +18,7 @@ export class ErrorMessage extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	reset() {

@@ -1,5 +1,5 @@
 import Block from '../../framework/Block.js';
-import {default as layout} from './Popup.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {PopupProps} from '../../utils/types';
 
 export class Popup extends Block {
@@ -20,7 +20,7 @@ export class Popup extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	open() {

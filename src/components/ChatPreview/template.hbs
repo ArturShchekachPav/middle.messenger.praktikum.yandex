@@ -7,7 +7,9 @@
 		</div>
 		<div class="chat-preview__info">
 			<p class="chat-preview__last-message">{{lastMessage}}</p>
-			<p class="chat-preview__unread">{{unreadMessagesCount}}</p>
+			{{#if unreadMessagesCount}}
+				<p class="chat-preview__unread">{{unreadMessagesCount}}</p>
+			{{/if}}
 		</div>
 	</div>
 </li>

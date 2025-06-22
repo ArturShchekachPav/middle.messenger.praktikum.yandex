@@ -1,4 +1,4 @@
-import {default as layout} from './ChatMessageForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import {AttachmentMenu} from '../index.js';
 import Component from '../../framework/Component.js';
 import Form from '../../framework/Form.js';
@@ -67,7 +67,7 @@ export class ChatMessageForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	validateInput() {

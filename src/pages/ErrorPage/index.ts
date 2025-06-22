@@ -1,11 +1,11 @@
-import './ErrorPage.scss';
-import {default as layout} from './ErrorPage.hbs?raw';
-import Block from '../../framework/Block.js';
+import './styles.scss';
+import {default as template} from './template.hbs?raw';
+import Block from '../../framework/Block';
 import Component from '../../framework/Component';
-import Controller from '../../actions';
+import Router from "../../router/Router";
 
 export class ErrorPage extends Block {
-	private controller: Controller;
+	private router: Router = new Router();
 
 	constructor({error, message}: { error: string; message: string }) {
 		super({
@@ -15,23 +15,21 @@ export class ErrorPage extends Block {
 				tag: 'a',
 				attr: {
 					class: 'error-page__link',
-					href: '/messenger',
+					href: '/messanger',
 				},
 				events: {
 					click: (event: MouseEvent): void => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/messenger');
+						this.router.go('/messanger');
 					},
 				},
 				content: 'Назад к чатам',
 			}),
 		});
-
-		this.controller = new Controller();
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

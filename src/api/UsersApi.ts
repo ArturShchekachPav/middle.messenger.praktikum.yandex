@@ -1,5 +1,5 @@
 import Api from "./Api";
-import {ChangeUserPasswordArguments, ChangeUserProfileArguments} from "../utils/types";
+import {ChangeUserPasswordArguments, ChangeUserProfileArguments, CurrentUserType} from "../utils/types";
 
 export default class UsersApi extends Api{
 	constructor() {
@@ -13,25 +13,28 @@ export default class UsersApi extends Api{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify(profileData)
 			}
-		).then(this.checkResponse);
+		)
+			.then(this.checkResponse)
+			.then(this.parseResponse<CurrentUserType>);
 	}
 
 	public changeUserAvatar(formData: FormData) {
 		if(!formData.has('avatar')) {
-			return;
+			return Promise.reject();
 		}
 
 		return this.http.put(
 			`${this.baseUrl}/profile/avatar`,
 			{
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
+				withCredentials: true,
 				body: formData
 			}
-		).then(this.checkResponse);
+		)
+			.then(this.checkResponse)
+			.then(this.parseResponse<CurrentUserType>);
 	}
 
 	public changeUserPassword(passwordData: ChangeUserPasswordArguments) {
@@ -41,6 +44,7 @@ export default class UsersApi extends Api{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify(passwordData)
 			}
 		).then(this.checkResponse);

@@ -1,9 +1,10 @@
 import Route from "./Route";
-import {BlockConstructor} from "../utils/types";
+import {BlockConstructor, BlockPropsWithChildren} from "../utils/types";
 
 export default class Router {
 	private static instance: Router;
 	private routes: Route[] = [];
+	private defaultRoute: Route | null = null;
 	private history: History = window.history;
 	private currentRoute: Route | null = null;
 	readonly rootQuery: string = '#app';
@@ -16,9 +17,15 @@ export default class Router {
 		Router.instance = this;
 	}
 
-	public use(pathname: string, block: BlockConstructor) : this {
-		const route = new Route(pathname, block, {rootQuery: this.rootQuery});
+	public use(pathname: string, block: BlockConstructor, blockProps: BlockPropsWithChildren = {}, RouteClass: typeof Route = Route) : this {
+		const route = new RouteClass(pathname, block, {rootQuery: this.rootQuery}, blockProps);
 		this.routes.push(route);
+
+		return this;
+	}
+
+	public setDefaultRoute(pathname: string, block: BlockConstructor, blockProps: BlockPropsWithChildren = {}) {
+		this.defaultRoute = new Route(pathname, block, {rootQuery: this.rootQuery}, blockProps);
 
 		return this;
 	}
@@ -32,7 +39,7 @@ export default class Router {
 	}
 
 	private onRoute(pathname: string) : void {
-		const route = this.getRoute(pathname);
+		let route = this.getRoute(pathname);
 
 		if (!route) {
 			return;
@@ -60,6 +67,14 @@ export default class Router {
 	}
 
 	private getRoute(pathname: string) : Route | undefined {
-		return this.routes.find(route => route.match(pathname));
+		const route = this.routes.find(route => route.match(pathname));
+
+		if(route) {
+			return route;
+		} else if(this.defaultRoute) {
+			return this.defaultRoute;
+		} else {
+			return;
+		}
 	}
 }

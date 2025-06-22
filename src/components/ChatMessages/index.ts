@@ -1,4 +1,4 @@
-import {default as layout} from './ChatMessages.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block.js';
 import {Message} from '../index.js';
 import Component from '../../framework/Component.js';
@@ -41,6 +41,6 @@ export class ChatMessages extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

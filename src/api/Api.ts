@@ -10,9 +10,13 @@ export default abstract class Api {
 
 	protected checkResponse(xhr: XMLHttpRequest) {
 		if (xhr.status === 200) {
-			return xhr.response.json();
+			return xhr;
 		}
 
 		return Promise.reject(`Ошибка: ${xhr.status}`);
+	}
+
+	protected parseResponse<T>(xhr: XMLHttpRequest): T {
+		return JSON.parse(xhr.response) as T;
 	}
 }

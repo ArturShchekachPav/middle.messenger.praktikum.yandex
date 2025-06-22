@@ -1,4 +1,4 @@
-import {default as layout} from './AddFileForm.hbs?raw';
+import {default as template} from './template.hbs?raw';
 import Component from '../../framework/Component.js';
 import Form from '../../framework/Form.js';
 import {ErrorMessage} from '../ErrorMessage';
@@ -29,6 +29,7 @@ export class AddFileForm extends Form {
 					name: inputName,
 					type: 'file',
 					required: true,
+					accept: 'image/*'
 				},
 				events: {
 					change: (event: InputEvent) => {
@@ -80,11 +81,15 @@ export class AddFileForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	reset() {
 		this.errorMessage.reset();
+
+		this.children.FieldLabel.setProps({
+			content: 'Выбрать файл на компьютере',
+		});
 
 		super.reset();
 	}
