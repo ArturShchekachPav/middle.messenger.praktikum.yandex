@@ -46,7 +46,7 @@ export default abstract class Block {
 		});
 	}
 
-	public setProps = (nextProps: BlockPropsWithChildren): void => {
+	public setProps(nextProps: BlockPropsWithChildren): void {
 		if (!nextProps) {
 			return;
 		}

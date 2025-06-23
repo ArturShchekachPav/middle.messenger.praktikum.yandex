@@ -3,12 +3,15 @@ import AuthActions from "./AuthActions";
 import UsersActions from "./UsersActions";
 import ChatsActions from "./ChatsActions";
 import Store from "../store/Store";
+import { ChatType } from "../utils/types";
+import ResourcesActions from "./ResourcesActions";
 
 export default class Actions extends EventBus {
 	private static instance: Actions;
 	public auth: AuthActions = new AuthActions();
 	public users: UsersActions = new UsersActions();
 	public chats: ChatsActions = new ChatsActions();
+	public resources: ResourcesActions = new ResourcesActions();
 	private store: Store = new Store();
 
 	constructor() {
@@ -40,6 +43,11 @@ export default class Actions extends EventBus {
 			.catch(() => {
 				this.store.set('isLoggedIn', false);
 			})
+	}
+
+	public setCurrentChat(chat: ChatType) {
+		return this.chats.getChatToken(chat.id)
+			.then(({token}) => this.store.set('currentChat', { ...chat, token, messanges: [] }));
 	}
 }
 

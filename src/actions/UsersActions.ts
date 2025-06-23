@@ -44,4 +44,8 @@ export default class UsersActions extends Action {
 
 		return Promise.reject();
 	}
+
+	public searchForUserByLogin(login: string) {
+		return this.api.searchForUserByLogin(login);
+	}
 }

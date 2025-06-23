@@ -192,7 +192,7 @@ export type ChatsUsersQueryParams = {
 
 export type UsersToChatParams = {
 	users: number[];
-	chatId: string;
+	chatId: number;
 };
 
 export type ApiType = {
@@ -229,7 +229,7 @@ export type ChatType = {
 		};
 		time: string;
 		content: string;
-	} | null
+	}
 };
 
 export type MessageType = {
@@ -249,11 +249,11 @@ export type MessageType = {
 	}
 };
 
-export type CurrentChatType = (ChatType & { messages: MessageType[]}) | null ;
+export type CurrentChatType = (ChatType & { messages: MessageType[], token: number});
 
 export type StateType = {
 	isLoggedIn: boolean | null,
 	currentUser: CurrentUserType | null,
 	chats: ChatType[],
-	currentChat: CurrentChatType,
+	currentChat: CurrentChatType | null,
 };

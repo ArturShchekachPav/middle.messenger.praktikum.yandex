@@ -142,6 +142,8 @@ export default class ChatsApi extends Api{
 	}
 
 	public getChatToken(chatId: number) {
-		return this.http.post(`${this.baseUrl}/token/${chatId}`).then(this.checkResponse);
+		return this.http.post(`${this.baseUrl}/token/${chatId}`)
+			.then(this.checkResponse)
+			.then(this.parseResponse<{token: number}>);
 	}
 }

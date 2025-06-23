@@ -61,6 +61,8 @@ export default class UsersApi extends Api{
 					login
 				})
 			}
-		).then(this.checkResponse);
+		)
+			.then(this.checkResponse)
+			.then(this.parseResponse<CurrentUserType[]>);
 	}
 }

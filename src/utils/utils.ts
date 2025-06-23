@@ -194,4 +194,3 @@ export function matchesStructure<T extends Record<string, unknown>>(
 
 	return true;
 }
-

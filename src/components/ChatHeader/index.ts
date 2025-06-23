@@ -3,14 +3,15 @@ import Block from '../../framework/Block.js';
 import {ChatActionsMenu} from '../index.js';
 import Component from '../../framework/Component.js';
 import Actions from '../../actions';
+import withCurrentChatData from '../../HOC/withCurrentChatData';
 
-export class ChatHeader extends Block {
+class ChatHeader extends Block {
 	private actions: Actions = new Actions();
 
-	constructor({name, avatarSrc}: { name: string; avatarSrc: string }) {
+	constructor({name, avatar}: { name: string; avatar: string | null }) {
 		super({
 			name,
-			avatarSrc,
+			avatar: avatar ? '' : '',
 			Menu: new ChatActionsMenu(),
 			OptionsButton: new Component({
 				tag: 'button',
@@ -32,3 +33,5 @@ export class ChatHeader extends Block {
 		return template;
 	}
 }
+
+export default withCurrentChatData(ChatHeader);

@@ -1,18 +1,27 @@
 import {Popup, UserActionForm} from '../index';
 import Actions from '../../actions';
+import withCurrentChatData from '../../HOC/withCurrentChatData';
+import { CurrentChatType } from '../../utils/types';
 
-export class RemoveUserPopup extends Popup {
+class RemoveUserPopup extends Popup {
 	private actions: Actions;
 	private removeChatForm: UserActionForm;
 
-	constructor() {
+	constructor({currentChat}: {currentChat: CurrentChatType}) {
 		const removeChatForm = new UserActionForm({
 			name: 'remove-user',
 			buttonText: 'Удалить',
 			title: 'Удалить пользователя',
-			onSubmit: (formData) => {
-				this.actions.emit('addChat', formData);
-				this.close();
+			onSubmit: ({login}) => {
+				if(typeof login === 'string') {
+					this.actions.users.searchForUserByLogin(login)
+					.then(users => this.actions.chats.deleteUsersFromChat({
+						users: users.map(user => user.id),
+						chatId: currentChat.id
+					}))
+					.then(() => this.close())
+					.catch(console.log);
+				}
 			},
 		});
 
@@ -32,3 +41,5 @@ export class RemoveUserPopup extends Popup {
 		super.close();
 	}
 }
+
+export default withCurrentChatData(RemoveUserPopup);

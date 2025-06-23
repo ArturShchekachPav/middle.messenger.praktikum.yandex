@@ -29,6 +29,15 @@ export class ChatActionsMenu extends Menu {
 						},
 					},
 				}),
+				new MenuItem({
+					text: 'Удалить чат',
+					icon: '/delete-icon.svg',
+					events: {
+						click: () => {
+							this.close();
+						},
+					},
+				}),
 			],
 			isOpen: false,
 			addClass: 'chat-window__menu chat-window__menu_header',

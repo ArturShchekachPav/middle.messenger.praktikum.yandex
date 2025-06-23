@@ -1,13 +1,10 @@
 import Block from '../../framework/Block';
 import Component from '../../framework/Component';
 import {ChatHeader, ChatMessageForm, ChatMessages} from '../index';
-import {MESSAGES_DATA} from '../../utils/constants';
-import Actions from '../../actions';
 import {default as template} from './template.hbs?raw';
+import withIsHaveCurrentChat from '../../HOC/withIsHaveCurrentChat';
 
-export class ChatWindow extends Block {
-	private actions: Actions;
-
+class ChatWindow extends Block {
 	constructor() {
 		super({
 			content: [
@@ -20,39 +17,21 @@ export class ChatWindow extends Block {
 				}),
 			],
 		});
-
-		this.actions = new Actions();
-		this.actions.on('setCurrentChat', this.setCurrentChat.bind(this));
-		this.actions.on('messageSent', this.handleMessageSend.bind(this));
-		this.actions.on('fileSent', this.handleFileSend.bind(this));
-		this.actions.on('mediaSent', this.handleMediaSend.bind(this));
 	}
 
-	setCurrentChat({name, avatar}: Record<string, string>) {
-		this.setProps({
+	setProps() {
+		super.setProps({
 			content: [
-				new ChatHeader({
-					name,
-					avatarSrc: avatar,
-				}),
-				new ChatMessages({
-					dataMessages: MESSAGES_DATA,
-				}),
+				new ChatHeader(),
+				new ChatMessages(),
 				new ChatMessageForm(),
-			],
+			]
 		});
-	}
+	};
 
 	render() {
 		return template;
 	}
-
-	handleMessageSend() {
-	}
-
-	handleFileSend() {
-	}
-
-	handleMediaSend() {
-	}
 }
+
+export default withIsHaveCurrentChat(ChatWindow);

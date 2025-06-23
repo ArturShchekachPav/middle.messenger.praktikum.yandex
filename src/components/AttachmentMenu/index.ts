@@ -18,26 +18,6 @@ export class AttachmentMenu extends Menu {
 						},
 					},
 				}),
-				new MenuItem({
-					text: 'Файл',
-					icon: '/file-menu-icon.svg',
-					events: {
-						click: () => {
-							this.close();
-
-							this.actions.emit('openAddFilePopup');
-						},
-					},
-				}),
-				new MenuItem({
-					text: 'Локация',
-					icon: '/location-icon.svg',
-					events: {
-						click: () => {
-							this.close();
-						},
-					},
-				}),
 			],
 			isOpen: false,
 			addClass: 'chat-window__menu chat-window__menu_form',

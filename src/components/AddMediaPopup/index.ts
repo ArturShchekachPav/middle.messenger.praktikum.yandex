@@ -8,12 +8,17 @@ export class AddMediaPopup extends Popup {
 	constructor() {
 		const addMediaForm = new AddFileForm({
 			formName: 'add-media-file',
-			inputName: 'file',
+			inputName: 'resource',
 			buttonText: 'Добавить',
 			title: 'Добавить фото/видео',
-			onSubmit: (formData) => {
-				this.actions.emit('sendMedia', formData);
-				this.close();
+			onSubmit: (_, event: SubmitEvent) => {
+				if(event.target instanceof HTMLFormElement) {
+					const formData = new FormData(event.target);
+
+					this.actions.resources.uploadResource(formData)
+					.then(() => this.close())
+					.catch(console.log);
+				}
 			},
 		});
 

@@ -1,18 +1,27 @@
 import {Popup, UserActionForm} from '../index';
 import Actions from '../../actions';
+import { CurrentChatType } from '../../utils/types';
+import withCurrentChatData from '../../HOC/withCurrentChatData';
 
-export class AddUserPopup extends Popup {
+class AddUserPopup extends Popup {
 	private actions: Actions = new Actions();
 	private addChatForm: UserActionForm;
 
-	constructor() {
+	constructor({currentChat}: {currentChat: CurrentChatType}) {
 		const addChatForm = new UserActionForm({
 			name: 'add-user',
 			buttonText: 'Добавить',
 			title: 'Добавить пользователя',
-			onSubmit: (formData) => {
-				this.actions.emit('addChat', formData);
-				this.close();
+			onSubmit: ({login}) => {
+				if(typeof login === 'string') {
+					this.actions.users.searchForUserByLogin(login)
+					.then(users => this.actions.chats.addUsersToChat({
+						users: users.map(user => user.id),
+						chatId: currentChat.id
+					}))
+					.then(() => this.close())
+					.catch(console.log);
+				}
 			},
 		});
 
@@ -32,3 +41,5 @@ export class AddUserPopup extends Popup {
 		super.close();
 	}
 }
+
+export default withCurrentChatData(AddUserPopup);
