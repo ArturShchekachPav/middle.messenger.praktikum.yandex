@@ -1,4 +1,5 @@
 import Store from "../store/Store";
+import {MessagesSocketProps, MessageType} from "../utils/types";
 
 export default class MessagesWebSocket {
     private webSocket: WebSocket;
@@ -9,11 +10,7 @@ export default class MessagesWebSocket {
         userId,
         chatId,
         token
-    }: {
-        userId: number;
-        chatId: number;
-        token: number;
-    }) {
+    }: MessagesSocketProps) {
         this.webSocket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
 
         this.setEventListeners();
@@ -44,35 +41,57 @@ export default class MessagesWebSocket {
     }
 
     private disablePing() {
-        clearInterval(this.ping);
+				if(this.ping) {
+					clearInterval(this.ping);
+				}
     }
 
+		public getOldMessages(count: number) {
+			this.webSocket.send(
+				JSON.stringify({
+					content: String(count),
+					type: 'get old',
+				})
+			);
+		}
+
+	 private prepareMessages(messages: MessageType[]) {
+			const currentUserId = this.store.getState().currentUser?.id;
+
+			if(!currentUserId) {
+				return messages;
+			}
+
+			return messages.map(message => ({...message, isOwn: String(currentUserId) === message.user_id }));
+	 }
+
     private setEventListeners() {
-        this.webSocket.addEventListener('open', this.enablePing);
+        this.webSocket.addEventListener('open', () => {
+					this.enablePing();
+					this.getOldMessages(0);
+				});
 
         this.webSocket.addEventListener('close', () => {
-            this.disablePing;
+            this.disablePing();
             this.store.set('currentChat.messages', []);
         });
 
         this.webSocket.addEventListener('message', event => {
-            const messages = JSON.parse(event.data);
-            const stateMessages = this.store.getState().currentChat?.messages;
+            let messages = JSON.parse(event.data);
 
-            if(Array.isArray(stateMessages)) {
-                this.store.set('currentChat.messages', [...stateMessages, ...messages]);
-            }
+						if(!messages || messages.type === 'pong') {
+							return;
+						}
+
+						messages = Array.isArray(messages) ? messages : [messages];
+
+						let stateMessages = this.store.getState().currentChat?.messages;
+
+						stateMessages = stateMessages ? stateMessages : [];
+
+						this.store.set('currentChat.messages', this.prepareMessages([...stateMessages, ...messages]));
         });
 
         this.webSocket.addEventListener('error', console.log);
-    }
-
-    public getOldMessages(count: number) {
-        this.webSocket.send(
-            JSON.stringify({
-                content: String(count),
-                type: 'get old',
-            })
-        );
     }
 }

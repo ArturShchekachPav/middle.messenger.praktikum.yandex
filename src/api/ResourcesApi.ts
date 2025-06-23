@@ -1,4 +1,5 @@
 import Api from "./Api";
+import {ResourceDataType} from "../utils/types";
 
 export default class ResourcesApi extends Api{
     constructor() {
@@ -6,11 +7,11 @@ export default class ResourcesApi extends Api{
     }
 
     public uploadResource(formData: FormData) {
-        if(!formData.has('avatar')) {
-			return Promise.reject();
-		}
+        if(!formData.has('resource')) {
+					return Promise.reject();
+				}
 
-        return this.http.put(
+        return this.http.post(
             `${this.baseUrl}`,
             {
                 withCredentials: true,
@@ -18,6 +19,6 @@ export default class ResourcesApi extends Api{
             }
         )
             .then(this.checkResponse)
-            .then(this.parseResponse);
+            .then(this.parseResponse<ResourceDataType>);
     }
 }

@@ -36,4 +36,9 @@ export default class ChatsActions extends Action {
 	public getChatToken(chatId: number) {
 		return this.api.getChatToken(chatId);
 	}
+
+	public searchChats(search: string) {
+		return this.getChats({title: search})
+			.then(chats => this.store.set('chats', chats));
+	}
 }

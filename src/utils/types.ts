@@ -232,13 +232,14 @@ export type ChatType = {
 	}
 };
 
-export type MessageType = {
+export type FileMessageType = {
 	id: string;
 	time: string;
 	user_id: string;
 	content: string;
-	type: string;
-	file?: {
+	type: 'file';
+	isOwn: boolean;
+	file: {
 		id: number;
 		user_id: number;
 		path: string;
@@ -249,6 +250,17 @@ export type MessageType = {
 	}
 };
 
+export type TextMessageType = {
+	id: string;
+	time: string;
+	user_id: string;
+	content: string;
+	type: 'message';
+	isOwn: boolean;
+};
+
+export type MessageType = FileMessageType | TextMessageType;
+
 export type CurrentChatType = (ChatType & { messages: MessageType[], token: number});
 
 export type StateType = {
@@ -257,3 +269,21 @@ export type StateType = {
 	chats: ChatType[],
 	currentChat: CurrentChatType | null,
 };
+
+export type MessagesSocketProps = {
+	userId: number;
+	chatId: number;
+	token: number;
+};
+
+export type ResourceDataType = {
+	id: number;
+	user_id: number;
+	path: string;
+	filename: string;
+	content_type: string;
+	content_size: number;
+	upload_date: string;
+}
+
+

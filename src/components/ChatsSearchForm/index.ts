@@ -1,9 +1,9 @@
 import {default as template} from './template.hbs?raw';
-import Block from '../../framework/Block.js';
+import Form from '../../framework/Form';
 import Component from '../../framework/Component.js';
 import Actions from '../../actions';
 
-export class ChatsSearchForm extends Block {
+export class ChatsSearchForm extends Form {
 	private actions: Actions = new Actions();
 
 	constructor() {
@@ -12,7 +12,10 @@ export class ChatsSearchForm extends Block {
 				tag: 'input',
 				events: {
 					input: (event: InputEvent) => {
-						this.actions.chats.getChats
+						if(event.target instanceof HTMLInputElement) {
+							this.actions.chats.searchChats(event.target.value)
+								.catch(console.log);
+						}
 					},
 				},
 				attr: {
@@ -23,6 +26,9 @@ export class ChatsSearchForm extends Block {
 				},
 			}),
 		});
+
+		this.reset = this.reset.bind(this);
+		this.actions.on('clearSearchForm', this.reset);
 	}
 
 	render() {

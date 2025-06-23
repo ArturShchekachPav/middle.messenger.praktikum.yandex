@@ -8,7 +8,7 @@ export class AttachmentMenu extends Menu {
 		super({
 			content: [
 				new MenuItem({
-					text: 'Фото или Видео',
+					text: 'Добавить изображение',
 					icon: '/media-icon.svg',
 					events: {
 						click: () => {

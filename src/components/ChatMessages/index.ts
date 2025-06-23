@@ -1,13 +1,24 @@
 import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block.js';
-import {Message} from '../index.js';
+import {TextMessage} from '../index.js';
 import {MessageType} from '../../utils/types';
 import withMessages from '../../HOC/withMessages';
+import {FileMessage} from "../FileMessage";
 
 class ChatMessages extends Block {
 	constructor({messages}: {messages: MessageType[]}) {
 		super({
-			messages: messages.map(message => new Message({message: message})),
+			messagesCount: messages.length,
+			messages: messages.map(message => {
+				switch (message.type) {
+					case 'file': {
+						return new FileMessage({message});
+					}
+					case 'message': {
+						return new TextMessage({message});
+					}
+				}
+			}),
 		});
 	}
 

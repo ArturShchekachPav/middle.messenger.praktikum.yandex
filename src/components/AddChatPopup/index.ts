@@ -10,6 +10,7 @@ export class AddChatPopup extends Popup {
 			(formData) => {
 				this.actions.chats.addChat(formData)
 					.then(() => {
+						this.actions.emit('clearSearchForm');
 						this.close();
 					})
 					.catch(console.log);

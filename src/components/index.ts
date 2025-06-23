@@ -1,4 +1,4 @@
-export {Message} from './Message';
+export {TextMessage} from './TextMessage';
 export {ChatPreview} from './ChatPreview';
 export {Field} from './Field';
 export {Popup} from './Popup';

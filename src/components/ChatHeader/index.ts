@@ -11,7 +11,7 @@ class ChatHeader extends Block {
 	constructor({name, avatar}: { name: string; avatar: string | null }) {
 		super({
 			name,
-			avatar: avatar ? '' : '',
+			avatar: avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : 'default-avatar.png',
 			Menu: new ChatActionsMenu(),
 			OptionsButton: new Component({
 				tag: 'button',

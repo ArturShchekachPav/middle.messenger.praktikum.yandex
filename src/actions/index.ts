@@ -5,6 +5,7 @@ import ChatsActions from "./ChatsActions";
 import Store from "../store/Store";
 import { ChatType } from "../utils/types";
 import ResourcesActions from "./ResourcesActions";
+import MessagesActions from "./MessagesActions";
 
 export default class Actions extends EventBus {
 	private static instance: Actions;
@@ -12,6 +13,7 @@ export default class Actions extends EventBus {
 	public users: UsersActions = new UsersActions();
 	public chats: ChatsActions = new ChatsActions();
 	public resources: ResourcesActions = new ResourcesActions();
+	public messages: MessagesActions = new MessagesActions();
 	private store: Store = new Store();
 
 	constructor() {
@@ -47,7 +49,7 @@ export default class Actions extends EventBus {
 
 	public setCurrentChat(chat: ChatType) {
 		return this.chats.getChatToken(chat.id)
-			.then(({token}) => this.store.set('currentChat', { ...chat, token, messanges: [] }));
+			.then(({token}) => this.store.set('currentChat', { ...chat, token, messages: [] }));
 	}
 }
 

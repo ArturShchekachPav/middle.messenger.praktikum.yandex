@@ -53,9 +53,11 @@ export class ChatMessageForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						(formData) => {
-							this.actions.emit('sendMessage', formData);
-							this.reset();
+						({message}) => {
+							if(typeof message === 'string') {
+								this.actions.messages.sendMessage(message);
+								this.reset();
+							}
 						},
 						() => {
 							this.validateInput();

@@ -13,6 +13,12 @@ class ChatsList extends Block {
 		});
 	}
 
+	setProps({chats}: {chats: ChatType[]}) {
+		super.setProps({
+			Chats: chats.map(chat => new ChatPreview(chat))
+		})
+	}
+
 	render() {
 		return template;
 	}

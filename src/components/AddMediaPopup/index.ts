@@ -1,5 +1,6 @@
 import {AddFileForm, Popup} from '../index';
 import Actions from '../../actions';
+import {ResourceDataType} from "../../utils/types";
 
 export class AddMediaPopup extends Popup {
 	private actions: Actions = new Actions();
@@ -10,14 +11,17 @@ export class AddMediaPopup extends Popup {
 			formName: 'add-media-file',
 			inputName: 'resource',
 			buttonText: 'Добавить',
-			title: 'Добавить фото/видео',
+			title: 'Добавить изображение',
 			onSubmit: (_, event: SubmitEvent) => {
 				if(event.target instanceof HTMLFormElement) {
 					const formData = new FormData(event.target);
 
 					this.actions.resources.uploadResource(formData)
-					.then(() => this.close())
-					.catch(console.log);
+						.then((resource: ResourceDataType) => {
+							this.actions.messages.sendFile(resource.id);
+							this.close();
+						})
+						.catch(console.log);
 				}
 			},
 		});
