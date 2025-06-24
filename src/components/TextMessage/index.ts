@@ -5,7 +5,10 @@ import {TextMessageType} from '../../utils/types';
 
 export class TextMessage extends Block {
 	constructor({message}: {message: TextMessageType}) {
-		super(message);
+		super({
+			...message,
+			status: message.isOwn ? 'send' : ''
+		});
 	}
 
 	render() {

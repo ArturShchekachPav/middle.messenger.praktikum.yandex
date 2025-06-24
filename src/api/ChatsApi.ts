@@ -46,6 +46,7 @@ export default class ChatsApi extends Api{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify({
 					chatId
 				})

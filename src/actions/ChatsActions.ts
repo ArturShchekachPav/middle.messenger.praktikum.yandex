@@ -21,8 +21,10 @@ export default class ChatsActions extends Action {
 
 	public deleteChat(chatId: number) {
 		return this.api.deleteChat(chatId)
-			.then(() => this.getChats())
-			.then(chats => this.store.set('chats', chats));
+			.then(() => {
+				this.store.set('chats', this.store.getState().chats.filter(chat => chat.id !== chatId));
+				this.store.set('currentChat', null);
+			});
 	}
 
 	public addUsersToChat(params: UsersToChatParams) {

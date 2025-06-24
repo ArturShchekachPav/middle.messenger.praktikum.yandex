@@ -1,5 +1,10 @@
-<p class="{{addictedClass}} message message_content_text message_source_{{source}}">
+<p class="message message_content_text message_source_{{#if isOwn}}outgoing{{else}}incoming{{/if}}">
 		{{{content}}}
-		<span class="message__data {{#if
-			status}} message__data_status_{{status}} {{/if}} message__data_type_text-{{source}}">{{time}}</span>
+		<span
+			class="
+				message__data
+				{{#if status}} message__data_status_{{status}} {{/if}}
+				message__data_type_text-{{#if isOwn}}outgoing{{else}}incoming{{/if}}
+			"
+		>{{stringTime}}</span>
 </p>

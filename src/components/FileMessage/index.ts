@@ -4,7 +4,11 @@ import { FileMessageType } from '../../utils/types';
 
 export class FileMessage extends Block {
 	constructor({message}: {message: FileMessageType}) {
-		super(message);
+		super({
+			...message,
+			status: message.isOwn ? 'send' : ''
+
+		});
 	}
 
 	render() {

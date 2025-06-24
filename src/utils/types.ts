@@ -1,5 +1,5 @@
 import Component from '../framework/Component';
-import {ErrorMessage} from '../components';
+import {ErrorMessage, UsersList} from '../components';
 import {METHOD} from './constants';
 import Block from '../framework/Block';
 import AuthApi from "../api/AuthApi";
@@ -35,8 +35,9 @@ export type AddFileFormProps = {
 export type UserActionFormProps = {
 	name: string;
 	title: string;
-	buttonText: string;
 	onSubmit: (formData: Record<string, unknown>) => void;
+	onInput: (value: string) => void;
+	Users: UsersList
 };
 
 export type FieldProps = {
@@ -212,6 +213,15 @@ export type CurrentUserType = {
 	email: string
 };
 
+export type MessageAuthor = {
+	first_name: string;
+	second_name: string;
+	avatar: string;
+	email: string;
+	login: string;
+	phone: string
+};
+
 export type ChatType = {
 	id: number;
 	title: string;
@@ -219,14 +229,7 @@ export type ChatType = {
 	unread_count: number;
 	created_by: number;
 	last_message: {
-		user: {
-			first_name: string;
-			second_name: string;
-			avatar: string;
-			email: string;
-			login: string;
-			phone: string
-		};
+		user: MessageAuthor;
 		time: string;
 		content: string;
 	}
@@ -235,10 +238,11 @@ export type ChatType = {
 export type FileMessageType = {
 	id: string;
 	time: string;
-	user_id: string;
+	user_id: number;
 	content: string;
 	type: 'file';
 	isOwn: boolean;
+	stringTime: string;
 	file: {
 		id: number;
 		user_id: number;
@@ -253,13 +257,19 @@ export type FileMessageType = {
 export type TextMessageType = {
 	id: string;
 	time: string;
-	user_id: string;
+	user_id: number;
 	content: string;
 	type: 'message';
 	isOwn: boolean;
+	stringTime: string;
 };
 
 export type MessageType = FileMessageType | TextMessageType;
+
+export type DateMessagesType = {
+	type: 'date',
+	content: string
+};
 
 export type CurrentChatType = (ChatType & { messages: MessageType[], token: number});
 

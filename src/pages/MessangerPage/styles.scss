@@ -254,26 +254,7 @@
 .chat {
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
-
-	&__block {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		max-width: 45%;
-
-		&_source {
-			&_incoming {
-				margin-right: auto;
-				align-items: flex-start;
-			}
-
-			&_outgoing {
-				align-items: flex-end;
-				margin-left: auto;
-			}
-		}
-	}
+	gap: 12px;
 
 	&__message {
 		margin: 0;
@@ -287,6 +268,7 @@
 		text-align: center;
 		color: var(--secondary-color);
 		margin: 0;
+		margin-bottom: 12px;
 	}
 }
 

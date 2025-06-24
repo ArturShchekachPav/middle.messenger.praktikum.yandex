@@ -1,5 +1,6 @@
-import {Indexed, PlainObject} from './types';
+import {DateMessagesType, Indexed, MessageType, PlainObject} from './types';
 import Block from "../framework/Block";
+import Actions from "../actions";
 
 export function isPlainObject(value: unknown): value is PlainObject {
 	return typeof value === 'object'
@@ -193,4 +194,122 @@ export function matchesStructure<T extends Record<string, unknown>>(
 	}
 
 	return true;
+}
+
+export function getTimeString(date: Date) {
+	return `${date.getHours()}:${date.getMinutes()}`
+}
+
+function getStartOfWeek(date: Date): Date {
+	const d: Date = new Date(date);
+	const day: number = d.getDay();
+	const diff: number = d.getDate() - day + (day === 0 ? -6 : 1); // Понедельник как начало недели
+	return new Date(d.setDate(diff));
+}
+
+export function getRussianWeekday(date: Date): string {
+	const days: string[] = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+	return days[date.getDay()];
+}
+
+export function formatDayMonth(date: Date): string {
+	const months: string[] = [
+		'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня',
+		'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'
+	];
+	return `${date.getDate()} ${months[date.getMonth()]}`;
+}
+
+export function formatFullDate(date: Date): string {
+	const day: string = date.getDate().toString().padStart(2, '0');
+	const month: string = (date.getMonth() + 1).toString().padStart(2, '0');
+	const year: number = date.getFullYear();
+
+	return `${day}.${month}.${year}`;
+}
+
+export function formatDate(date: Date, withTime: boolean = false): string {
+	const now: Date = new Date();
+	const today: Date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	const inputDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+	const diffDays: number = Math.floor((today.getTime() - inputDate.getTime()) / (1000 * 60 * 60 * 24));
+
+	if (diffDays === 0) {
+		return withTime ? getTimeString(date) : "Сегодня";
+	}
+
+	if (diffDays === 1) {
+		return "Вчера";
+	}
+
+	if (diffDays < 7 && inputDate >= getStartOfWeek(now)) {
+		return getRussianWeekday(date);
+	}
+
+	if (inputDate.getFullYear() === now.getFullYear()) {
+		return formatDayMonth(date);
+	}
+
+	return formatFullDate(date);
+}
+
+export function addDatesInMessages(messages: MessageType[]): Array<MessageType | DateMessagesType> {
+	let currentDate: string | null = null;
+
+	return messages.reduce((messages: Array<MessageType | DateMessagesType>, message: MessageType): Array<MessageType | DateMessagesType> => {
+		const date: string = formatDate(new Date(message.time));
+
+		if(currentDate === date) {
+			return [message, ...messages];
+		}
+
+		currentDate = date;
+
+		return [
+			message,
+			{
+				type: "date",
+				content: date,
+			},
+			...messages,
+		];
+	}, []).reverse();
+}
+
+export function throttle<T extends unknown[]>(callee: (...args: T) => void, timeout: number) {
+	let timer: null | number = null;
+
+	return function perform(...args: T) {
+		if (timer) return;
+
+		timer = setTimeout(() => {
+			callee(...args);
+
+			if (timer) {
+				clearTimeout(timer);
+				timer = null;
+			}
+		}, timeout);
+	};
+}
+
+export function checkPosition(event: Event) {
+	const chatElement = event.target;
+
+	if (!(chatElement instanceof HTMLElement)) {
+		return;
+	}
+
+	const scrollTop = chatElement.scrollTop;
+
+	if (scrollTop === 0) {
+		const actions = new Actions();
+
+		const messagesCount = actions.getAppState().currentChat?.messages.length;
+
+		if (messagesCount && messagesCount >= 20) {
+			actions.messages.getOldMessages(messagesCount);
+		}
+	}
 }

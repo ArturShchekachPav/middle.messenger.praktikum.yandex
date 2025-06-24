@@ -6,7 +6,7 @@ import {USER_ACTION_FORM_CONFIG} from '../../utils/constants.js';
 import {UserActionFormProps} from '../../utils/types';
 
 export class UserActionForm extends Form {
-	constructor({name, title, buttonText, onSubmit}: UserActionFormProps) {
+	constructor({name, title, onSubmit, onInput, Users}: UserActionFormProps) {
 		super({
 			name,
 			title,
@@ -28,6 +28,16 @@ export class UserActionForm extends Form {
 								...inputAttributs,
 							},
 							events: {
+								input: (event: InputEvent) => {
+									const input = event.target;
+
+									if(!(input instanceof HTMLInputElement)) {
+										return;
+									}
+
+									onInput(input.value);
+
+								},
 								blur: (event: InputEvent) => {
 									const input = event.target as HTMLInputElement;
 
@@ -38,14 +48,7 @@ export class UserActionForm extends Form {
 					});
 				}
 			),
-			Button: new Component({
-				tag: 'button',
-				attr: {
-					type: 'submit',
-					class: 'button file-form__button',
-				},
-				content: buttonText,
-			}),
+			Users
 		});
 
 		this.setProps({

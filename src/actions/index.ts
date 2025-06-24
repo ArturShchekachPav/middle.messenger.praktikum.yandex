@@ -51,5 +51,9 @@ export default class Actions extends EventBus {
 		return this.chats.getChatToken(chat.id)
 			.then(({token}) => this.store.set('currentChat', { ...chat, token, messages: [] }));
 	}
+
+	public getAppState() {
+		return this.store.getState();
+	}
 }
 

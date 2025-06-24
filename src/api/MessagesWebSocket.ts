@@ -1,5 +1,6 @@
 import Store from "../store/Store";
 import {MessagesSocketProps, MessageType} from "../utils/types";
+import {getTimeString} from "../utils/utils";
 
 export default class MessagesWebSocket {
     private webSocket: WebSocket;
@@ -62,7 +63,22 @@ export default class MessagesWebSocket {
 				return messages;
 			}
 
-			return messages.map(message => ({...message, isOwn: String(currentUserId) === message.user_id }));
+
+			return messages.map(message => {
+				const date = new Date(message.time);
+
+				return {
+				...message,
+						isOwn: currentUserId === message.user_id,
+						stringTime: getTimeString(date)
+				}
+			});
+	 }
+
+	 private sortMessages(messages: MessageType[]) {
+		 return messages.sort((a, b) => {
+			 return Date.parse(a.time) - Date.parse(b.time);
+		 });
 	 }
 
     private setEventListeners() {
@@ -73,7 +89,6 @@ export default class MessagesWebSocket {
 
         this.webSocket.addEventListener('close', () => {
             this.disablePing();
-            this.store.set('currentChat.messages', []);
         });
 
         this.webSocket.addEventListener('message', event => {
@@ -83,13 +98,13 @@ export default class MessagesWebSocket {
 							return;
 						}
 
-						messages = Array.isArray(messages) ? messages : [messages];
+						messages = this.prepareMessages(Array.isArray(messages) ? messages : [messages]);
 
 						let stateMessages = this.store.getState().currentChat?.messages;
 
 						stateMessages = stateMessages ? stateMessages : [];
 
-						this.store.set('currentChat.messages', this.prepareMessages([...stateMessages, ...messages]));
+						this.store.set('currentChat.messages', this.sortMessages([...stateMessages, ...messages]));
         });
 
         this.webSocket.addEventListener('error', console.log);

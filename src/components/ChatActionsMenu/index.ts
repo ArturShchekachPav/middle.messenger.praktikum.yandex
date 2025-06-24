@@ -1,7 +1,8 @@
 import {Menu, MenuItem} from '../index';
 import Actions from '../../actions';
+import withCurrentChatId from "../../HOC/withCurrentChatId";
 
-export class ChatActionsMenu extends Menu {
+class ChatActionsMenu extends Menu {
 	private actions: Actions = new Actions();
 
 	constructor() {
@@ -34,6 +35,12 @@ export class ChatActionsMenu extends Menu {
 					icon: '/delete-icon.svg',
 					events: {
 						click: () => {
+							const chatId = this.actions.getAppState().currentChat?.id;
+
+							if(chatId) {
+								this.actions.chats.deleteChat(chatId);
+							}
+
 							this.close();
 						},
 					},
@@ -46,3 +53,5 @@ export class ChatActionsMenu extends Menu {
 		this.actions.on('openChatActionsMenu', this.open.bind(this));
 	}
 }
+
+export default withCurrentChatId(ChatActionsMenu);

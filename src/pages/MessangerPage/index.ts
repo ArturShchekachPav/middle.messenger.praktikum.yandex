@@ -1,5 +1,5 @@
-import './messanger.scss';
-import {default as template} from './messanger.hbs?raw';
+import './styles.scss';
+import {default as template} from './template.hbs?raw';
 import Block from '../../framework/Block';
 import {
 	AddChatPopup,

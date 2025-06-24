@@ -8,6 +8,9 @@ import {MessagesSocketProps} from "../../utils/types";
 
 class ChatWindow extends Block {
 	private actions: Actions = new Actions();
+	private chatHeader = new ChatHeader();
+	private chatMessages = new ChatMessages();
+	private chatMessageForm = new ChatMessageForm();
 
 	constructor() {
 		super({
@@ -29,10 +32,22 @@ class ChatWindow extends Block {
 
 			super.setProps({
 				content: [
-					new ChatHeader(),
-					new ChatMessages(),
-					new ChatMessageForm(),
+					this.chatHeader,
+					this.chatMessages,
+					this.chatMessageForm
 				]
+			});
+		} else {
+			super.setProps({
+				content: [
+					new Component({
+						tag: 'p',
+						attr: {
+							class: 'chat-window__default-message',
+						},
+						content: 'Выберите чат чтобы отправить сообщение',
+					}),
+				],
 			});
 		}
 	};

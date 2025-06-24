@@ -1,5 +1,4 @@
-<div class="{{addictedClass}} message message_content_image">
-	<img width="auto" height="auto" src="{{src}}" alt="media-message">
-	<span class="message__data message__data_type_image-{{source}} {{#if
-		status}} message__data_status_{{status}} {{/if}}">{{time}}</span>
+<div class="message message_content_image message_content_image-{{#if isOwn}}outgoing{{else}}incoming{{/if}}">
+	<img width="auto" height="auto" src="https://ya-praktikum.tech/api/v2/resources{{file.path}}" alt="media-message">
+	<span class="message__data message__data_type_image-{{#if isOwn}}outgoing{{else}}incoming{{/if}} {{#if status}}message__data_status_{{status}}{{/if}}">{{stringTime}}</span>
 </div>

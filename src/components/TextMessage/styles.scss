@@ -2,6 +2,11 @@
 	position: relative;
 	display: flex;
 	box-sizing: border-box;
+	margin: 0;
+
+	+ .chat__date {
+		margin-top: 12px;
+	}
 
 	&_content {
 		&_text {
@@ -12,12 +17,27 @@
 			color: var(--primary-color);
 			padding: 11px;
 			width: fit-content;
+			max-width: 45%;
 		}
 
 		&_image {
-			border: 1px solid var(--border-color);
-			border-radius: 12px;
-			overflow: hidden;
+			max-width: 45%;
+
+			&-outgoing {
+				align-self: end;
+			}
+
+			&-incoming {
+
+			}
+
+			img {
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				overflow: hidden;
+				max-height: 250px;
+				box-sizing: border-box;
+			}
 		}
 	}
 
@@ -35,6 +55,7 @@
 		&_outgoing {
 			background-color: var(--select-color);
 			border-radius: 12px 12px 0;
+			align-self: end;
 
 			&::after {
 				content: '';
