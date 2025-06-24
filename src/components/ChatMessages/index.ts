@@ -22,6 +22,22 @@ class ChatMessages extends Block {
 		});
 	}
 
+	setProps({messages}: {messages: MessageType[]}) {
+		super.setProps({
+			messagesCount: messages.length,
+			messages: messages.map(message => {
+				switch (message.type) {
+					case 'file': {
+						return new FileMessage({message});
+					}
+					case 'message': {
+						return new TextMessage({message});
+					}
+				}
+			}),
+		});
+	}
+
 	render() {
 		return template;
 	}
