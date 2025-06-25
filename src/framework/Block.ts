@@ -1,7 +1,12 @@
 import EventBus from './EventBus';
 import Handlebars from 'handlebars';
-import {v4 as makeUUID} from 'uuid';
-import {BlockChildren, BlockList, BlockPropsWithChildren, BlockSimpleProps,} from '../utils/types';
+import { v4 as makeUUID } from 'uuid';
+import {
+	BlockChildren,
+	BlockList,
+	BlockPropsWithChildren,
+	BlockSimpleProps,
+} from '../utils/types';
 
 export default abstract class Block {
 	static EVENTS = {
@@ -18,11 +23,11 @@ export default abstract class Block {
 
 	constructor(propsWithChildren: BlockPropsWithChildren = {}) {
 		const eventBus = new EventBus();
-		const {props, children, lists} =
+		const { props, children, lists } =
 			this._getChildrenPropsAndProps(propsWithChildren);
-		this.props = this._makePropsProxy<BlockSimpleProps>({...props});
-		this.children = this._makePropsProxy<BlockChildren>({...children});
-		this.lists = this._makePropsProxy<BlockList>({...lists});
+		this.props = this._makePropsProxy<BlockSimpleProps>({ ...props });
+		this.children = this._makePropsProxy<BlockChildren>({ ...children });
+		this.lists = this._makePropsProxy<BlockList>({ ...lists });
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
 		eventBus.emit(Block.EVENTS.INIT);
@@ -46,12 +51,12 @@ export default abstract class Block {
 		});
 	}
 
-	public setProps = (nextProps: BlockPropsWithChildren): void => {
+	public setProps(nextProps: BlockPropsWithChildren): void {
 		if (!nextProps) {
 			return;
 		}
 
-		const {props, children, lists} =
+		const { props, children, lists } =
 			this._getChildrenPropsAndProps(nextProps);
 
 		if (Object.entries(props).length) {
@@ -65,7 +70,7 @@ export default abstract class Block {
 		if (Object.entries(lists).length) {
 			Object.assign(this.lists, lists);
 		}
-	};
+	}
 
 	public getContent(): HTMLElement {
 		if (!this._element) {
@@ -102,8 +107,7 @@ export default abstract class Block {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
-	protected componentDidMount(): void {
-	}
+	protected componentDidMount(): void {}
 
 	protected componentDidUpdate(
 		oldProps: BlockPropsWithChildren,
@@ -114,7 +118,7 @@ export default abstract class Block {
 	}
 
 	protected addAttributes(): void {
-		const {attr = {}} = this.props;
+		const { attr = {} } = this.props;
 
 		Object.entries(attr).forEach(([key, value]) => {
 			if (this._element) {
@@ -128,7 +132,7 @@ export default abstract class Block {
 	}
 
 	private _addEvents(): void {
-		const {events = {}} = this.props;
+		const { events = {} } = this.props;
 		Object.keys(events).forEach((eventName) => {
 			if (this._element) {
 				this._element.addEventListener(eventName, events[eventName]);
@@ -137,7 +141,7 @@ export default abstract class Block {
 	}
 
 	private _removeEvents(): void {
-		const {events = {}} = this.props;
+		const { events = {} } = this.props;
 		Object.keys(events).forEach((eventName) => {
 			if (this._element) {
 				this._element.removeEventListener(eventName, events[eventName]);
@@ -154,9 +158,6 @@ export default abstract class Block {
 
 	private _componentDidMount(): void {
 		this.componentDidMount();
-		Object.values(this.children).forEach((child) => {
-			child.dispatchComponentDidMount();
-		});
 	}
 
 	private _componentDidUpdate(
@@ -189,12 +190,12 @@ export default abstract class Block {
 			}
 		});
 
-		return {children, props, lists};
+		return { children, props, lists };
 	}
 
 	private _render(): void {
 		console.log('Render');
-		const propsAndStubs = {...this.props};
+		const propsAndStubs = { ...this.props };
 		const tmpId = makeUUID();
 		Object.entries(this.children).forEach(([key, child]) => {
 			propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
@@ -240,6 +241,8 @@ export default abstract class Block {
 		this._element = newElement;
 		this._addEvents();
 		this.addAttributes();
+
+		this._componentDidMount();
 	}
 
 	private _makePropsProxy<Type extends Record<string, unknown>>(
@@ -253,7 +256,7 @@ export default abstract class Block {
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
 			set(target: Record<string, unknown>, prop: string, value: unknown) {
-				const oldTarget = {...target};
+				const oldTarget = { ...target };
 				target[prop] = value;
 				self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
 				return true;

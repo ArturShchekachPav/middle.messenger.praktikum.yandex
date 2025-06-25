@@ -1,19 +1,64 @@
-import {Popup, UserActionForm} from '../index';
-import Controller from '../../controllers';
+import { Popup, UserActionForm, UsersList } from '../index';
+import Actions from '../../actions';
+import { CurrentUserType } from '../../utils/types';
+import { USER_ADD_FORM_CONFIG } from '../../utils/constants';
 
 export class AddUserPopup extends Popup {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private addChatForm: UserActionForm;
 
 	constructor() {
+		const users = new UsersList({ users: [], onClick: () => {} });
+
 		const addChatForm = new UserActionForm({
 			name: 'add-user',
-			buttonText: 'Добавить',
 			title: 'Добавить пользователя',
-			onSubmit: (formData) => {
-				this.controller.emit('addChat', formData);
-				this.close();
+			onSubmit: ({ login }) => {
+				if (typeof login === 'string') {
+					this.actions.users
+						.searchForUserByLogin(login)
+						.then((usersData: CurrentUserType[]) =>
+							users.setProps({
+								users: usersData,
+								onClick: (user: CurrentUserType) => {
+									const chatId = this.actions.getAppState().currentChat?.id;
+
+									if (chatId) {
+										this.actions.chats
+											.addUsersToChat({ chatId, users: [user.id] })
+											.then(() => {
+												this.close();
+											})
+											.catch(console.log);
+									}
+								},
+							})
+						);
+				}
 			},
+			onInput: (login: string) => {
+				this.actions.users
+					.searchForUserByLogin(login)
+					.then((usersData: CurrentUserType[]) =>
+						users.setProps({
+							users: usersData,
+							onClick: (user: CurrentUserType) => {
+								const chatId = this.actions.getAppState().currentChat?.id;
+
+								if (chatId) {
+									this.actions.chats
+										.addUsersToChat({ chatId, users: [user.id] })
+										.then(() => {
+											this.close();
+										})
+										.catch(console.log);
+								}
+							},
+						})
+					);
+			},
+			Users: users,
+			fieldsConfig: USER_ADD_FORM_CONFIG,
 		});
 
 		super({
@@ -22,8 +67,7 @@ export class AddUserPopup extends Popup {
 		});
 
 		this.addChatForm = addChatForm;
-		this.controller = new Controller();
-		this.controller.on('openAddUserPopup', this.open.bind(this));
+		this.actions.on('openAddUserPopup', this.open.bind(this));
 	}
 
 	close() {

@@ -1,36 +1,44 @@
-import './ChatPreview.scss';
-import {default as layout} from './ChatPreview.hbs?raw';
+import './styles.scss';
+import { default as template } from './template.hbs?raw';
 import Block from '../../framework/Block.js';
-import Controllers from '../../controllers';
-import {ChatPreviewProps} from '../../utils/types';
+import { ChatType } from '../../utils/types';
+import Actions from '../../actions';
+import { formatDate } from '../../utils/utils';
 
 export class ChatPreview extends Block {
-	private controller: Controllers;
+	private actions: Actions = new Actions();
 
-	constructor({
-								unreadMessagesCount,
-								lastMessage,
-								lastTime,
-								name,
-								avatar,
-							}: ChatPreviewProps) {
+	constructor(chat: ChatType) {
+		const state = new Actions().getAppState().currentUser;
+
+		if (!state) {
+			return;
+		}
+
 		super({
-			unreadMessagesCount,
-			lastMessage,
-			lastTime,
-			name,
-			avatar,
+			unreadMessagesCount: chat.unread_count,
+			lastMessageAuthor: chat.last_message
+				? chat.last_message.user.first_name
+				: null,
+			lastMessage: chat.last_message
+				? chat.last_message.content
+				: 'Нет сообщений',
+			lastTime: chat.last_message
+				? formatDate(new Date(chat.last_message.time), true)
+				: '',
+			name: chat.title,
+			avatar: chat.avatar
+				? `https://ya-praktikum.tech/api/v2/resources${chat.avatar}`
+				: 'default-avatar.png',
 			events: {
 				click: () => {
-					this.controller.emit('setCurrentChat', {name, avatar});
+					this.actions.setCurrentChat(chat).catch(console.log);
 				},
 			},
 		});
-
-		this.controller = new Controllers();
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

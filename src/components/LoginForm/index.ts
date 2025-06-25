@@ -1,16 +1,27 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './LoginForm.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
-import {LOGIN_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../controllers';
+import { LOGIN_FORM_CONFIG } from '../../utils/constants.js';
+import Actions from '../../actions';
+import Router from '../../router/Router';
+
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
+});
 
 export class LoginForm extends Form {
-	private controller: Controller;
+	private actions: Actions = new Actions();
+	private router: Router = new Router();
 
 	constructor() {
 		super({
-			Fields: LOGIN_FORM_CONFIG.map(({block, label, inputAttributs}) => {
+			Fields: LOGIN_FORM_CONFIG.map(({ block, label, inputAttributs }) => {
 				const errorMessage = new ErrorMessage({
 					text: '',
 					isHide: true,
@@ -28,6 +39,8 @@ export class LoginForm extends Form {
 						},
 						events: {
 							blur: (event: InputEvent) => {
+								formErrorMessage.reset();
+
 								const input = event.target as HTMLInputElement;
 								this.validateInput(input, errorMessage);
 							},
@@ -54,15 +67,14 @@ export class LoginForm extends Form {
 					click: (event: Event) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/sing-up');
+						this.router.go('/sing-up');
 					},
 				},
 			}),
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.validateInput = this.validateInput.bind(this);
-
-		this.controller = new Controller();
 
 		this.setProps({
 			events: {
@@ -70,7 +82,16 @@ export class LoginForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('login', formData);
+							this.actions.auth
+								.signIn(formData)
+								.then(() => {
+									return this.actions.getUserAndChats();
+								})
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
 						() => {
 							this.lists.Fields.forEach((field) => {
@@ -78,7 +99,7 @@ export class LoginForm extends Form {
 									return;
 								}
 
-								const {input, errorMessage} = field.getFieldComponents();
+								const { input, errorMessage } = field.getFieldComponents();
 
 								if (!input || !errorMessage) {
 									return;
@@ -98,6 +119,14 @@ export class LoginForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
+	}
+
+	getValidationMessage(input: HTMLInputElement): string {
+		if (input.title) {
+			this.setCustomPatternValidationMessage(input, input.title);
+		}
+
+		return super.getValidationMessage(input);
 	}
 }

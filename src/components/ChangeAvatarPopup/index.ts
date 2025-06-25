@@ -1,8 +1,8 @@
-import {AddFileForm, Popup} from '../index';
-import Controller from '../../controllers';
+import { AddFileForm, ErrorMessage, Popup } from '../index';
+import Actions from '../../actions';
 
 export class ChangeAvatarPopup extends Popup {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private changeAvatarForm: AddFileForm;
 
 	constructor() {
@@ -11,9 +11,23 @@ export class ChangeAvatarPopup extends Popup {
 			inputName: 'avatar',
 			buttonText: 'Заменить',
 			title: 'Изменить аватар',
-			onSubmit: (formData) => {
-				this.controller.emit('changeAvatar', formData);
-				this.close();
+			onSubmit: (_, event: SubmitEvent) => {
+				const formData = new FormData(event.target as HTMLFormElement);
+
+				this.actions.users
+					.changeUserAvatar(formData)
+					.then(() => {
+						this.close();
+					})
+					.catch(({ reason }) => {
+						if (typeof reason === 'string') {
+							const errorMessage = this.changeAvatarForm.children.ErrorMessage;
+
+							if (errorMessage instanceof ErrorMessage) {
+								errorMessage.enable(reason);
+							}
+						}
+					});
 			},
 		});
 
@@ -22,8 +36,7 @@ export class ChangeAvatarPopup extends Popup {
 			isOpen: false,
 		});
 
-		this.controller = new Controller();
-		this.controller.on('openEditAvatarPopup', this.open.bind(this));
+		this.actions.on('openEditAvatarPopup', this.open.bind(this));
 		this.changeAvatarForm = changeAvatarForm;
 	}
 

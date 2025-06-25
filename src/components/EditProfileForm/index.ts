@@ -1,17 +1,32 @@
 import Form from '../../framework/Form';
-import {default as layout} from './EditProfileForm.hbs?raw';
-import {ErrorMessage, Field} from '../index';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index';
 import Component from '../../framework/Component';
-import {EDIT_PROFILE_FORM_CONFIG} from '../../utils/constants';
-import Controller from '../../controllers';
+import { EDIT_PROFILE_FORM_CONFIG } from '../../utils/constants';
+import Actions from '../../actions';
+import withCurrentUser from '../../HOC/withCurrentUser';
+import { CurrentUserType } from '../../utils/types';
 
-export class EditProfileForm extends Form {
-	private controller: Controller;
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
 
-	constructor({defaultValues}: { defaultValues: Record<string, unknown> }) {
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
+});
+
+class EditProfileForm extends Form {
+	private actions: Actions = new Actions();
+
+	constructor({ currentUser }: { currentUser: CurrentUserType }) {
+		if (!currentUser) {
+			return;
+		}
+
 		super({
 			Fields: EDIT_PROFILE_FORM_CONFIG.map(
-				({block, label, inputAttributs}) => {
+				({ block, label, inputAttributs }) => {
 					const errorMessage = new ErrorMessage({
 						text: '',
 						isHide: true,
@@ -26,10 +41,12 @@ export class EditProfileForm extends Form {
 							tag: 'input',
 							attr: {
 								...inputAttributs,
-								value: defaultValues[inputAttributs.name],
+								value: currentUser[inputAttributs.name],
 							},
 							events: {
 								blur: (event: InputEvent) => {
+									formErrorMessage.reset();
+
 									const input = event.target as HTMLInputElement;
 									this.validateInput(input, errorMessage);
 								},
@@ -46,6 +63,7 @@ export class EditProfileForm extends Form {
 				},
 				content: 'Cохранить',
 			}),
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.edit = this.edit.bind(this);
@@ -59,7 +77,17 @@ export class EditProfileForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('editUserData', formData);
+							this.actions.users
+								.changeUserProfile(formData)
+								.then(() => {
+									this.read();
+									this.actions.emit('showProfileActions');
+								})
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
 						() => {
 							this.lists.Fields.forEach((field) => {
@@ -67,7 +95,7 @@ export class EditProfileForm extends Form {
 									return;
 								}
 
-								const {input, errorMessage} = field.getFieldComponents();
+								const { input, errorMessage } = field.getFieldComponents();
 
 								if (!input || !errorMessage) {
 									return;
@@ -87,15 +115,14 @@ export class EditProfileForm extends Form {
 
 		this.read();
 
-		this.controller = new Controller();
-		this.controller.on('enableEditProfileForm', this.edit);
-		this.controller.on('disableEditProfileForm', this.read);
-		this.controller.on('hideEditProfileForm', this.hide);
-		this.controller.on('showEditProfileForm', this.show);
+		this.actions.on('enableEditProfileForm', this.edit);
+		this.actions.on('disableEditProfileForm', this.read);
+		this.actions.on('hideEditProfileForm', this.hide);
+		this.actions.on('showEditProfileForm', this.show);
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	edit() {
@@ -104,7 +131,7 @@ export class EditProfileForm extends Form {
 				return;
 			}
 
-			const {input} = field.getFieldComponents();
+			const { input } = field.getFieldComponents();
 
 			if (!input) {
 				return;
@@ -116,19 +143,23 @@ export class EditProfileForm extends Form {
 	}
 
 	read() {
+		formErrorMessage.reset();
+
 		this.lists.Fields.forEach((field) => {
 			if (!(field instanceof Field)) {
 				return;
 			}
 
-			const {input} = field.getFieldComponents();
+			const { input } = field.getFieldComponents();
 
 			if (!input) {
 				return;
 			}
 
-			input.setAttributes({disabled: true});
+			input.setAttributes({ disabled: true });
 		});
 		this.children.Button.hide();
 	}
 }
+
+export default withCurrentUser(EditProfileForm);

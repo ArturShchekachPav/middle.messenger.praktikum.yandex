@@ -1,40 +1,20 @@
-import {Menu, MenuItem} from '../index';
-import Controller from '../../controllers';
+import { Menu, MenuItem } from '../index';
+import Actions from '../../actions';
 
 export class AttachmentMenu extends Menu {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 
 	constructor() {
 		super({
 			content: [
 				new MenuItem({
-					text: 'Фото или Видео',
+					text: 'Добавить изображение',
 					icon: '/media-icon.svg',
 					events: {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openAddMediaPopup');
-						},
-					},
-				}),
-				new MenuItem({
-					text: 'Файл',
-					icon: '/file-menu-icon.svg',
-					events: {
-						click: () => {
-							this.close();
-
-							this.controller.emit('openAddFilePopup');
-						},
-					},
-				}),
-				new MenuItem({
-					text: 'Локация',
-					icon: '/location-icon.svg',
-					events: {
-						click: () => {
-							this.close();
+							this.actions.emit('openAddMediaPopup');
 						},
 					},
 				}),
@@ -43,7 +23,6 @@ export class AttachmentMenu extends Menu {
 			addClass: 'chat-window__menu chat-window__menu_form',
 		});
 
-		this.controller = new Controller();
-		this.controller.on('openAttachmentMenu', this.open.bind(this));
+		this.actions.on('openAttachmentMenu', this.open.bind(this));
 	}
 }

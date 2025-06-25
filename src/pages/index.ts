@@ -1,4 +1,5 @@
-export {MessangerPage} from './messanger/index.js';
-export {RegistrationPage} from './register/index.js';
-export {ProfilePage} from './profile/index.js';
-export {LoginPage} from './login/index.js';
+export { MessangerPage } from './MessangerPage/index.js';
+export { RegistrationPage } from './RegistrationPage/index.js';
+export { SettingsPage } from './SettingsPage/index.js';
+export { LoginPage } from './LoginPage/index.js';
+export { ErrorPage } from './ErrorPage';

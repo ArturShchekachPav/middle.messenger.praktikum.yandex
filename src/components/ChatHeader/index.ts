@@ -1,36 +1,57 @@
-import {default as layout} from './ChatHeader.hbs?raw';
-import Block from '../../framework/Block.js';
-import {ChatActionsMenu} from '../index.js';
-import Component from '../../framework/Component.js';
-import Controller from '../../controllers';
+import { default as template } from './template.hbs?raw';
+import Block from '../../framework/Block';
+import { ChatActionsMenu } from '../index';
+import Component from '../../framework/Component';
+import Actions from '../../actions';
+import withCurrentChatData from '../../HOC/withCurrentChatData';
 
-export class ChatHeader extends Block {
-	private controller: Controller;
+class ChatHeader extends Block {
+	private actions: Actions = new Actions();
 
-	constructor({name, avatarSrc}: { name: string; avatarSrc: string }) {
-		super({
-			name,
-			avatarSrc,
-			Menu: new ChatActionsMenu(),
-			OptionsButton: new Component({
-				tag: 'button',
-				attr: {
-					class: 'chat-window__options-button',
-				},
-				events: {
-					click: (e: MouseEvent) => {
-						e.stopPropagation();
+	constructor() {
+		super();
+	}
 
-						this.controller.emit('openChatActionsMenu');
+	setProps({ name, avatar }: { name: string; avatar: string | null }) {
+		if (name) {
+			super.setProps({
+				name,
+				avatar: new Component({
+					tag: 'img',
+					attr: {
+						src: avatar
+							? `https://ya-praktikum.tech/api/v2/resources${avatar}`
+							: 'default-avatar.png',
+						class: 'chat-window__avatar',
+						alt: 'avatar-chat',
 					},
-				},
-			}),
-		});
+					events: {
+						click: () => {
+							this.actions.emit('openEditChatAvatarPopup');
+						},
+					},
+				}),
+				Menu: new ChatActionsMenu(),
+				OptionsButton: new Component({
+					tag: 'button',
+					attr: {
+						class: 'chat-window__options-button',
+					},
+					events: {
+						click: (e: MouseEvent) => {
+							e.stopPropagation();
 
-		this.controller = new Controller();
+							this.actions.emit('openChatActionsMenu');
+						},
+					},
+				}),
+			});
+		}
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }
+
+export default withCurrentChatData(ChatHeader);

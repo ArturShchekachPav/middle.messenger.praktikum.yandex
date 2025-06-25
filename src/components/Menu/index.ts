@@ -1,9 +1,9 @@
 import Block from '../../framework/Block.js';
-import {default as layout} from './Menu.hbs?raw';
-import {MenuProps} from '../../utils/types';
+import { default as template } from './template.hbs?raw';
+import { MenuProps } from '../../utils/types';
 
 export class Menu extends Block {
-	constructor({content, isOpen, addClass}: MenuProps) {
+	constructor({ content, isOpen, addClass }: MenuProps) {
 		super({
 			content,
 			isOpen,
@@ -15,18 +15,18 @@ export class Menu extends Block {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	open() {
-		this.setProps({isOpen: true});
+		this.setProps({ isOpen: true });
 
 		document.addEventListener('keydown', this._escapeClose);
 		document.addEventListener('click', this._onOutsideClickClose);
 	}
 
 	close() {
-		this.setProps({isOpen: false});
+		this.setProps({ isOpen: false });
 
 		document.removeEventListener('keydown', this._escapeClose);
 		document.removeEventListener('click', this._onOutsideClickClose);
@@ -38,7 +38,7 @@ export class Menu extends Block {
 		}
 	}
 
-	_onOutsideClickClose({target}: MouseEvent) {
+	_onOutsideClickClose({ target }: MouseEvent) {
 		const menuElement = this.getContent();
 
 		if (!(target instanceof HTMLElement)) {

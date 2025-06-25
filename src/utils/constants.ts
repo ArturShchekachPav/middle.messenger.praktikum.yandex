@@ -1,3 +1,5 @@
+import { FieldConfig } from './types';
+
 export const CHATS_DATA = [
 	{
 		name: 'Жора',
@@ -175,7 +177,7 @@ export const MESSAGES_DATA = [
 	},
 ];
 
-export const EDIT_PROFILE_FORM_CONFIG = [
+export const EDIT_PROFILE_FORM_CONFIG: FieldConfig[] = [
 	{
 		block: 'profile',
 		label: 'Почта',
@@ -199,7 +201,7 @@ export const EDIT_PROFILE_FORM_CONFIG = [
 				'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание',
 			name: 'login',
 			type: 'text',
-			id: 'profile-input-login',
+			id: 'profile-input-LoginPage',
 			required: true,
 			minlength: 3,
 			maxlength: 20,
@@ -242,6 +244,7 @@ export const EDIT_PROFILE_FORM_CONFIG = [
 			name: 'display_name',
 			type: 'text',
 			id: 'profile-input-display-name',
+			placeholder: 'Не заполнено',
 			required: true,
 		},
 	},
@@ -319,7 +322,7 @@ export const LOGIN_FORM_CONFIG = [
 				'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание',
 			name: 'login',
 			type: 'text',
-			id: 'auth-input-login',
+			id: 'auth-input-LoginPage',
 			required: true,
 			minlength: 3,
 			maxlength: 20,
@@ -333,7 +336,7 @@ export const LOGIN_FORM_CONFIG = [
 			class: 'auth-form__input',
 			title:
 				'от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
-			name: 'oldPassword',
+			name: 'password',
 			type: 'password',
 			id: 'auth-input-oldpassword',
 			required: true,
@@ -368,7 +371,7 @@ export const REGISTER_FORM_CONFIG = [
 				'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание',
 			name: 'login',
 			type: 'text',
-			id: 'auth-input-login',
+			id: 'auth-input-LoginPage',
 			required: true,
 			minlength: 3,
 			maxlength: 20,
@@ -448,7 +451,7 @@ export const REGISTER_FORM_CONFIG = [
 	},
 ];
 
-export const USER_ACTION_FORM_CONFIG = [
+export const USER_ADD_FORM_CONFIG: FieldConfig[] = [
 	{
 		block: 'auth-form',
 		label: 'Логин',
@@ -458,11 +461,42 @@ export const USER_ACTION_FORM_CONFIG = [
 				'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание',
 			name: 'login',
 			type: 'text',
-			id: 'auth-input-login',
+			id: 'auth-input-LoginPage',
 			required: true,
 			minlength: 3,
 			maxlength: 20,
 			pattern: '^(?!\\d+$)[\\w_\\-]+$',
+		},
+	},
+];
+
+export const USER_REMOVE_FORM_CONFIG: FieldConfig[] = [
+	{
+		block: 'auth-form',
+		label: 'Почта',
+		inputAttributs: {
+			class: 'auth-form__input',
+			title:
+				'латиница, может включать цифры и спецсимволы вроде дефиса и подчёркивания, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы',
+			name: 'first_name',
+			type: 'text',
+			id: 'auth-input-name',
+		},
+	},
+];
+
+export const ADD_CHAT_FORM_CONFIG = [
+	{
+		block: 'auth-form',
+		label: 'Название',
+		inputAttributs: {
+			class: 'auth-form__input',
+			name: 'title',
+			type: 'text',
+			id: 'chat-title-popup',
+			required: true,
+			minlength: 3,
+			maxlength: 40,
 		},
 	},
 ];

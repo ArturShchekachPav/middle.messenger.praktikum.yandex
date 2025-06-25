@@ -1,6 +1,6 @@
 import Block from './Block';
-import {ErrorMessage} from '../components';
-import {BlockPropsWithChildren} from '../utils/types';
+import { ErrorMessage } from '../components';
+import { BlockPropsWithChildren } from '../utils/types';
 
 export default class Form extends Block {
 	constructor(propsWithChildren: BlockPropsWithChildren) {
@@ -28,7 +28,7 @@ export default class Form extends Block {
 
 	handleSumbit(
 		event: SubmitEvent,
-		onValidity: (formdata: Record<string, unknown>, event: SubmitEvent) => void,
+		onValidity: (formData: Record<string, unknown>, event: SubmitEvent) => void,
 		onInvalid: (event: SubmitEvent) => void
 	) {
 		event.preventDefault();
@@ -50,6 +50,14 @@ export default class Form extends Block {
 
 	checkFormValidity() {
 		return this.getContent().checkValidity();
+	}
+
+	setCustomPatternValidationMessage(input: HTMLInputElement, message: string) {
+		if (input.validity.patternMismatch) {
+			input.setCustomValidity(message);
+		} else {
+			input.setCustomValidity('');
+		}
 	}
 
 	getValidationMessage(input: HTMLInputElement) {

@@ -1,51 +1,57 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './UserActionForm.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field, UsersList } from '../index.js';
 import Component from '../../framework/Component.js';
-import {USER_ACTION_FORM_CONFIG} from '../../utils/constants.js';
-import {UserActionFormProps} from '../../utils/types';
+import { UserActionFormProps } from '../../utils/types';
 
 export class UserActionForm extends Form {
-	constructor({name, title, buttonText, onSubmit}: UserActionFormProps) {
+	constructor({
+		name,
+		title,
+		onSubmit,
+		onInput,
+		Users,
+		fieldsConfig,
+	}: UserActionFormProps) {
 		super({
 			name,
 			title,
-			Fields: USER_ACTION_FORM_CONFIG.map(
-				({block, label, inputAttributs}) => {
-					const errorMessage = new ErrorMessage({
-						text: '',
-						isHide: true,
-					});
+			Fields: fieldsConfig.map(({ block, label, inputAttributs }) => {
+				const errorMessage = new ErrorMessage({
+					text: '',
+					isHide: true,
+				});
 
-					return new Field({
-						block,
-						label,
-						id: inputAttributs.id,
-						ErrorMessage: errorMessage,
-						Input: new Component({
-							tag: 'input',
-							attr: {
-								...inputAttributs,
-							},
-							events: {
-								blur: (event: InputEvent) => {
-									const input = event.target as HTMLInputElement;
+				return new Field({
+					block,
+					label,
+					id: inputAttributs.id,
+					ErrorMessage: errorMessage,
+					Input: new Component({
+						tag: 'input',
+						attr: {
+							...inputAttributs,
+						},
+						events: {
+							input: (event: InputEvent) => {
+								const input = event.target;
 
-									this.validateInput(input, errorMessage);
-								},
+								if (!(input instanceof HTMLInputElement)) {
+									return;
+								}
+
+								onInput(input.value);
 							},
-						}),
-					});
-				}
-			),
-			Button: new Component({
-				tag: 'button',
-				attr: {
-					type: 'submit',
-					class: 'button file-form__button',
-				},
-				content: buttonText,
+							blur: (event: InputEvent) => {
+								const input = event.target as HTMLInputElement;
+
+								this.validateInput(input, errorMessage);
+							},
+						},
+					}),
+				});
 			}),
+			Users,
 		});
 
 		this.setProps({
@@ -57,7 +63,7 @@ export class UserActionForm extends Form {
 								return;
 							}
 
-							const {errorMessage, input} = field.getFieldComponents();
+							const { errorMessage, input } = field.getFieldComponents();
 
 							if (!errorMessage || !input) {
 								return;
@@ -76,7 +82,7 @@ export class UserActionForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	reset() {
@@ -85,12 +91,18 @@ export class UserActionForm extends Form {
 				return;
 			}
 
-			const {errorMessage} = field.getFieldComponents();
+			const { errorMessage } = field.getFieldComponents();
 
 			if (errorMessage) {
 				errorMessage.reset();
 			}
 		});
+
+		const users = this.children.Users;
+
+		if (users instanceof UsersList) {
+			users.setProps({ users: [], onClick: () => {} });
+		}
 
 		super.reset();
 	}

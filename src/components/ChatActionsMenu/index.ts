@@ -1,8 +1,9 @@
-import {Menu, MenuItem} from '../index';
-import Controller from '../../controllers';
+import { Menu, MenuItem } from '../index';
+import Actions from '../../actions';
+import withCurrentChatId from '../../HOC/withCurrentChatId';
 
-export class ChatActionsMenu extends Menu {
-	private controller: Controller;
+class ChatActionsMenu extends Menu {
+	private actions: Actions = new Actions();
 
 	constructor() {
 		super({
@@ -14,7 +15,7 @@ export class ChatActionsMenu extends Menu {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openAddUserPopup');
+							this.actions.emit('openAddUserPopup');
 						},
 					},
 				}),
@@ -25,7 +26,22 @@ export class ChatActionsMenu extends Menu {
 						click: () => {
 							this.close();
 
-							this.controller.emit('openRemoveUserPopup');
+							this.actions.emit('openRemoveUserPopup');
+						},
+					},
+				}),
+				new MenuItem({
+					text: 'Удалить чат',
+					icon: '/delete-icon.svg',
+					events: {
+						click: () => {
+							const chatId = this.actions.getAppState().currentChat?.id;
+
+							if (chatId) {
+								this.actions.chats.deleteChat(chatId);
+							}
+
+							this.close();
 						},
 					},
 				}),
@@ -34,7 +50,8 @@ export class ChatActionsMenu extends Menu {
 			addClass: 'chat-window__menu chat-window__menu_header',
 		});
 
-		this.controller = new Controller();
-		this.controller.on('openChatActionsMenu', this.open.bind(this));
+		this.actions.on('openChatActionsMenu', this.open.bind(this));
 	}
 }
+
+export default withCurrentChatId(ChatActionsMenu);

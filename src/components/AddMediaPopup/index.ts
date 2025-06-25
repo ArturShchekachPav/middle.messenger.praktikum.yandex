@@ -1,19 +1,37 @@
-import {AddFileForm, Popup} from '../index';
-import Controller from '../../controllers';
+import { AddFileForm, ErrorMessage, Popup } from '../index';
+import Actions from '../../actions';
+import { ResourceDataType } from '../../utils/types';
 
 export class AddMediaPopup extends Popup {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 	private addMediaForm: AddFileForm;
 
 	constructor() {
 		const addMediaForm = new AddFileForm({
 			formName: 'add-media-file',
-			inputName: 'file',
+			inputName: 'resource',
 			buttonText: 'Добавить',
-			title: 'Добавить фото/видео',
-			onSubmit: (formData) => {
-				this.controller.emit('sendMedia', formData);
-				this.close();
+			title: 'Добавить изображение',
+			onSubmit: (_, event: SubmitEvent) => {
+				if (event.target instanceof HTMLFormElement) {
+					const formData = new FormData(event.target);
+
+					this.actions.resources
+						.uploadResource(formData)
+						.then((resource: ResourceDataType) => {
+							this.actions.messages.sendFile(resource.id);
+							this.close();
+						})
+						.catch(({ reason }) => {
+							if (typeof reason === 'string') {
+								const errorMessage = this.addMediaForm.children.ErrorMessage;
+
+								if (errorMessage instanceof ErrorMessage) {
+									errorMessage.enable(reason);
+								}
+							}
+						});
+				}
 			},
 		});
 
@@ -23,8 +41,8 @@ export class AddMediaPopup extends Popup {
 		});
 
 		this.addMediaForm = addMediaForm;
-		this.controller = new Controller();
-		this.controller.on('openAddMediaPopup', this.open.bind(this));
+
+		this.actions.on('openAddMediaPopup', this.open.bind(this));
 	}
 
 	close() {

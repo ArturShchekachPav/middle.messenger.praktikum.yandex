@@ -1,10 +1,10 @@
 import Block from '../../framework/Block';
-import {default as layout} from './ProfileActions.hbs?raw';
-import {ProfileActionButton} from '../index';
-import Controller from '../../controllers';
+import { default as template } from './template.hbs?raw';
+import { ProfileActionButton } from '../index';
+import Actions from '../../actions';
 
 export class ProfileActions extends Block {
-	private controller: Controller;
+	private actions: Actions = new Actions();
 
 	constructor() {
 		super({
@@ -13,7 +13,7 @@ export class ProfileActions extends Block {
 					content: 'Изменить данные',
 					type: 'change',
 					onClick: () => {
-						this.controller.emit('enableEditProfileForm');
+						this.actions.emit('enableEditProfileForm');
 
 						this.hide();
 					},
@@ -22,17 +22,17 @@ export class ProfileActions extends Block {
 					content: 'Изменить пароль',
 					type: 'change',
 					onClick: () => {
-						this.controller.emit('hideEditProfileForm');
+						this.actions.emit('hideEditProfileForm');
 						this.hide();
 
-						this.controller.emit('showEditPasswordForm');
+						this.actions.emit('showEditPasswordForm');
 					},
 				}),
 				new ProfileActionButton({
 					content: 'Выйти',
 					type: 'exit',
 					onClick: () => {
-						this.controller.emit('logout');
+						this.actions.auth.logOut();
 					},
 				}),
 			],
@@ -40,11 +40,10 @@ export class ProfileActions extends Block {
 
 		this.show = this.show.bind(this);
 
-		this.controller = new Controller();
-		this.controller.on('showProfileActions', this.show);
+		this.actions.on('showProfileActions', this.show);
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 }

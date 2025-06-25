@@ -1,17 +1,26 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './EditPasswordForm.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
-import {EDIT_PASSWORD_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../controllers';
+import { EDIT_PASSWORD_FORM_CONFIG } from '../../utils/constants.js';
+import Actions from '../../actions';
+
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
+});
 
 export class EditPasswordForm extends Form {
-	private controller: Controller;
+	private actions: Actions;
 
 	constructor() {
 		super({
 			Fields: EDIT_PASSWORD_FORM_CONFIG.map(
-				({block, label, inputAttributs}) => {
+				({ block, label, inputAttributs }) => {
 					const errorMessage = new ErrorMessage({
 						text: '',
 						isHide: true,
@@ -29,6 +38,8 @@ export class EditPasswordForm extends Form {
 							},
 							events: {
 								blur: (event: InputEvent) => {
+									formErrorMessage.reset();
+
 									const input = event.target as HTMLInputElement;
 									this.validateInput(input, errorMessage);
 								},
@@ -45,6 +56,7 @@ export class EditPasswordForm extends Form {
 				},
 				content: 'Cохранить',
 			}),
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.show = this.show.bind(this);
@@ -56,10 +68,22 @@ export class EditPasswordForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('changePassword', formData);
+							this.actions.users
+								.changeUserPassword(formData)
+								.then(() => {
+									this.actions.emit('showEditProfileForm');
+									this.actions.emit('showProfileActions');
+									this.actions.emit('hideEditPasswordForm');
+
+									this.reset();
+								})
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
-						() => {
-						}
+						() => {}
 					);
 				},
 			},
@@ -67,13 +91,13 @@ export class EditPasswordForm extends Form {
 
 		this.hide();
 
-		this.controller = new Controller();
-		this.controller.on('showEditPasswordForm', this.show);
-		this.controller.on('hideEditPasswordForm', this.hide);
+		this.actions = new Actions();
+		this.actions.on('showEditPasswordForm', this.show);
+		this.actions.on('hideEditPasswordForm', this.hide);
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {
@@ -83,8 +107,8 @@ export class EditPasswordForm extends Form {
 	}
 
 	validateConfirmPassword(input: HTMLInputElement) {
-		const {value, name} = input;
-		const {repeat_password, newPassword} = this.getFormData();
+		const { value, name } = input;
+		const { repeat_password, newPassword } = this.getFormData();
 
 		if (
 			name === 'repeat_password' &&
@@ -103,7 +127,7 @@ export class EditPasswordForm extends Form {
 				return;
 			}
 
-			const {input, errorMessage} = field.getFieldComponents();
+			const { input, errorMessage } = field.getFieldComponents();
 
 			if (!input || !errorMessage) {
 				return;

@@ -1,12 +1,16 @@
 import Block from '../../framework/Block';
 import Component from '../../framework/Component';
-import {ChatHeader, ChatMessageForm, ChatMessages} from '../index';
-import {MESSAGES_DATA} from '../../utils/constants';
-import Controller from '../../controllers';
-import {default as layout} from './ChatWindow.hbs?raw';
+import { ChatHeader, ChatMessageForm, ChatMessages } from '../index';
+import { default as template } from './template.hbs?raw';
+import withCurrentChat from '../../HOC/withCurrentChat';
+import Actions from '../../actions';
+import { MessagesSocketProps } from '../../utils/types';
 
-export class ChatWindow extends Block {
-	private controller: Controller;
+class ChatWindow extends Block {
+	private actions: Actions = new Actions();
+	private chatHeader = new ChatHeader();
+	private chatMessages = new ChatMessages();
+	private chatMessageForm = new ChatMessageForm();
 
 	constructor() {
 		super({
@@ -20,39 +24,33 @@ export class ChatWindow extends Block {
 				}),
 			],
 		});
-
-		this.controller = new Controller();
-		this.controller.on('setCurrentChat', this.setCurrentChat.bind(this));
-		this.controller.on('messageSent', this.handleMessageSend.bind(this));
-		this.controller.on('fileSent', this.handleFileSend.bind(this));
-		this.controller.on('mediaSent', this.handleMediaSend.bind(this));
 	}
 
-	setCurrentChat({name, avatar}: Record<string, string>) {
-		this.setProps({
-			content: [
-				new ChatHeader({
-					name,
-					avatarSrc: avatar,
-				}),
-				new ChatMessages({
-					dataMessages: MESSAGES_DATA,
-				}),
-				new ChatMessageForm(),
-			],
-		});
+	setProps({ currentChat }: { currentChat: null | MessagesSocketProps }) {
+		if (currentChat) {
+			this.actions.messages.startConnection(currentChat as MessagesSocketProps);
+
+			super.setProps({
+				content: [this.chatHeader, this.chatMessages, this.chatMessageForm],
+			});
+		} else {
+			super.setProps({
+				content: [
+					new Component({
+						tag: 'p',
+						attr: {
+							class: 'chat-window__default-message',
+						},
+						content: 'Выберите чат чтобы отправить сообщение',
+					}),
+				],
+			});
+		}
 	}
 
 	render() {
-		return layout;
-	}
-
-	handleMessageSend() {
-	}
-
-	handleFileSend() {
-	}
-
-	handleMediaSend() {
+		return template;
 	}
 }
+
+export default withCurrentChat(ChatWindow);

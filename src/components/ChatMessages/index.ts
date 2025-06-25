@@ -1,46 +1,51 @@
-import {default as layout} from './ChatMessages.hbs?raw';
+import { default as template } from './template.hbs?raw';
 import Block from '../../framework/Block.js';
-import {Message} from '../index.js';
-import Component from '../../framework/Component.js';
-import {ChatMessagesProps} from '../../utils/types';
+import { TextMessage } from '../index.js';
+import { MessageType } from '../../utils/types';
+import withMessages from '../../HOC/withMessages';
+import { FileMessage } from '../FileMessage';
+import { addDatesInMessages, checkPosition, throttle } from '../../utils/utils';
+import Component from '../../framework/Component';
 
-export class ChatMessages extends Block {
-	constructor({dataMessages}: ChatMessagesProps) {
+class ChatMessages extends Block {
+	constructor() {
 		super({
-			dataMessages: dataMessages.length,
-			content: dataMessages.map((dataMessagesItem) => {
-				if (dataMessagesItem.date) {
-					return new Component({
-						tag: 'p',
-						attr: {
-							class: 'chat__date',
-						},
-						content: dataMessagesItem.date,
-					});
-				}
-
-				return new Component({
-					tag: 'div',
-					attr: {
-						class: `chat__block chat__block_source_${dataMessagesItem.source}`,
-					},
-					content: dataMessagesItem.messages.map(
-						(messageData: Record<string, string>) =>
-							new Message({
-								source: dataMessagesItem.source,
-								time: messageData.time,
-								status: messageData.status,
-								text: messageData.text,
-								src: messageData.src,
-								addictedClass: 'chat__message',
-							})
-					),
-				});
-			}),
+			events: {
+				scroll: throttle(checkPosition, 500),
+			},
 		});
 	}
 
+	setProps({ messages }: { messages: MessageType[] }) {
+		if (messages) {
+			super.setProps({
+				messagesCount: messages.length,
+				messages: addDatesInMessages(messages).map((message) => {
+					switch (message.type) {
+						case 'date': {
+							return new Component({
+								tag: 'p',
+								attr: {
+									class: 'chat__date',
+								},
+								content: message.content,
+							});
+						}
+						case 'file': {
+							return new FileMessage({ message });
+						}
+						case 'message': {
+							return new TextMessage({ message });
+						}
+					}
+				}),
+			});
+		}
+	}
+
 	render() {
-		return layout;
+		return template;
 	}
 }
+
+export default withMessages(ChatMessages);

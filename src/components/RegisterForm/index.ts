@@ -1,16 +1,27 @@
 import Form from '../../framework/Form.js';
-import {default as layout} from './RegisterForm.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
-import {REGISTER_FORM_CONFIG} from '../../utils/constants.js';
-import Controller from '../../controllers';
+import { REGISTER_FORM_CONFIG } from '../../utils/constants.js';
+import Actions from '../../actions';
+import Router from '../../router/Router';
 
-export class RegisterForm extends Form {
-	private controller: Controller;
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
+});
+
+export default class RegisterForm extends Form {
+	private actions: Actions = new Actions();
+	private router: Router = new Router();
 
 	constructor() {
 		super({
-			Fields: REGISTER_FORM_CONFIG.map(({block, label, inputAttributs}) => {
+			Fields: REGISTER_FORM_CONFIG.map(({ block, label, inputAttributs }) => {
 				const errorMessage = new ErrorMessage({
 					text: '',
 					isHide: true,
@@ -28,6 +39,8 @@ export class RegisterForm extends Form {
 						},
 						events: {
 							blur: (event: InputEvent) => {
+								formErrorMessage.reset();
+
 								const input = event.target as HTMLInputElement;
 
 								this.validateInput(input, errorMessage);
@@ -47,7 +60,7 @@ export class RegisterForm extends Form {
 			Link: new Component({
 				tag: 'a',
 				attr: {
-					href: '/sing-in',
+					href: '/',
 					class: 'auth-form__link',
 				},
 				content: 'Войти',
@@ -55,13 +68,12 @@ export class RegisterForm extends Form {
 					click: (event: MouseEvent) => {
 						event.preventDefault();
 
-						this.controller.emit('changePage', '/sing-in');
+						this.router.go('/');
 					},
 				},
 			}),
+			FormErrorMessage: formErrorMessage,
 		});
-
-		this.controller = new Controller();
 
 		this.setProps({
 			events: {
@@ -69,10 +81,18 @@ export class RegisterForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.controller.emit('register', formData);
+							this.actions.auth
+								.signUp(formData)
+								.then(() => {
+									return this.actions.getUserAndChats();
+								})
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
-						() => {
-						}
+						() => {}
 					);
 				},
 			},
@@ -80,22 +100,28 @@ export class RegisterForm extends Form {
 	}
 
 	render() {
-		return layout;
+		return template;
 	}
 
 	validateInput(input: HTMLInputElement, errorMessage: ErrorMessage) {
-		this.validateConfirmPassword(input);
+		this.setValidationsMessages(input);
 
 		super.validateInput(input, errorMessage);
 	}
 
-	validateConfirmPassword(input: HTMLInputElement) {
-		const {value, name} = input;
-		const {repeat_password, password} = this.getFormData();
+	setValidationsMessages(input: HTMLInputElement) {
+		const { value, name } = input;
+		const { repeat_password, password } = this.getFormData();
 
-		if (name === 'repeat_password' && value && repeat_password !== password) {
+		if (input.validity.patternMismatch && input.title) {
+			input.setCustomValidity(input.title);
+		} else if (
+			name === 'repeat_password' &&
+			value &&
+			repeat_password !== password
+		) {
 			input.setCustomValidity('Пароли не совпадают');
-		} else if (name === 'repeat_password') {
+		} else {
 			input.setCustomValidity('');
 		}
 	}
@@ -106,7 +132,7 @@ export class RegisterForm extends Form {
 				return;
 			}
 
-			const {errorMessage, input} = field.getFieldComponents();
+			const { errorMessage, input } = field.getFieldComponents();
 
 			if (!errorMessage || !input) {
 				return;
