@@ -1,6 +1,6 @@
 import './styles.scss';
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block';
+import Block from '../../framework/Block/Block';
 import {
 	AddChatPopup,
 	AddMediaPopup,
@@ -13,7 +13,7 @@ import {
 	RemoveUserPopup,
 } from '../../components/index';
 import Component from '../../framework/Component';
-import Router from '../../router/Router';
+import Router from '../../router/Router/Router';
 import Actions from '../../actions';
 
 const router = new Router();

@@ -1,7 +1,7 @@
 import Component from '../framework/Component';
 import { ErrorMessage, UsersList } from '../components';
 import { METHOD } from './constants';
-import Block from '../framework/Block';
+import Block from '../framework/Block/Block';
 import AuthApi from '../api/AuthApi';
 import ChatsApi from '../api/ChatsApi';
 import UsersApi from '../api/UsersApi';
@@ -322,3 +322,5 @@ export type ResourceDataType = {
 	content_size: number;
 	upload_date: string;
 };
+
+export type Timer = ReturnType<typeof setTimeout>;

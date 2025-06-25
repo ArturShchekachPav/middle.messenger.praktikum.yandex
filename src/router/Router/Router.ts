@@ -1,5 +1,5 @@
-import Route from './Route';
-import { BlockConstructor, BlockPropsWithChildren } from '../utils/types';
+import Route from '../Route';
+import { BlockConstructor, BlockPropsWithChildren } from '../../utils/types';
 
 export default class Router {
 	private static instance: Router;

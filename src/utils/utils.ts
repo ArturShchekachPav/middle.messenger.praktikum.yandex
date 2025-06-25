@@ -1,5 +1,5 @@
-import { DateMessagesType, Indexed, MessageType, PlainObject } from './types';
-import Block from '../framework/Block';
+import {DateMessagesType, Indexed, MessageType, PlainObject} from './types';
+import Block from '../framework/Block/Block';
 import Actions from '../actions';
 
 export function isPlainObject(value: unknown): value is PlainObject {
@@ -349,7 +349,7 @@ export function throttle<T extends unknown[]>(
 	callee: (...args: T) => void,
 	timeout: number
 ) {
-	let timer: null | number = null;
+	let timer: NodeJS.Timeout | null = null;
 
 	return function perform(...args: T) {
 		if (timer) return;
