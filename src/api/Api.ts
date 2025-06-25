@@ -12,8 +12,8 @@ export default abstract class Api {
 		if (xhr.status === 200) {
 			return xhr;
 		}
-
-		return Promise.reject(`Ошибка: ${xhr.status}`);
+		
+		return Promise.reject(JSON.parse(xhr.response));
 	}
 
 	protected parseResponse<T>(xhr: XMLHttpRequest): T {

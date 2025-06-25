@@ -52,11 +52,12 @@ export default class UsersApi extends Api{
 
 	public searchForUserByLogin(login: string) {
 		return this.http.post(
-			`${this.baseUrl}/password`,
+			`${this.baseUrl}/search`,
 			{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify({
 					login
 				})

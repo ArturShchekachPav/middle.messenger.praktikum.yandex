@@ -1,28 +1,56 @@
-import {Popup, UserActionForm} from '../index';
+import {Popup, UserActionForm, UsersList} from '../index';
 import Actions from '../../actions';
-import { CurrentChatType } from '../../utils/types';
-import withCurrentChatData from '../../HOC/withCurrentChatData';
+import {CurrentUserType } from '../../utils/types';
+import { USER_ADD_FORM_CONFIG } from '../../utils/constants';
 
-class AddUserPopup extends Popup {
+export class AddUserPopup extends Popup {
 	private actions: Actions = new Actions();
 	private addChatForm: UserActionForm;
 
-	constructor({currentChat}: {currentChat: CurrentChatType}) {
+	constructor() {
+		const users = new UsersList({users: [], onClick: () => {}});
+
 		const addChatForm = new UserActionForm({
 			name: 'add-user',
-			buttonText: 'Добавить',
 			title: 'Добавить пользователя',
 			onSubmit: ({login}) => {
 				if(typeof login === 'string') {
 					this.actions.users.searchForUserByLogin(login)
-					.then(users => this.actions.chats.addUsersToChat({
-						users: users.map(user => user.id),
-						chatId: currentChat.id
-					}))
-					.then(() => this.close())
-					.catch(console.log);
+					.then((usersData: CurrentUserType[]) => users.setProps({
+						users: usersData,
+						onClick: (user: CurrentUserType) => {
+							const chatId = this.actions.getAppState().currentChat?.id;
+
+							if(chatId) {
+								this.actions.chats.addUsersToChat({chatId, users: [user.id]})
+								.then(() => {
+								this.close();
+								})
+								.catch(console.log);
+							}
+						},
+					}));
 				}
 			},
+			onInput: (login: string) => {
+				this.actions.users.searchForUserByLogin(login)
+				.then((usersData: CurrentUserType[]) => users.setProps({
+					users: usersData,
+					onClick: (user: CurrentUserType) => {
+						const chatId = this.actions.getAppState().currentChat?.id;
+
+						if(chatId) {
+							this.actions.chats.addUsersToChat({chatId, users: [user.id]})
+							.then(() => {
+							this.close();
+							})
+							.catch(console.log);
+						}
+					},
+				}));
+			},
+			Users: users,
+			fieldsConfig: USER_ADD_FORM_CONFIG
 		});
 
 		super({
@@ -31,7 +59,6 @@ class AddUserPopup extends Popup {
 		});
 
 		this.addChatForm = addChatForm;
-
 		this.actions.on('openAddUserPopup', this.open.bind(this));
 	}
 
@@ -41,5 +68,3 @@ class AddUserPopup extends Popup {
 		super.close();
 	}
 }
-
-export default withCurrentChatData(AddUserPopup);

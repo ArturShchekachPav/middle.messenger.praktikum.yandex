@@ -1,4 +1,4 @@
-import {AddChatForm, Popup} from '../index';
+import {AddChatForm, ErrorMessage, Popup} from '../index';
 import Actions from '../../actions';
 
 export class AddChatPopup extends Popup {
@@ -13,7 +13,15 @@ export class AddChatPopup extends Popup {
 						this.actions.emit('clearSearchForm');
 						this.close();
 					})
-					.catch(console.log);
+					.catch(({reason}) => {
+						if(typeof reason === 'string') {
+							const errorMessage = this.addChatForm.children.ErrorMessage;
+	
+							if(errorMessage instanceof ErrorMessage) {
+								errorMessage.enable(reason);
+							}
+						}
+					});
 			}
 		);
 

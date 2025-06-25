@@ -16,7 +16,19 @@ class ChatHeader extends Block {
 		if(name) {
 			super.setProps({
 				name,
-				avatar: avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : 'default-avatar.png',
+				avatar: new Component({
+					tag: 'img',
+					attr: {
+						src: avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : 'default-avatar.png',
+						class: 'chat-window__avatar',
+						alt: 'avatar-chat'
+					},
+					events: {
+						click: () => {
+							this.actions.emit('openEditChatAvatarPopup');
+						},
+					},
+				}),
 				Menu: new ChatActionsMenu(),
 				OptionsButton: new Component({
 					tag: 'button',

@@ -7,9 +7,8 @@ export default class UsersActions extends Action {
 	private api: UsersApi = new UsersApi();
 
 	public changeUserAvatar(formData: FormData) {
-		this.api.changeUserAvatar(formData)
-			.then((userData: CurrentUserType) => this.store.set('currentUser.avatar', userData.avatar))
-			.catch(console.log);
+		return this.api.changeUserAvatar(formData)
+			.then((userData: CurrentUserType) => this.store.set('currentUser.avatar', userData.avatar));
 	}
 
 	public changeUserProfile(profileData: Record<string, unknown>) {

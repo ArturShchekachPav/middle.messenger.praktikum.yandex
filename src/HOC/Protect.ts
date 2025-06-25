@@ -16,7 +16,6 @@ export default function Protect(mapStateToProps: (state: StateType) => Indexed, 
 				super(pathname, view, props, blockProps);
 
 				this.store.on(StoreEvents.Updated, () => {
-					console.log();
 					if(this.pathname === window.location.pathname && !this.matchState()) {
 						this.redirect();
 					}

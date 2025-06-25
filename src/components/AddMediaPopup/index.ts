@@ -1,4 +1,4 @@
-import {AddFileForm, Popup} from '../index';
+import {AddFileForm, ErrorMessage, Popup} from '../index';
 import Actions from '../../actions';
 import {ResourceDataType} from "../../utils/types";
 
@@ -21,7 +21,15 @@ export class AddMediaPopup extends Popup {
 							this.actions.messages.sendFile(resource.id);
 							this.close();
 						})
-						.catch(console.log);
+						.catch(({reason}) => {
+							if(typeof reason === 'string') {
+								const errorMessage = this.addMediaForm.children.ErrorMessage;
+
+								if(errorMessage instanceof ErrorMessage) {
+									errorMessage.enable(reason);
+								}
+							}
+						});
 				}
 			},
 		});

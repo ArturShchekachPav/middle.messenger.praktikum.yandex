@@ -32,12 +32,30 @@ export type AddFileFormProps = {
 	onSubmit: (formData: Record<string, unknown>, event: SubmitEvent) => void;
 };
 
+export type FieldConfig = {
+	block: string;
+	label: string;
+	inputAttributs: {
+		class: string;
+		title?: string;
+		name: 'email' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'phone';
+		type: string;
+		id: string;
+		required?: boolean;
+		pattern?: string;
+		minlength?: number;
+		maxlength?: number;
+		placeholder?: string;
+	}
+};
+
 export type UserActionFormProps = {
 	name: string;
 	title: string;
 	onSubmit: (formData: Record<string, unknown>) => void;
 	onInput: (value: string) => void;
-	Users: UsersList
+	Users: UsersList,
+	fieldsConfig: FieldConfig[]
 };
 
 export type FieldProps = {

@@ -1,3 +1,5 @@
+import { FieldConfig } from "./types";
+
 export const CHATS_DATA = [
 	{
 		name: 'Жора',
@@ -175,22 +177,7 @@ export const MESSAGES_DATA = [
 	},
 ];
 
-export const EDIT_PROFILE_FORM_CONFIG: {
-	block: string;
-	label: string;
-	inputAttributs: {
-		class: string;
-		title?: string;
-		name: 'email' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'phone';
-		type: string;
-		id: string;
-		required: boolean;
-		pattern?: string;
-		minlength?: number;
-		maxlength?: number;
-		placeholder?: string;
-	}
-}[] = [
+export const EDIT_PROFILE_FORM_CONFIG: FieldConfig[] = [
 	{
 		block: 'profile',
 		label: 'Почта',
@@ -464,7 +451,7 @@ export const REGISTER_FORM_CONFIG = [
 	},
 ];
 
-export const USER_ACTION_FORM_CONFIG = [
+export const USER_ADD_FORM_CONFIG: FieldConfig[] = [
 	{
 		block: 'auth-form',
 		label: 'Логин',
@@ -481,6 +468,21 @@ export const USER_ACTION_FORM_CONFIG = [
 			pattern: '^(?!\\d+$)[\\w_\\-]+$',
 		},
 	},
+];
+
+export const USER_REMOVE_FORM_CONFIG: FieldConfig[] = [
+	{
+		block: 'auth-form',
+		label: 'Почта',
+		inputAttributs: {
+			class: 'auth-form__input',
+			title:
+				'латиница, может включать цифры и спецсимволы вроде дефиса и подчёркивания, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы',
+			name: 'first_name',
+			type: 'text',
+			id: 'auth-input-name'
+		},
+	}
 ];
 
 export const ADD_CHAT_FORM_CONFIG = [

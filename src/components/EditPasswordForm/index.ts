@@ -5,6 +5,15 @@ import Component from '../../framework/Component.js';
 import {EDIT_PASSWORD_FORM_CONFIG} from '../../utils/constants.js';
 import Actions from '../../actions';
 
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;'
+});
+
 export class EditPasswordForm extends Form {
 	private actions: Actions;
 
@@ -29,6 +38,8 @@ export class EditPasswordForm extends Form {
 							},
 							events: {
 								blur: (event: InputEvent) => {
+									formErrorMessage.reset();
+
 									const input = event.target as HTMLInputElement;
 									this.validateInput(input, errorMessage);
 								},
@@ -45,6 +56,7 @@ export class EditPasswordForm extends Form {
 				},
 				content: 'Cохранить',
 			}),
+			FormErrorMessage: formErrorMessage
 		});
 
 		this.show = this.show.bind(this);
@@ -64,7 +76,11 @@ export class EditPasswordForm extends Form {
 
 									this.reset();
 								})
-								.catch(console.log);
+								.catch(({reason}) => {
+									if(typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
 						() => {
 						}

@@ -7,6 +7,15 @@ import Actions from '../../actions';
 import withCurrentUser from "../../HOC/withCurrentUser";
 import {CurrentUserType} from "../../utils/types";
 
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;'
+});
+
 class EditProfileForm extends Form {
 	private actions: Actions = new Actions();
 
@@ -36,6 +45,8 @@ class EditProfileForm extends Form {
 							},
 							events: {
 								blur: (event: InputEvent) => {
+									formErrorMessage.reset();
+
 									const input = event.target as HTMLInputElement;
 									this.validateInput(input, errorMessage);
 								},
@@ -52,6 +63,7 @@ class EditProfileForm extends Form {
 				},
 				content: 'Cохранить',
 			}),
+			FormErrorMessage: formErrorMessage
 		});
 
 		this.edit = this.edit.bind(this);
@@ -70,7 +82,11 @@ class EditProfileForm extends Form {
 									this.read();
 									this.actions.emit('showProfileActions');
 								})
-								.catch(console.log);
+								.catch(({reason}) => {
+									if(typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
 						() => {
 							this.lists.Fields.forEach((field) => {
@@ -126,6 +142,8 @@ class EditProfileForm extends Form {
 	}
 
 	read() {
+		formErrorMessage.reset();
+
 		this.lists.Fields.forEach((field) => {
 			if (!(field instanceof Field)) {
 				return;

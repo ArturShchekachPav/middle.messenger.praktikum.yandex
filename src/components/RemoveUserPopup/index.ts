@@ -1,28 +1,54 @@
-import {Popup, UserActionForm} from '../index';
+import {Popup, UserActionForm, UsersList} from '../index';
 import Actions from '../../actions';
-import withCurrentChatData from '../../HOC/withCurrentChatData';
-import { CurrentChatType } from '../../utils/types';
+import { CurrentUserType } from '../../utils/types';
+import { USER_REMOVE_FORM_CONFIG } from '../../utils/constants';
 
-class RemoveUserPopup extends Popup {
+export class RemoveUserPopup extends Popup {
 	private actions: Actions;
 	private removeChatForm: UserActionForm;
 
-	constructor({currentChat}: {currentChat: CurrentChatType}) {
+	constructor() {
+		const users = new UsersList({users: [], onClick: () => {}});
+
 		const removeChatForm = new UserActionForm({
 			name: 'remove-user',
-			buttonText: 'Удалить',
 			title: 'Удалить пользователя',
-			onSubmit: ({login}) => {
-				if(typeof login === 'string') {
-					this.actions.users.searchForUserByLogin(login)
-					.then(users => this.actions.chats.deleteUsersFromChat({
-						users: users.map(user => user.id),
-						chatId: currentChat.id
-					}))
-					.then(() => this.close())
-					.catch(console.log);
+			onSubmit: ({first_name}) => {
+				const chatId = this.actions.getAppState().currentChat?.id;
+
+				if(typeof first_name === 'string' && chatId) {
+					this.actions.chats.getChatUsers(chatId, {name: first_name})
+					.then((usersData: CurrentUserType[]) => users.setProps({
+						users: usersData,
+						onClick: (user: CurrentUserType) => {
+							this.actions.chats.deleteUsersFromChat({chatId: chatId, users: [user.id]})
+							.then(() => {
+								this.close();
+							})
+							.catch(console.log);
+						},
+					}));
 				}
 			},
+			onInput: (first_name: string) => {
+				const chatId = this.actions.getAppState().currentChat?.id;
+
+				if(chatId) {
+					this.actions.chats.getChatUsers(chatId, {name: first_name})
+					.then((usersData: CurrentUserType[]) => users.setProps({
+						users: usersData,
+						onClick: (user: CurrentUserType) => {
+							this.actions.chats.deleteUsersFromChat({chatId: chatId, users: [user.id]})
+							.then(() => {
+								this.close();
+							})
+							.catch(console.log);
+						},
+					}));
+				}
+			},
+			Users: users,
+			fieldsConfig: USER_REMOVE_FORM_CONFIG
 		});
 
 		super({
@@ -41,5 +67,3 @@ class RemoveUserPopup extends Popup {
 		super.close();
 	}
 }
-
-export default withCurrentChatData(RemoveUserPopup);

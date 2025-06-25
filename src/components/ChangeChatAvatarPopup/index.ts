@@ -1,26 +1,26 @@
 import {AddFileForm, ErrorMessage, Popup} from '../index';
 import Actions from '../../actions';
 
-export class ChangeAvatarPopup extends Popup {
+export class ChangeChatAvatarPopup extends Popup {
 	private actions: Actions = new Actions();
-	private changeAvatarForm: AddFileForm;
+	private changeChatAvatarForm: AddFileForm;
 
 	constructor() {
-		const changeAvatarForm = new AddFileForm({
+		const changeChatAvatarForm = new AddFileForm({
 			formName: 'change-avatar',
 			inputName: 'avatar',
 			buttonText: 'Заменить',
-			title: 'Изменить аватар',
+			title: 'Изменить аватар чата',
 			onSubmit: (_, event: SubmitEvent) => {
 				const formData = new FormData(event.target as HTMLFormElement);
-				
-				this.actions.users.changeUserAvatar(formData)
+
+				this.actions.chats.uploadChatAvatar(formData)
 				.then(() => {
 					this.close();
 				})
 				.catch(({reason}) => {
 					if(typeof reason === 'string') {
-						const errorMessage = this.changeAvatarForm.children.ErrorMessage;
+						const errorMessage = this.changeChatAvatarForm.children.ErrorMessage;
 
 						if(errorMessage instanceof ErrorMessage) {
 							errorMessage.enable(reason);
@@ -31,16 +31,16 @@ export class ChangeAvatarPopup extends Popup {
 		});
 
 		super({
-			content: changeAvatarForm,
+			content: changeChatAvatarForm,
 			isOpen: false,
 		});
 
-		this.actions.on('openEditAvatarPopup', this.open.bind(this));
-		this.changeAvatarForm = changeAvatarForm;
+		this.actions.on('openEditChatAvatarPopup', this.open.bind(this));
+		this.changeChatAvatarForm = changeChatAvatarForm;
 	}
 
 	close() {
-		this.changeAvatarForm.reset();
+		this.changeChatAvatarForm.reset();
 
 		super.close();
 	}

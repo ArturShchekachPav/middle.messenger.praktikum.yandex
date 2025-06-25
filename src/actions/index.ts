@@ -29,8 +29,6 @@ export default class Actions extends EventBus {
 	public getUserAndChats() {
 		return Promise.all([this.auth.getUserData(), this.chats.getChats()])
 			.then(([userData, chats]) => {
-				console.log(userData, chats);
-
 				this.store.set(
 					'currentUser',
 					{
@@ -40,10 +38,11 @@ export default class Actions extends EventBus {
 				);
 				this.store.set('chats', chats);
 				this.store.set('isLoggedIn', true);
-				console.log(this.store.getState());
 			})
-			.catch(() => {
+			.catch((error) => {
 				this.store.set('isLoggedIn', false);
+				console.log(error);
+				return error;
 			})
 	}
 

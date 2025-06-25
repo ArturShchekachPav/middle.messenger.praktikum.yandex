@@ -28,7 +28,7 @@ export default class AuthActions extends Action {
 		})) {
 			return this.api.signIn(userData);
 		} else {
-			return Promise.reject();
+			return Promise.reject({reason: 'Переданы неверные данные'});
 		}
 	}
 
@@ -43,7 +43,6 @@ export default class AuthActions extends Action {
 				this.store.set('currentUser', null);
 				this.store.set('chats', []);
 				this.store.set('currentChat', null);
-				console.log(this.store.getState());
 			})
 			.catch(console.log)
 	}

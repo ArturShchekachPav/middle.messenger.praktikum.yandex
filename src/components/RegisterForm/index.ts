@@ -6,6 +6,15 @@ import {REGISTER_FORM_CONFIG} from '../../utils/constants.js';
 import Actions from '../../actions';
 import Router from "../../router/Router";
 
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;'
+});
+
 export default class RegisterForm extends Form {
 	private actions: Actions = new Actions();
 	private router: Router = new Router();
@@ -30,6 +39,8 @@ export default class RegisterForm extends Form {
 						},
 						events: {
 							blur: (event: InputEvent) => {
+								formErrorMessage.reset();
+
 								const input = event.target as HTMLInputElement;
 
 								this.validateInput(input, errorMessage);
@@ -61,6 +72,7 @@ export default class RegisterForm extends Form {
 					},
 				},
 			}),
+			FormErrorMessage: formErrorMessage
 		});
 
 		this.setProps({
@@ -73,7 +85,11 @@ export default class RegisterForm extends Form {
 									.then(() => {
 										return this.actions.getUserAndChats();
 									})
-									.catch(console.log);
+									.catch(({reason}) => {
+										if(typeof reason === 'string') {
+											formErrorMessage.enable(reason);
+										}
+									});
 						},
 						() => {
 						}
@@ -101,7 +117,7 @@ export default class RegisterForm extends Form {
 			input.setCustomValidity(input.title);
 		} else if (name === 'repeat_password' && value && repeat_password !== password) {
 			input.setCustomValidity('Пароли не совпадают');
-		} else if (name === 'repeat_password') {
+		} else {
 			input.setCustomValidity('');
 		}
 	}

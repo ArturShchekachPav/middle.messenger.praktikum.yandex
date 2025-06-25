@@ -6,6 +6,15 @@ import {LOGIN_FORM_CONFIG} from '../../utils/constants.js';
 import Actions from '../../actions';
 import Router from "../../router/Router";
 
+const formErrorMessage = new ErrorMessage({
+	text: '',
+	isHide: true,
+});
+
+formErrorMessage.setAttributes({
+	style: 'text-align: center; width: 100%; margin-top: 12px;'
+})
+
 export class LoginForm extends Form {
 	private actions: Actions = new Actions();
 	private router: Router = new Router();
@@ -30,6 +39,8 @@ export class LoginForm extends Form {
 						},
 						events: {
 							blur: (event: InputEvent) => {
+								formErrorMessage.reset();
+
 								const input = event.target as HTMLInputElement;
 								this.validateInput(input, errorMessage);
 							},
@@ -60,6 +71,7 @@ export class LoginForm extends Form {
 					},
 				},
 			}),
+			FormErrorMessage: formErrorMessage
 		});
 
 		this.validateInput = this.validateInput.bind(this);
@@ -74,7 +86,11 @@ export class LoginForm extends Form {
 								.then(() => {
 									return this.actions.getUserAndChats();
 								})
-								.catch(console.log);
+								.catch(({reason}) => {
+									if(typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
 						() => {
 							this.lists.Fields.forEach((field) => {

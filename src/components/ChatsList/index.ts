@@ -7,7 +7,6 @@ import {ChatPreview} from "../ChatPreview";
 class ChatsList extends Block {
 
 	constructor({chats}: { chats: ChatType[] }) {
-		console.log(chats);
 		super({
 			Chats: chats.map(chat => new ChatPreview(chat))
 		});

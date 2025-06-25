@@ -5,6 +5,7 @@ import {
 	AddChatPopup,
 	AddMediaPopup,
 	AddUserPopup,
+	ChangeChatAvatarPopup,
 	ChatsList,
 	ChatsSearchForm,
 	ChatWindow,
@@ -28,6 +29,7 @@ export class MessangerPage extends Block {
 			AddUserPopup: new AddUserPopup(),
 			RemoveUserPopup: new RemoveUserPopup(),
 			AddChatPopup: new AddChatPopup(),
+			ChangeChatAvatarPopup: new ChangeChatAvatarPopup(),
 			ChatsList: new ChatsList(),
 			ChatWindow: new ChatWindow(),
 			ChatsActions: new Component({

@@ -3,7 +3,9 @@ import {queryString} from "../utils/utils";
 import {
 	UsersToChatParams,
 	ChatsUsersQueryParams,
-	GetChatsArguments
+	GetChatsArguments,
+	CurrentUserType,
+	ChatType
 } from "../utils/types";
 
 export default class ChatsApi extends Api{
@@ -59,7 +61,8 @@ export default class ChatsApi extends Api{
 	}
 
 	public getArchivedChats(chatsQueryParams: GetChatsArguments = {}) {
-		return this.http.get(`${this.baseUrl}/archive${queryString(chatsQueryParams)}`).then(this.checkResponse);
+		return this.http.get(`${this.baseUrl}/archive${queryString(chatsQueryParams)}`)
+		.then(this.checkResponse);
 	}
 
 	public archiveChatById(chatId: number) {
@@ -95,7 +98,14 @@ export default class ChatsApi extends Api{
 	}
 
 	public getChatUsers(chatId: number, chatsUsersQueryParams: ChatsUsersQueryParams = {}) {
-		return this.http.get(`${this.baseUrl}/${chatId}/users${queryString(chatsUsersQueryParams)}`).then(this.checkResponse);
+		return this.http.get(
+			`${this.baseUrl}/${chatId}/users${queryString(chatsUsersQueryParams)}`,
+			{
+				withCredentials: true
+			}
+		)
+		.then(this.checkResponse)
+		.then(this.parseResponse<CurrentUserType[]>);
 	}
 
 	public getNewMessagesCount(chatId: number) {
@@ -104,18 +114,18 @@ export default class ChatsApi extends Api{
 
 	public uploadChatAvatar(formData: FormData) {
 		if(!formData.has('avatar') || !formData.has('chatId')) {
-			return;
+			return Promise.reject();
 		}
 
 		return this.http.put(
 			`${this.baseUrl}/avatar`,
 			{
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
+				withCredentials: true,
 				body: formData
 			}
-		).then(this.checkResponse);
+		)
+		.then(this.checkResponse)
+		.then(this.parseResponse<ChatType>);
 	}
 
 	public addUsersToChat(params: UsersToChatParams) {
@@ -125,6 +135,7 @@ export default class ChatsApi extends Api{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify(params)
 			}
 		).then(this.checkResponse);
@@ -137,6 +148,7 @@ export default class ChatsApi extends Api{
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				withCredentials: true,
 				body: JSON.stringify(params)
 			}
 		).then(this.checkResponse);
