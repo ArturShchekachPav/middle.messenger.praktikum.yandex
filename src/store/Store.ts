@@ -1,6 +1,6 @@
-import {StateType} from '../utils/types';
-import EventBus from "../framework/EventBus";
-import { set } from "../utils/utils";
+import { StateType } from '../utils/types';
+import EventBus from '../framework/EventBus';
+import { set } from '../utils/utils';
 
 export enum StoreEvents {
 	Updated = 'updated',
@@ -12,7 +12,7 @@ export default class Store extends EventBus {
 		isLoggedIn: null,
 		currentUser: null,
 		chats: [],
-		currentChat: null
+		currentChat: null,
 	};
 
 	constructor() {
@@ -33,5 +33,5 @@ export default class Store extends EventBus {
 		set(this.state, path, value);
 
 		this.emit(StoreEvents.Updated);
-	};
+	}
 }

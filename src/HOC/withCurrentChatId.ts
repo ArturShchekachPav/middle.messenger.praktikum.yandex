@@ -1,5 +1,7 @@
-import Connect from "./Connect";
+import Connect from './Connect';
 
-const withCurrentChatId = Connect(state => ({ chatId: state.currentChat?.id }));
+const withCurrentChatId = Connect((state) => ({
+	chatId: state.currentChat?.id,
+}));
 
 export default withCurrentChatId;

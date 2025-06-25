@@ -1,4 +1,4 @@
-import {AddChatForm, ErrorMessage, Popup} from '../index';
+import { AddChatForm, ErrorMessage, Popup } from '../index';
 import Actions from '../../actions';
 
 export class AddChatPopup extends Popup {
@@ -6,24 +6,23 @@ export class AddChatPopup extends Popup {
 	private addChatForm: AddChatForm;
 
 	constructor() {
-		const addChatForm = new AddChatForm(
-			(formData) => {
-				this.actions.chats.addChat(formData)
-					.then(() => {
-						this.actions.emit('clearSearchForm');
-						this.close();
-					})
-					.catch(({reason}) => {
-						if(typeof reason === 'string') {
-							const errorMessage = this.addChatForm.children.ErrorMessage;
-	
-							if(errorMessage instanceof ErrorMessage) {
-								errorMessage.enable(reason);
-							}
+		const addChatForm = new AddChatForm((formData) => {
+			this.actions.chats
+				.addChat(formData)
+				.then(() => {
+					this.actions.emit('clearSearchForm');
+					this.close();
+				})
+				.catch(({ reason }) => {
+					if (typeof reason === 'string') {
+						const errorMessage = this.addChatForm.children.ErrorMessage;
+
+						if (errorMessage instanceof ErrorMessage) {
+							errorMessage.enable(reason);
 						}
-					});
-			}
-		);
+					}
+				});
+		});
 
 		super({
 			isOpen: false,

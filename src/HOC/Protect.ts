@@ -1,10 +1,20 @@
-import {BlockConstructor, BlockPropsWithChildren, Indexed, RouteProps, StateType} from "../utils/types";
-import Store, { StoreEvents } from "../store/Store";
-import Route from "../router/Route";
-import Router from "../router/Router";
-import {isEqual} from "../utils/utils";
+import {
+	BlockConstructor,
+	BlockPropsWithChildren,
+	Indexed,
+	RouteProps,
+	StateType,
+} from '../utils/types';
+import Store, { StoreEvents } from '../store/Store';
+import Route from '../router/Route';
+import Router from '../router/Router';
+import { isEqual } from '../utils/utils';
 
-export default function Protect(mapStateToProps: (state: StateType) => Indexed, redirectPath: string, needleValue: Indexed) {
+export default function Protect(
+	mapStateToProps: (state: StateType) => Indexed,
+	redirectPath: string,
+	needleValue: Indexed
+) {
 	return function (ProtectedRoute: typeof Route) {
 		return class extends ProtectedRoute {
 			private store: Store = new Store();
@@ -12,11 +22,19 @@ export default function Protect(mapStateToProps: (state: StateType) => Indexed, 
 			private needleValue: Indexed = needleValue;
 			private router: Router = new Router();
 
-			constructor(pathname: string, view: BlockConstructor, props: RouteProps, blockProps: BlockPropsWithChildren) {
+			constructor(
+				pathname: string,
+				view: BlockConstructor,
+				props: RouteProps,
+				blockProps: BlockPropsWithChildren
+			) {
 				super(pathname, view, props, blockProps);
 
 				this.store.on(StoreEvents.Updated, () => {
-					if(this.pathname === window.location.pathname && !this.matchState()) {
+					if (
+						this.pathname === window.location.pathname &&
+						!this.matchState()
+					) {
 						this.redirect();
 					}
 				});
@@ -35,12 +53,12 @@ export default function Protect(mapStateToProps: (state: StateType) => Indexed, 
 			}
 
 			render() {
-				if(this.matchState()) {
+				if (this.matchState()) {
 					super.render();
 				} else {
 					this.redirect();
 				}
 			}
-		}
-	}
+		};
+	};
 }

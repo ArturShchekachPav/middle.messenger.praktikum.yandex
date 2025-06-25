@@ -1,4 +1,4 @@
-import {AddFileForm, Popup} from '../index';
+import { AddFileForm, Popup } from '../index';
 import Actions from '../../actions';
 
 export class AddFilePopup extends Popup {

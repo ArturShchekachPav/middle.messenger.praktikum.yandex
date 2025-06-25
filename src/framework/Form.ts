@@ -1,6 +1,6 @@
 import Block from './Block';
-import {ErrorMessage} from '../components';
-import {BlockPropsWithChildren} from '../utils/types';
+import { ErrorMessage } from '../components';
+import { BlockPropsWithChildren } from '../utils/types';
 
 export default class Form extends Block {
 	constructor(propsWithChildren: BlockPropsWithChildren) {
@@ -53,7 +53,7 @@ export default class Form extends Block {
 	}
 
 	setCustomPatternValidationMessage(input: HTMLInputElement, message: string) {
-		if(input.validity.patternMismatch) {
+		if (input.validity.patternMismatch) {
 			input.setCustomValidity(message);
 		} else {
 			input.setCustomValidity('');

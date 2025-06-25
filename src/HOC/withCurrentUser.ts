@@ -1,5 +1,7 @@
-import Connect from "./Connect";
+import Connect from './Connect';
 
-const withCurrentUser = Connect(state => ({ currentUser: state.currentUser }));
+const withCurrentUser = Connect((state) => ({
+	currentUser: state.currentUser,
+}));
 
 export default withCurrentUser;

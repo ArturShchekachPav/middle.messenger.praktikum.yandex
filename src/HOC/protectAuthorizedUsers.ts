@@ -1,11 +1,11 @@
-import Protect from "./Protect";
+import Protect from './Protect';
 
 const protectAuthorizedUsers = Protect(
-	state => ({ isLoggedIn: state.isLoggedIn }),
+	(state) => ({ isLoggedIn: state.isLoggedIn }),
 	'/messanger',
 	{
-		isLoggedIn: false
+		isLoggedIn: false,
 	}
-	);
+);
 
 export default protectAuthorizedUsers;

@@ -1,6 +1,6 @@
 import Block from '../../framework/Block';
-import {default as template} from './template.hbs?raw';
-import {ProfileActionButton} from '../index';
+import { default as template } from './template.hbs?raw';
+import { ProfileActionButton } from '../index';
 import Actions from '../../actions';
 
 export class ProfileActions extends Block {

@@ -1,8 +1,8 @@
 import Form from '../../framework/Form.js';
-import {default as template} from './template.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
-import {EDIT_PASSWORD_FORM_CONFIG} from '../../utils/constants.js';
+import { EDIT_PASSWORD_FORM_CONFIG } from '../../utils/constants.js';
 import Actions from '../../actions';
 
 const formErrorMessage = new ErrorMessage({
@@ -11,7 +11,7 @@ const formErrorMessage = new ErrorMessage({
 });
 
 formErrorMessage.setAttributes({
-	style: 'text-align: center; width: 100%; margin-top: 12px;'
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
 });
 
 export class EditPasswordForm extends Form {
@@ -20,7 +20,7 @@ export class EditPasswordForm extends Form {
 	constructor() {
 		super({
 			Fields: EDIT_PASSWORD_FORM_CONFIG.map(
-				({block, label, inputAttributs}) => {
+				({ block, label, inputAttributs }) => {
 					const errorMessage = new ErrorMessage({
 						text: '',
 						isHide: true,
@@ -56,7 +56,7 @@ export class EditPasswordForm extends Form {
 				},
 				content: 'Cохранить',
 			}),
-			FormErrorMessage: formErrorMessage
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.show = this.show.bind(this);
@@ -68,7 +68,8 @@ export class EditPasswordForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.actions.users.changeUserPassword(formData)
+							this.actions.users
+								.changeUserPassword(formData)
 								.then(() => {
 									this.actions.emit('showEditProfileForm');
 									this.actions.emit('showProfileActions');
@@ -76,14 +77,13 @@ export class EditPasswordForm extends Form {
 
 									this.reset();
 								})
-								.catch(({reason}) => {
-									if(typeof reason === 'string') {
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
 										formErrorMessage.enable(reason);
 									}
 								});
 						},
-						() => {
-						}
+						() => {}
 					);
 				},
 			},
@@ -107,8 +107,8 @@ export class EditPasswordForm extends Form {
 	}
 
 	validateConfirmPassword(input: HTMLInputElement) {
-		const {value, name} = input;
-		const {repeat_password, newPassword} = this.getFormData();
+		const { value, name } = input;
+		const { repeat_password, newPassword } = this.getFormData();
 
 		if (
 			name === 'repeat_password' &&
@@ -127,7 +127,7 @@ export class EditPasswordForm extends Form {
 				return;
 			}
 
-			const {input, errorMessage} = field.getFieldComponents();
+			const { input, errorMessage } = field.getFieldComponents();
 
 			if (!input || !errorMessage) {
 				return;

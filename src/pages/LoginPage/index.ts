@@ -1,7 +1,7 @@
 import Block from '../../framework/Block';
-import {default as template} from './login.hbs?raw';
+import { default as template } from './login.hbs?raw';
 import '../RegistrationPage/styles.scss';
-import {LoginForm} from '../../components';
+import { LoginForm } from '../../components';
 
 export class LoginPage extends Block {
 	constructor() {

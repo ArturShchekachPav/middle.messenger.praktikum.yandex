@@ -1,4 +1,4 @@
-import {AddFileForm, ErrorMessage, Popup} from '../index';
+import { AddFileForm, ErrorMessage, Popup } from '../index';
 import Actions from '../../actions';
 
 export class ChangeChatAvatarPopup extends Popup {
@@ -14,19 +14,21 @@ export class ChangeChatAvatarPopup extends Popup {
 			onSubmit: (_, event: SubmitEvent) => {
 				const formData = new FormData(event.target as HTMLFormElement);
 
-				this.actions.chats.uploadChatAvatar(formData)
-				.then(() => {
-					this.close();
-				})
-				.catch(({reason}) => {
-					if(typeof reason === 'string') {
-						const errorMessage = this.changeChatAvatarForm.children.ErrorMessage;
+				this.actions.chats
+					.uploadChatAvatar(formData)
+					.then(() => {
+						this.close();
+					})
+					.catch(({ reason }) => {
+						if (typeof reason === 'string') {
+							const errorMessage =
+								this.changeChatAvatarForm.children.ErrorMessage;
 
-						if(errorMessage instanceof ErrorMessage) {
-							errorMessage.enable(reason);
+							if (errorMessage instanceof ErrorMessage) {
+								errorMessage.enable(reason);
+							}
 						}
-					}
-				});
+					});
 			},
 		});
 

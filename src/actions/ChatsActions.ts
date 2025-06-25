@@ -1,6 +1,11 @@
-import Action from "./Action";
-import ChatsApi from "../api/ChatsApi";
-import { ChatsUsersQueryParams, ChatType, GetChatsArguments, UsersToChatParams } from "../utils/types";
+import Action from './Action';
+import ChatsApi from '../api/ChatsApi';
+import {
+	ChatsUsersQueryParams,
+	ChatType,
+	GetChatsArguments,
+	UsersToChatParams,
+} from '../utils/types';
 
 export default class ChatsActions extends Action {
 	private api: ChatsApi = new ChatsApi();
@@ -10,21 +15,24 @@ export default class ChatsActions extends Action {
 	}
 
 	public addChat(formDate: Record<string, unknown>) {
-		if(typeof formDate.title === 'string') {
-			return this.api.createChat(formDate.title)
+		if (typeof formDate.title === 'string') {
+			return this.api
+				.createChat(formDate.title)
 				.then(() => this.getChats())
-				.then(chats => this.store.set('chats', chats));
+				.then((chats) => this.store.set('chats', chats));
 		}
 
 		return Promise.reject();
 	}
 
 	public deleteChat(chatId: number) {
-		return this.api.deleteChat(chatId)
-			.then(() => {
-				this.store.set('chats', this.store.getState().chats.filter(chat => chat.id !== chatId));
-				this.store.set('currentChat', null);
-			});
+		return this.api.deleteChat(chatId).then(() => {
+			this.store.set(
+				'chats',
+				this.store.getState().chats.filter((chat) => chat.id !== chatId)
+			);
+			this.store.set('currentChat', null);
+		});
 	}
 
 	public addUsersToChat(params: UsersToChatParams) {
@@ -40,25 +48,33 @@ export default class ChatsActions extends Action {
 	}
 
 	public searchChats(search: string) {
-		return this.getChats({title: search})
-			.then(chats => this.store.set('chats', chats));
+		return this.getChats({ title: search }).then((chats) =>
+			this.store.set('chats', chats)
+		);
 	}
 
-	public getChatUsers(chatId: number, chatsUsersQueryParams: ChatsUsersQueryParams = {}) {
+	public getChatUsers(
+		chatId: number,
+		chatsUsersQueryParams: ChatsUsersQueryParams = {}
+	) {
 		return this.api.getChatUsers(chatId, chatsUsersQueryParams);
 	}
 
 	public uploadChatAvatar(formData: FormData) {
 		const chatId = this.store.getState().currentChat?.id;
 
-		if(chatId) {
+		if (chatId) {
 			formData.append('chatId', String(chatId));
 		}
 
-		return this.api.uploadChatAvatar(formData)
-			.then((newChat: ChatType) => {
-				this.store.set('chats', this.store.getState().chats.map((chat) => newChat.id === chat.id ? newChat : chat));
-				this.store.set('currentChat.avatar', newChat.avatar);
-			})
+		return this.api.uploadChatAvatar(formData).then((newChat: ChatType) => {
+			this.store.set(
+				'chats',
+				this.store
+					.getState()
+					.chats.map((chat) => (newChat.id === chat.id ? newChat : chat))
+			);
+			this.store.set('currentChat.avatar', newChat.avatar);
+		});
 	}
 }

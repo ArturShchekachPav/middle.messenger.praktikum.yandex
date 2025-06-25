@@ -1,5 +1,5 @@
 import './styles.scss';
-import {default as template} from './template.hbs?raw';
+import { default as template } from './template.hbs?raw';
 import Block from '../../framework/Block';
 import {
 	AddChatPopup,
@@ -10,11 +10,11 @@ import {
 	ChatsSearchForm,
 	ChatWindow,
 	MenuItem,
-	RemoveUserPopup
+	RemoveUserPopup,
 } from '../../components/index';
 import Component from '../../framework/Component';
-import Router from "../../router/Router";
-import Actions from "../../actions";
+import Router from '../../router/Router';
+import Actions from '../../actions';
 
 const router = new Router();
 
@@ -46,8 +46,8 @@ export class MessangerPage extends Block {
 								this.actions.emit('openAddChatPopup');
 							},
 						},
-					})
-				]
+					}),
+				],
 			}),
 			ProfileLink: new Component({
 				tag: 'a',
@@ -65,7 +65,6 @@ export class MessangerPage extends Block {
 				},
 			}),
 		});
-
 	}
 
 	render() {

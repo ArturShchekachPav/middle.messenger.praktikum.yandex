@@ -1,4 +1,4 @@
-import {default as template} from './template.hbs?raw';
+import { default as template } from './template.hbs?raw';
 import Form from '../../framework/Form';
 import Component from '../../framework/Component.js';
 import Actions from '../../actions';
@@ -12,8 +12,9 @@ export class ChatsSearchForm extends Form {
 				tag: 'input',
 				events: {
 					input: (event: InputEvent) => {
-						if(event.target instanceof HTMLInputElement) {
-							this.actions.chats.searchChats(event.target.value)
+						if (event.target instanceof HTMLInputElement) {
+							this.actions.chats
+								.searchChats(event.target.value)
 								.catch(console.log);
 						}
 					},

@@ -1,10 +1,10 @@
 import Form from '../../framework/Form.js';
-import {default as template} from './template.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
-import {LOGIN_FORM_CONFIG} from '../../utils/constants.js';
+import { LOGIN_FORM_CONFIG } from '../../utils/constants.js';
 import Actions from '../../actions';
-import Router from "../../router/Router";
+import Router from '../../router/Router';
 
 const formErrorMessage = new ErrorMessage({
 	text: '',
@@ -12,8 +12,8 @@ const formErrorMessage = new ErrorMessage({
 });
 
 formErrorMessage.setAttributes({
-	style: 'text-align: center; width: 100%; margin-top: 12px;'
-})
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
+});
 
 export class LoginForm extends Form {
 	private actions: Actions = new Actions();
@@ -21,7 +21,7 @@ export class LoginForm extends Form {
 
 	constructor() {
 		super({
-			Fields: LOGIN_FORM_CONFIG.map(({block, label, inputAttributs}) => {
+			Fields: LOGIN_FORM_CONFIG.map(({ block, label, inputAttributs }) => {
 				const errorMessage = new ErrorMessage({
 					text: '',
 					isHide: true,
@@ -67,11 +67,11 @@ export class LoginForm extends Form {
 					click: (event: Event) => {
 						event.preventDefault();
 
-						this.router.go('/sing-up')
+						this.router.go('/sing-up');
 					},
 				},
 			}),
-			FormErrorMessage: formErrorMessage
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.validateInput = this.validateInput.bind(this);
@@ -82,12 +82,13 @@ export class LoginForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.actions.auth.signIn(formData)
+							this.actions.auth
+								.signIn(formData)
 								.then(() => {
 									return this.actions.getUserAndChats();
 								})
-								.catch(({reason}) => {
-									if(typeof reason === 'string') {
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
 										formErrorMessage.enable(reason);
 									}
 								});
@@ -98,7 +99,7 @@ export class LoginForm extends Form {
 									return;
 								}
 
-								const {input, errorMessage} = field.getFieldComponents();
+								const { input, errorMessage } = field.getFieldComponents();
 
 								if (!input || !errorMessage) {
 									return;
@@ -122,7 +123,7 @@ export class LoginForm extends Form {
 	}
 
 	getValidationMessage(input: HTMLInputElement): string {
-		if(input.title) {
+		if (input.title) {
 			this.setCustomPatternValidationMessage(input, input.title);
 		}
 

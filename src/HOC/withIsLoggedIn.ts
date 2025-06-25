@@ -1,5 +1,5 @@
-import Connect from "./Connect";
+import Connect from './Connect';
 
-const withIsLoggedIn = Connect(state => ({ isLoggedIn: state.isLoggedIn }));
+const withIsLoggedIn = Connect((state) => ({ isLoggedIn: state.isLoggedIn }));
 
 export default withIsLoggedIn;

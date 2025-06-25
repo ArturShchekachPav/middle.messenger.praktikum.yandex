@@ -1,19 +1,19 @@
-import {default as template} from './template.hbs?raw';
+import { default as template } from './template.hbs?raw';
 import Component from '../../framework/Component.js';
 import Form from '../../framework/Form.js';
-import {ErrorMessage} from '../ErrorMessage';
-import {AddFileFormProps} from '../../utils/types';
+import { ErrorMessage } from '../ErrorMessage';
+import { AddFileFormProps } from '../../utils/types';
 
 export class AddFileForm extends Form {
 	private readonly errorMessage: ErrorMessage;
 
 	constructor({
-								formName,
-								inputName,
-								buttonText,
-								title,
-								onSubmit,
-							}: AddFileFormProps) {
+		formName,
+		inputName,
+		buttonText,
+		title,
+		onSubmit,
+	}: AddFileFormProps) {
 		const errorMessage = new ErrorMessage({
 			text: '',
 			isHide: true,
@@ -29,7 +29,7 @@ export class AddFileForm extends Form {
 					name: inputName,
 					type: 'file',
 					required: true,
-					accept: 'image/*'
+					accept: 'image/*',
 				},
 				events: {
 					change: (event: InputEvent) => {

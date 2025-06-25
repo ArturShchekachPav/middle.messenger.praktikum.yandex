@@ -1,9 +1,9 @@
 import Block from '../../framework/Block';
-import {default as template} from './template.hbs?raw';
-import {ErrorMessageProps} from '../../utils/types';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessageProps } from '../../utils/types';
 
 export class ErrorMessage extends Block {
-	constructor({text, isHide}: ErrorMessageProps) {
+	constructor({ text, isHide }: ErrorMessageProps) {
 		super({
 			text,
 		});

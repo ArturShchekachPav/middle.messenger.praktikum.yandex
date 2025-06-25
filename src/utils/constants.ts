@@ -1,4 +1,4 @@
-import { FieldConfig } from "./types";
+import { FieldConfig } from './types';
 
 export const CHATS_DATA = [
 	{
@@ -480,9 +480,9 @@ export const USER_REMOVE_FORM_CONFIG: FieldConfig[] = [
 				'латиница, может включать цифры и спецсимволы вроде дефиса и подчёркивания, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы',
 			name: 'first_name',
 			type: 'text',
-			id: 'auth-input-name'
+			id: 'auth-input-name',
 		},
-	}
+	},
 ];
 
 export const ADD_CHAT_FORM_CONFIG = [

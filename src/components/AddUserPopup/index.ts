@@ -1,6 +1,6 @@
-import {Popup, UserActionForm, UsersList} from '../index';
+import { Popup, UserActionForm, UsersList } from '../index';
 import Actions from '../../actions';
-import {CurrentUserType } from '../../utils/types';
+import { CurrentUserType } from '../../utils/types';
 import { USER_ADD_FORM_CONFIG } from '../../utils/constants';
 
 export class AddUserPopup extends Popup {
@@ -8,49 +8,57 @@ export class AddUserPopup extends Popup {
 	private addChatForm: UserActionForm;
 
 	constructor() {
-		const users = new UsersList({users: [], onClick: () => {}});
+		const users = new UsersList({ users: [], onClick: () => {} });
 
 		const addChatForm = new UserActionForm({
 			name: 'add-user',
 			title: 'Добавить пользователя',
-			onSubmit: ({login}) => {
-				if(typeof login === 'string') {
-					this.actions.users.searchForUserByLogin(login)
-					.then((usersData: CurrentUserType[]) => users.setProps({
-						users: usersData,
-						onClick: (user: CurrentUserType) => {
-							const chatId = this.actions.getAppState().currentChat?.id;
+			onSubmit: ({ login }) => {
+				if (typeof login === 'string') {
+					this.actions.users
+						.searchForUserByLogin(login)
+						.then((usersData: CurrentUserType[]) =>
+							users.setProps({
+								users: usersData,
+								onClick: (user: CurrentUserType) => {
+									const chatId = this.actions.getAppState().currentChat?.id;
 
-							if(chatId) {
-								this.actions.chats.addUsersToChat({chatId, users: [user.id]})
-								.then(() => {
-								this.close();
-								})
-								.catch(console.log);
-							}
-						},
-					}));
+									if (chatId) {
+										this.actions.chats
+											.addUsersToChat({ chatId, users: [user.id] })
+											.then(() => {
+												this.close();
+											})
+											.catch(console.log);
+									}
+								},
+							})
+						);
 				}
 			},
 			onInput: (login: string) => {
-				this.actions.users.searchForUserByLogin(login)
-				.then((usersData: CurrentUserType[]) => users.setProps({
-					users: usersData,
-					onClick: (user: CurrentUserType) => {
-						const chatId = this.actions.getAppState().currentChat?.id;
+				this.actions.users
+					.searchForUserByLogin(login)
+					.then((usersData: CurrentUserType[]) =>
+						users.setProps({
+							users: usersData,
+							onClick: (user: CurrentUserType) => {
+								const chatId = this.actions.getAppState().currentChat?.id;
 
-						if(chatId) {
-							this.actions.chats.addUsersToChat({chatId, users: [user.id]})
-							.then(() => {
-							this.close();
-							})
-							.catch(console.log);
-						}
-					},
-				}));
+								if (chatId) {
+									this.actions.chats
+										.addUsersToChat({ chatId, users: [user.id] })
+										.then(() => {
+											this.close();
+										})
+										.catch(console.log);
+								}
+							},
+						})
+					);
 			},
 			Users: users,
-			fieldsConfig: USER_ADD_FORM_CONFIG
+			fieldsConfig: USER_ADD_FORM_CONFIG,
 		});
 
 		super({

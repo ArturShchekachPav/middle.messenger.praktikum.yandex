@@ -1,11 +1,11 @@
 import Form from '../../framework/Form';
-import {default as template} from './template.hbs?raw';
-import {ErrorMessage, Field} from '../index';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index';
 import Component from '../../framework/Component';
-import {EDIT_PROFILE_FORM_CONFIG} from '../../utils/constants';
+import { EDIT_PROFILE_FORM_CONFIG } from '../../utils/constants';
 import Actions from '../../actions';
-import withCurrentUser from "../../HOC/withCurrentUser";
-import {CurrentUserType} from "../../utils/types";
+import withCurrentUser from '../../HOC/withCurrentUser';
+import { CurrentUserType } from '../../utils/types';
 
 const formErrorMessage = new ErrorMessage({
 	text: '',
@@ -13,20 +13,20 @@ const formErrorMessage = new ErrorMessage({
 });
 
 formErrorMessage.setAttributes({
-	style: 'text-align: center; width: 100%; margin-top: 12px;'
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
 });
 
 class EditProfileForm extends Form {
 	private actions: Actions = new Actions();
 
-	constructor({currentUser}: { currentUser: CurrentUserType }) {
-		if(!currentUser) {
+	constructor({ currentUser }: { currentUser: CurrentUserType }) {
+		if (!currentUser) {
 			return;
 		}
 
 		super({
 			Fields: EDIT_PROFILE_FORM_CONFIG.map(
-				({block, label, inputAttributs}) => {
+				({ block, label, inputAttributs }) => {
 					const errorMessage = new ErrorMessage({
 						text: '',
 						isHide: true,
@@ -63,7 +63,7 @@ class EditProfileForm extends Form {
 				},
 				content: 'Cохранить',
 			}),
-			FormErrorMessage: formErrorMessage
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.edit = this.edit.bind(this);
@@ -77,13 +77,14 @@ class EditProfileForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-							this.actions.users.changeUserProfile(formData)
+							this.actions.users
+								.changeUserProfile(formData)
 								.then(() => {
 									this.read();
 									this.actions.emit('showProfileActions');
 								})
-								.catch(({reason}) => {
-									if(typeof reason === 'string') {
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
 										formErrorMessage.enable(reason);
 									}
 								});
@@ -94,7 +95,7 @@ class EditProfileForm extends Form {
 									return;
 								}
 
-								const {input, errorMessage} = field.getFieldComponents();
+								const { input, errorMessage } = field.getFieldComponents();
 
 								if (!input || !errorMessage) {
 									return;
@@ -130,7 +131,7 @@ class EditProfileForm extends Form {
 				return;
 			}
 
-			const {input} = field.getFieldComponents();
+			const { input } = field.getFieldComponents();
 
 			if (!input) {
 				return;
@@ -149,13 +150,13 @@ class EditProfileForm extends Form {
 				return;
 			}
 
-			const {input} = field.getFieldComponents();
+			const { input } = field.getFieldComponents();
 
 			if (!input) {
 				return;
 			}
 
-			input.setAttributes({disabled: true});
+			input.setAttributes({ disabled: true });
 		});
 		this.children.Button.hide();
 	}

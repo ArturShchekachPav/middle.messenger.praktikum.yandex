@@ -1,5 +1,5 @@
-import {default as template} from './template.hbs?raw';
-import {AttachmentMenu} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { AttachmentMenu } from '../index.js';
 import Component from '../../framework/Component.js';
 import Form from '../../framework/Form.js';
 import Actions from '../../actions';
@@ -53,8 +53,8 @@ export class ChatMessageForm extends Form {
 				submit: (event: SubmitEvent) => {
 					this.handleSumbit(
 						event,
-						({message}) => {
-							if(typeof message === 'string') {
+						({ message }) => {
+							if (typeof message === 'string') {
 								this.actions.messages.sendMessage(message);
 								this.reset();
 							}
@@ -74,7 +74,7 @@ export class ChatMessageForm extends Form {
 
 	validateInput() {
 		if (this.checkFormValidity()) {
-			this.children.Input.setAttributes({placeholder: 'Сообщение'});
+			this.children.Input.setAttributes({ placeholder: 'Сообщение' });
 		} else {
 			this.children.Input.setAttributes({
 				placeholder: 'Введите сообщение для его отправки',

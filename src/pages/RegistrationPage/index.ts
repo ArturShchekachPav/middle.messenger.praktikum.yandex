@@ -1,5 +1,5 @@
 import Block from '../../framework/Block';
-import {default as template} from './template.hbs?raw';
+import { default as template } from './template.hbs?raw';
 import './styles.scss';
 import RegisterForm from '../../components/RegisterForm';
 

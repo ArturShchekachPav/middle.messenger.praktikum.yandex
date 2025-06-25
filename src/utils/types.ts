@@ -1,10 +1,10 @@
 import Component from '../framework/Component';
-import {ErrorMessage, UsersList} from '../components';
-import {METHOD} from './constants';
+import { ErrorMessage, UsersList } from '../components';
+import { METHOD } from './constants';
 import Block from '../framework/Block';
-import AuthApi from "../api/AuthApi";
-import ChatsApi from "../api/ChatsApi";
-import UsersApi from "../api/UsersApi";
+import AuthApi from '../api/AuthApi';
+import ChatsApi from '../api/ChatsApi';
+import UsersApi from '../api/UsersApi';
 
 export type ChatData = {
 	name: string;
@@ -38,7 +38,13 @@ export type FieldConfig = {
 	inputAttributs: {
 		class: string;
 		title?: string;
-		name: 'email' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'phone';
+		name:
+			| 'email'
+			| 'login'
+			| 'first_name'
+			| 'second_name'
+			| 'display_name'
+			| 'phone';
 		type: string;
 		id: string;
 		required?: boolean;
@@ -46,7 +52,7 @@ export type FieldConfig = {
 		minlength?: number;
 		maxlength?: number;
 		placeholder?: string;
-	}
+	};
 };
 
 export type UserActionFormProps = {
@@ -54,8 +60,8 @@ export type UserActionFormProps = {
 	title: string;
 	onSubmit: (formData: Record<string, unknown>) => void;
 	onInput: (value: string) => void;
-	Users: UsersList,
-	fieldsConfig: FieldConfig[]
+	Users: UsersList;
+	fieldsConfig: FieldConfig[];
 };
 
 export type FieldProps = {
@@ -155,15 +161,15 @@ export type BlockPropsWithChildren = {
 };
 
 export type PlainObject<T = any> = {
-    [k in string]: T;
+	[k in string]: T;
 };
 
 export type Indexed<T = any> = {
-    [key in string]: T;
+	[key in string]: T;
 };
 
 export type RouteProps = {
-	rootQuery: string
+	rootQuery: string;
 };
 
 export type BlockConstructor = new (...args: any[]) => Block;
@@ -228,7 +234,7 @@ export type CurrentUserType = {
 	phone: string;
 	login: string;
 	avatar: string | null;
-	email: string
+	email: string;
 };
 
 export type MessageAuthor = {
@@ -237,7 +243,7 @@ export type MessageAuthor = {
 	avatar: string;
 	email: string;
 	login: string;
-	phone: string
+	phone: string;
 };
 
 export type ChatType = {
@@ -250,7 +256,7 @@ export type ChatType = {
 		user: MessageAuthor;
 		time: string;
 		content: string;
-	}
+	};
 };
 
 export type FileMessageType = {
@@ -269,7 +275,7 @@ export type FileMessageType = {
 		content_type: string;
 		content_size: number;
 		upload_date: string;
-	}
+	};
 };
 
 export type TextMessageType = {
@@ -285,17 +291,20 @@ export type TextMessageType = {
 export type MessageType = FileMessageType | TextMessageType;
 
 export type DateMessagesType = {
-	type: 'date',
-	content: string
+	type: 'date';
+	content: string;
 };
 
-export type CurrentChatType = (ChatType & { messages: MessageType[], token: number});
+export type CurrentChatType = ChatType & {
+	messages: MessageType[];
+	token: number;
+};
 
 export type StateType = {
-	isLoggedIn: boolean | null,
-	currentUser: CurrentUserType | null,
-	chats: ChatType[],
-	currentChat: CurrentChatType | null,
+	isLoggedIn: boolean | null;
+	currentUser: CurrentUserType | null;
+	chats: ChatType[];
+	currentChat: CurrentChatType | null;
 };
 
 export type MessagesSocketProps = {
@@ -312,6 +321,4 @@ export type ResourceDataType = {
 	content_type: string;
 	content_size: number;
 	upload_date: string;
-}
-
-
+};

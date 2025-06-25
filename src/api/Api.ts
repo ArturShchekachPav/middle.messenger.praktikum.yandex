@@ -1,8 +1,8 @@
-import HTTPTransport from "./HTTTPTransport";
+import HTTPTransport from './HTTTPTransport';
 
 export default abstract class Api {
 	protected baseUrl: string;
-	protected http: HTTPTransport= new HTTPTransport();
+	protected http: HTTPTransport = new HTTPTransport();
 
 	protected constructor(baseUrl: string) {
 		this.baseUrl = baseUrl;
@@ -12,7 +12,7 @@ export default abstract class Api {
 		if (xhr.status === 200) {
 			return xhr;
 		}
-		
+
 		return Promise.reject(JSON.parse(xhr.response));
 	}
 

@@ -1,10 +1,10 @@
 import Block from '../../framework/Block';
 import Component from '../../framework/Component';
-import {ChatHeader, ChatMessageForm, ChatMessages} from '../index';
-import {default as template} from './template.hbs?raw';
-import withCurrentChat from "../../HOC/withCurrentChat";
-import Actions from "../../actions";
-import {MessagesSocketProps} from "../../utils/types";
+import { ChatHeader, ChatMessageForm, ChatMessages } from '../index';
+import { default as template } from './template.hbs?raw';
+import withCurrentChat from '../../HOC/withCurrentChat';
+import Actions from '../../actions';
+import { MessagesSocketProps } from '../../utils/types';
 
 class ChatWindow extends Block {
 	private actions: Actions = new Actions();
@@ -26,16 +26,12 @@ class ChatWindow extends Block {
 		});
 	}
 
-	setProps({currentChat}: {currentChat: null | MessagesSocketProps}) {
-		if(currentChat) {
-			this.actions.messages.startConnection(currentChat as MessagesSocketProps)
+	setProps({ currentChat }: { currentChat: null | MessagesSocketProps }) {
+		if (currentChat) {
+			this.actions.messages.startConnection(currentChat as MessagesSocketProps);
 
 			super.setProps({
-				content: [
-					this.chatHeader,
-					this.chatMessages,
-					this.chatMessageForm
-				]
+				content: [this.chatHeader, this.chatMessages, this.chatMessageForm],
 			});
 		} else {
 			super.setProps({
@@ -50,7 +46,7 @@ class ChatWindow extends Block {
 				],
 			});
 		}
-	};
+	}
 
 	render() {
 		return template;

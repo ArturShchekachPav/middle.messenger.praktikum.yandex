@@ -1,5 +1,5 @@
-import Connect from "./Connect";
+import Connect from './Connect';
 
-const withChats = Connect(state => ({ chats: state.chats }));
+const withChats = Connect((state) => ({ chats: state.chats }));
 
 export default withChats;

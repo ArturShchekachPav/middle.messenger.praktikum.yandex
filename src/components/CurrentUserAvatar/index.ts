@@ -1,6 +1,6 @@
 import Block from '../../framework/Block';
-import {default as template} from './template.hbs?raw';
-import withCurrentUserAvatar from "../../HOC/withCurrentUserAvatar";
+import { default as template } from './template.hbs?raw';
+import withCurrentUserAvatar from '../../HOC/withCurrentUserAvatar';
 
 class CurrentUserAvatar extends Block {
 	render() {

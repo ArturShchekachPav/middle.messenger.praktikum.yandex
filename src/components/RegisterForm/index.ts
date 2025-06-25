@@ -1,10 +1,10 @@
 import Form from '../../framework/Form.js';
-import {default as template} from './template.hbs?raw';
-import {ErrorMessage, Field} from '../index.js';
+import { default as template } from './template.hbs?raw';
+import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
-import {REGISTER_FORM_CONFIG} from '../../utils/constants.js';
+import { REGISTER_FORM_CONFIG } from '../../utils/constants.js';
 import Actions from '../../actions';
-import Router from "../../router/Router";
+import Router from '../../router/Router';
 
 const formErrorMessage = new ErrorMessage({
 	text: '',
@@ -12,7 +12,7 @@ const formErrorMessage = new ErrorMessage({
 });
 
 formErrorMessage.setAttributes({
-	style: 'text-align: center; width: 100%; margin-top: 12px;'
+	style: 'text-align: center; width: 100%; margin-top: 12px;',
 });
 
 export default class RegisterForm extends Form {
@@ -21,7 +21,7 @@ export default class RegisterForm extends Form {
 
 	constructor() {
 		super({
-			Fields: REGISTER_FORM_CONFIG.map(({block, label, inputAttributs}) => {
+			Fields: REGISTER_FORM_CONFIG.map(({ block, label, inputAttributs }) => {
 				const errorMessage = new ErrorMessage({
 					text: '',
 					isHide: true,
@@ -72,7 +72,7 @@ export default class RegisterForm extends Form {
 					},
 				},
 			}),
-			FormErrorMessage: formErrorMessage
+			FormErrorMessage: formErrorMessage,
 		});
 
 		this.setProps({
@@ -81,18 +81,18 @@ export default class RegisterForm extends Form {
 					this.handleSumbit(
 						event,
 						(formData) => {
-								this.actions.auth.signUp(formData)
-									.then(() => {
-										return this.actions.getUserAndChats();
-									})
-									.catch(({reason}) => {
-										if(typeof reason === 'string') {
-											formErrorMessage.enable(reason);
-										}
-									});
+							this.actions.auth
+								.signUp(formData)
+								.then(() => {
+									return this.actions.getUserAndChats();
+								})
+								.catch(({ reason }) => {
+									if (typeof reason === 'string') {
+										formErrorMessage.enable(reason);
+									}
+								});
 						},
-						() => {
-						}
+						() => {}
 					);
 				},
 			},
@@ -110,12 +110,16 @@ export default class RegisterForm extends Form {
 	}
 
 	setValidationsMessages(input: HTMLInputElement) {
-		const {value, name} = input;
-		const {repeat_password, password} = this.getFormData();
+		const { value, name } = input;
+		const { repeat_password, password } = this.getFormData();
 
-		if(input.validity.patternMismatch && input.title) {
+		if (input.validity.patternMismatch && input.title) {
 			input.setCustomValidity(input.title);
-		} else if (name === 'repeat_password' && value && repeat_password !== password) {
+		} else if (
+			name === 'repeat_password' &&
+			value &&
+			repeat_password !== password
+		) {
 			input.setCustomValidity('Пароли не совпадают');
 		} else {
 			input.setCustomValidity('');
@@ -128,7 +132,7 @@ export default class RegisterForm extends Form {
 				return;
 			}
 
-			const {errorMessage, input} = field.getFieldComponents();
+			const { errorMessage, input } = field.getFieldComponents();
 
 			if (!errorMessage || !input) {
 				return;

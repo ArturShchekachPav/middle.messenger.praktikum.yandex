@@ -1,6 +1,6 @@
-import {Menu, MenuItem} from '../index';
+import { Menu, MenuItem } from '../index';
 import Actions from '../../actions';
-import withCurrentChatId from "../../HOC/withCurrentChatId";
+import withCurrentChatId from '../../HOC/withCurrentChatId';
 
 class ChatActionsMenu extends Menu {
 	private actions: Actions = new Actions();
@@ -37,7 +37,7 @@ class ChatActionsMenu extends Menu {
 						click: () => {
 							const chatId = this.actions.getAppState().currentChat?.id;
 
-							if(chatId) {
+							if (chatId) {
 								this.actions.chats.deleteChat(chatId);
 							}
 

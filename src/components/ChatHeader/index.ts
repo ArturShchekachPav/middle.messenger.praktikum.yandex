@@ -1,6 +1,6 @@
-import {default as template} from './template.hbs?raw';
+import { default as template } from './template.hbs?raw';
 import Block from '../../framework/Block';
-import {ChatActionsMenu} from '../index';
+import { ChatActionsMenu } from '../index';
 import Component from '../../framework/Component';
 import Actions from '../../actions';
 import withCurrentChatData from '../../HOC/withCurrentChatData';
@@ -12,16 +12,18 @@ class ChatHeader extends Block {
 		super();
 	}
 
-	setProps({name, avatar}: { name: string; avatar: string | null }) {
-		if(name) {
+	setProps({ name, avatar }: { name: string; avatar: string | null }) {
+		if (name) {
 			super.setProps({
 				name,
 				avatar: new Component({
 					tag: 'img',
 					attr: {
-						src: avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : 'default-avatar.png',
+						src: avatar
+							? `https://ya-praktikum.tech/api/v2/resources${avatar}`
+							: 'default-avatar.png',
 						class: 'chat-window__avatar',
-						alt: 'avatar-chat'
+						alt: 'avatar-chat',
 					},
 					events: {
 						click: () => {

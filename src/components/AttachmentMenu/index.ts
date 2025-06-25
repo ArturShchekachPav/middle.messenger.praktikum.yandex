@@ -1,4 +1,4 @@
-import {Menu, MenuItem} from '../index';
+import { Menu, MenuItem } from '../index';
 import Actions from '../../actions';
 
 export class AttachmentMenu extends Menu {

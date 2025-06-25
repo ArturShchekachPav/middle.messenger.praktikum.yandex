@@ -1,6 +1,6 @@
-import Action from "./Action";
-import MessagesWebSocket from "../api/MessagesWebSocket";
-import {MessagesSocketProps} from "../utils/types";
+import Action from './Action';
+import MessagesWebSocket from '../api/MessagesWebSocket';
+import { MessagesSocketProps } from '../utils/types';
 
 export default class MessagesActions extends Action {
 	private webSocket?: MessagesWebSocket;

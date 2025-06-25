@@ -1,12 +1,14 @@
-import {DateMessagesType, Indexed, MessageType, PlainObject} from './types';
-import Block from "../framework/Block";
-import Actions from "../actions";
+import { DateMessagesType, Indexed, MessageType, PlainObject } from './types';
+import Block from '../framework/Block';
+import Actions from '../actions';
 
 export function isPlainObject(value: unknown): value is PlainObject {
-	return typeof value === 'object'
-		&& value !== null
-		&& value.constructor === Object
-		&& Object.prototype.toString.call(value) === '[object Object]';
+	return (
+		typeof value === 'object' &&
+		value !== null &&
+		value.constructor === Object &&
+		Object.prototype.toString.call(value) === '[object Object]'
+	);
 }
 
 export function isArray(value: unknown): value is [] {
@@ -50,8 +52,8 @@ export function render(query: string, block: Block) {
 }
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
-	for (let p in rhs) {
-		if (!rhs.hasOwnProperty(p)) {
+	for (const p in rhs) {
+		if (!Object.prototype.hasOwnProperty.call(rhs, p)) {
 			continue;
 		}
 
@@ -61,7 +63,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 			} else {
 				lhs[p] = rhs[p];
 			}
-		} catch (e) {
+		} catch {
 			lhs[p] = rhs[p];
 		}
 	}
@@ -69,7 +71,11 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 	return lhs;
 }
 
-export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+export function set(
+	object: Indexed | unknown,
+	path: string,
+	value: unknown
+): Indexed | unknown {
 	if (typeof object !== 'object' || object === null) {
 		return object;
 	}
@@ -78,9 +84,12 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
 		throw new Error('path must be string');
 	}
 
-	const result = path.split('.').reduceRight<Indexed>((acc, key) => ({
-		[key]: acc,
-	}), value as any);
+	const result = path.split('.').reduceRight<Indexed>(
+		(acc, key) => ({
+			[key]: acc,
+		}),
+		value as any
+	);
 
 	return merge(object as Indexed, result);
 }
@@ -138,10 +147,20 @@ export function queryString(data: PlainObject) {
 		return '';
 	}
 
-	return '?' + getParams(data).map(arr => arr.join('=')).join('&');
+	return (
+		'?' +
+		getParams(data)
+			.map((arr) => arr.join('='))
+			.join('&')
+	);
 }
 
-export const baseRange = (start: number, end: number, step: number, isRight: boolean) => {
+export const baseRange = (
+	start: number,
+	end: number,
+	step: number,
+	isRight: boolean
+) => {
 	let index = -1;
 	let length = Math.max(Math.ceil((end - start) / (step || 1)), 0);
 	const result = new Array(length);
@@ -152,9 +171,14 @@ export const baseRange = (start: number, end: number, step: number, isRight: boo
 	}
 
 	return result;
-}
+};
 
-export function range(start: number = 0, end: number | undefined, step: number | undefined, isRight: boolean = false) {
+export function range(
+	start: number = 0,
+	end: number | undefined,
+	step: number | undefined,
+	isRight: boolean = false
+) {
 	if (end === undefined) {
 		end = start;
 		start = 0;
@@ -165,7 +189,11 @@ export function range(start: number = 0, end: number | undefined, step: number |
 	return baseRange(start, end, step, isRight);
 }
 
-export function rangeRight(start: number, end: number | undefined, step: number | undefined) {
+export function rangeRight(
+	start: number,
+	end: number | undefined,
+	step: number | undefined
+) {
 	return range(start, end, step, true);
 }
 
@@ -179,7 +207,9 @@ export function last(list: Array<unknown>) {
 
 export function matchesStructure<T extends Record<string, unknown>>(
 	data: Record<string, unknown>,
-	expectedStructure: { [K in keyof T]: "string" | "number" | "boolean" | "object" | "undefined" }
+	expectedStructure: {
+		[K in keyof T]: 'string' | 'number' | 'boolean' | 'object' | 'undefined';
+	}
 ): data is T {
 	for (const key in expectedStructure) {
 		const expectedType = expectedStructure[key];
@@ -197,7 +227,7 @@ export function matchesStructure<T extends Record<string, unknown>>(
 }
 
 export function getTimeString(date: Date) {
-	return `${date.getHours()}:${date.getMinutes()}`
+	return `${date.getHours()}:${date.getMinutes()}`;
 }
 
 function getStartOfWeek(date: Date): Date {
@@ -208,14 +238,32 @@ function getStartOfWeek(date: Date): Date {
 }
 
 export function getRussianWeekday(date: Date): string {
-	const days: string[] = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+	const days: string[] = [
+		'Воскресенье',
+		'Понедельник',
+		'Вторник',
+		'Среда',
+		'Четверг',
+		'Пятница',
+		'Суббота',
+	];
 	return days[date.getDay()];
 }
 
 export function formatDayMonth(date: Date): string {
 	const months: string[] = [
-		'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня',
-		'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'
+		'Января',
+		'Февраля',
+		'Марта',
+		'Апреля',
+		'Мая',
+		'Июня',
+		'Июля',
+		'Августа',
+		'Сентября',
+		'Октября',
+		'Ноября',
+		'Декабря',
 	];
 	return `${date.getDate()} ${months[date.getMonth()]}`;
 }
@@ -230,17 +278,27 @@ export function formatFullDate(date: Date): string {
 
 export function formatDate(date: Date, withTime: boolean = false): string {
 	const now: Date = new Date();
-	const today: Date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-	const inputDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	const today: Date = new Date(
+		now.getFullYear(),
+		now.getMonth(),
+		now.getDate()
+	);
+	const inputDate: Date = new Date(
+		date.getFullYear(),
+		date.getMonth(),
+		date.getDate()
+	);
 
-	const diffDays: number = Math.floor((today.getTime() - inputDate.getTime()) / (1000 * 60 * 60 * 24));
+	const diffDays: number = Math.floor(
+		(today.getTime() - inputDate.getTime()) / (1000 * 60 * 60 * 24)
+	);
 
 	if (diffDays === 0) {
-		return withTime ? getTimeString(date) : "Сегодня";
+		return withTime ? getTimeString(date) : 'Сегодня';
 	}
 
 	if (diffDays === 1) {
-		return "Вчера";
+		return 'Вчера';
 	}
 
 	if (diffDays < 7 && inputDate >= getStartOfWeek(now)) {
@@ -254,30 +312,43 @@ export function formatDate(date: Date, withTime: boolean = false): string {
 	return formatFullDate(date);
 }
 
-export function addDatesInMessages(messages: MessageType[]): Array<MessageType | DateMessagesType> {
+export function addDatesInMessages(
+	messages: MessageType[]
+): Array<MessageType | DateMessagesType> {
 	let currentDate: string | null = null;
 
-	return messages.reduce((messages: Array<MessageType | DateMessagesType>, message: MessageType): Array<MessageType | DateMessagesType> => {
-		const date: string = formatDate(new Date(message.time));
+	return messages
+		.reduce(
+			(
+				messages: Array<MessageType | DateMessagesType>,
+				message: MessageType
+			): Array<MessageType | DateMessagesType> => {
+				const date: string = formatDate(new Date(message.time));
 
-		if(currentDate === date) {
-			return [message, ...messages];
-		}
+				if (currentDate === date) {
+					return [message, ...messages];
+				}
 
-		currentDate = date;
+				currentDate = date;
 
-		return [
-			message,
-			{
-				type: "date",
-				content: date,
+				return [
+					message,
+					{
+						type: 'date',
+						content: date,
+					},
+					...messages,
+				];
 			},
-			...messages,
-		];
-	}, []).reverse();
+			[]
+		)
+		.reverse();
 }
 
-export function throttle<T extends unknown[]>(callee: (...args: T) => void, timeout: number) {
+export function throttle<T extends unknown[]>(
+	callee: (...args: T) => void,
+	timeout: number
+) {
 	let timer: null | number = null;
 
 	return function perform(...args: T) {

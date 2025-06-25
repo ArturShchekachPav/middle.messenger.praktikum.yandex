@@ -63,9 +63,10 @@
 	opacity: 0;
 	display: none;
 	visibility: hidden;
-	transition: display 0.5s linear,
-	visibility 0.5s linear,
-	opacity 0.5s linear;
+	transition:
+		display 0.5s linear,
+		visibility 0.5s linear,
+		opacity 0.5s linear;
 	transition-behavior: allow-discrete;
 
 	&_open {

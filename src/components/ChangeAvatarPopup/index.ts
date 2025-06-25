@@ -1,4 +1,4 @@
-import {AddFileForm, ErrorMessage, Popup} from '../index';
+import { AddFileForm, ErrorMessage, Popup } from '../index';
 import Actions from '../../actions';
 
 export class ChangeAvatarPopup extends Popup {
@@ -13,20 +13,21 @@ export class ChangeAvatarPopup extends Popup {
 			title: 'Изменить аватар',
 			onSubmit: (_, event: SubmitEvent) => {
 				const formData = new FormData(event.target as HTMLFormElement);
-				
-				this.actions.users.changeUserAvatar(formData)
-				.then(() => {
-					this.close();
-				})
-				.catch(({reason}) => {
-					if(typeof reason === 'string') {
-						const errorMessage = this.changeAvatarForm.children.ErrorMessage;
 
-						if(errorMessage instanceof ErrorMessage) {
-							errorMessage.enable(reason);
+				this.actions.users
+					.changeUserAvatar(formData)
+					.then(() => {
+						this.close();
+					})
+					.catch(({ reason }) => {
+						if (typeof reason === 'string') {
+							const errorMessage = this.changeAvatarForm.children.ErrorMessage;
+
+							if (errorMessage instanceof ErrorMessage) {
+								errorMessage.enable(reason);
+							}
 						}
-					}
-				});
+					});
 			},
 		});
 

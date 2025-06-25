@@ -1,11 +1,11 @@
-import EventBus from "../framework/EventBus";
-import AuthActions from "./AuthActions";
-import UsersActions from "./UsersActions";
-import ChatsActions from "./ChatsActions";
-import Store from "../store/Store";
-import { ChatType } from "../utils/types";
-import ResourcesActions from "./ResourcesActions";
-import MessagesActions from "./MessagesActions";
+import EventBus from '../framework/EventBus';
+import AuthActions from './AuthActions';
+import UsersActions from './UsersActions';
+import ChatsActions from './ChatsActions';
+import Store from '../store/Store';
+import { ChatType } from '../utils/types';
+import ResourcesActions from './ResourcesActions';
+import MessagesActions from './MessagesActions';
 
 export default class Actions extends EventBus {
 	private static instance: Actions;
@@ -29,13 +29,10 @@ export default class Actions extends EventBus {
 	public getUserAndChats() {
 		return Promise.all([this.auth.getUserData(), this.chats.getChats()])
 			.then(([userData, chats]) => {
-				this.store.set(
-					'currentUser',
-					{
-						...userData,
-						display_name: userData.display_name ? userData.display_name : ''
-					}
-				);
+				this.store.set('currentUser', {
+					...userData,
+					display_name: userData.display_name ? userData.display_name : '',
+				});
 				this.store.set('chats', chats);
 				this.store.set('isLoggedIn', true);
 			})
@@ -43,16 +40,18 @@ export default class Actions extends EventBus {
 				this.store.set('isLoggedIn', false);
 				console.log(error);
 				return error;
-			})
+			});
 	}
 
 	public setCurrentChat(chat: ChatType) {
-		return this.chats.getChatToken(chat.id)
-			.then(({token}) => this.store.set('currentChat', { ...chat, token, messages: [] }));
+		return this.chats
+			.getChatToken(chat.id)
+			.then(({ token }) =>
+				this.store.set('currentChat', { ...chat, token, messages: [] })
+			);
 	}
 
 	public getAppState() {
 		return this.store.getState();
 	}
 }
-
