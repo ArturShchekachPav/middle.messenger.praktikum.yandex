@@ -1,4 +1,4 @@
-import Block from "../framework/Block/Block";
+import Block from '../framework/Block/Block';
 
 export class TestBlock extends Block {
 	render() {

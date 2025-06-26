@@ -3,14 +3,14 @@
  */
 
 import Router from './Router';
-import {TestBlock} from "../../Mokes/block";
+import { TestBlock } from '../../Mokes/block';
 
 describe('Router', () => {
 	let router: Router;
-	let app = document.createElement('div');
+	const app = document.createElement('div');
 	app.setAttribute('id', 'app');
 
-	document.body.appendChild(app);;
+	document.body.appendChild(app);
 
 	beforeEach(() => {
 		router = new Router();
@@ -31,10 +31,7 @@ describe('Router', () => {
 
 		const beforePath = window.location.pathname;
 
-		router
-			.use('/', TestBlock)
-			.use('/test', TestBlock)
-			.start();
+		router.use('/', TestBlock).use('/test', TestBlock).start();
 
 		router.go('/test');
 

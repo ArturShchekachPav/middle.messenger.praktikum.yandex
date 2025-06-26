@@ -1,4 +1,4 @@
-import {DateMessagesType, Indexed, MessageType, PlainObject} from './types';
+import { DateMessagesType, Indexed, MessageType, PlainObject } from './types';
 import Block from '../framework/Block/Block';
 import Actions from '../actions';
 

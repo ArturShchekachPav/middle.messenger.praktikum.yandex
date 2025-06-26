@@ -2,7 +2,12 @@
  * @jest-environment jsdom
  */
 
-import {attributes, mockHandler, TestBlock, TestBlockWithContent} from "../../Mokes/block";
+import {
+	attributes,
+	mockHandler,
+	TestBlock,
+	TestBlockWithContent,
+} from '../../Mokes/block';
 
 describe('Block', () => {
 	let block: TestBlock;
@@ -42,7 +47,7 @@ describe('Block', () => {
 	});
 
 	it('should handle events in initial props', () => {
-		const anotherBlock = new TestBlock({ events: { click: mockHandler } })
+		const anotherBlock = new TestBlock({ events: { click: mockHandler } });
 		const element = anotherBlock.getContent();
 
 		element.dispatchEvent(new Event('click'));
@@ -99,10 +104,12 @@ describe('Block', () => {
 	});
 
 	it('should update simple props', () => {
-		const testBlockWithContent = new TestBlockWithContent({content: 'before'});
+		const testBlockWithContent = new TestBlockWithContent({
+			content: 'before',
+		});
 		const beforeContent = testBlockWithContent.props;
 
-		block.setProps({content: 'after'});
+		block.setProps({ content: 'after' });
 		const afterContent = testBlockWithContent.props;
 
 		expect(beforeContent).not.toStrictEqual(afterContent);

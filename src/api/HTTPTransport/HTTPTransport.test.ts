@@ -2,20 +2,19 @@
  * @jest-environment jsdom
  */
 
-
 import HTTPTransport from './HTTPTransport';
 
 describe('HTTPTransport', () => {
-	let http: HTTPTransport = new HTTPTransport();
+	const http: HTTPTransport = new HTTPTransport();
 	const mockUrl = 'https://example.com';
 	const mockResponse = { data: 'test' };
 	const mockHeaders = { 'Content-Type': 'application/json' };
 
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
 
-	const mockXHR = (mockResponse: {data: string} ) => {
+	const mockXHR = (mockResponse: { data: string }) => {
 		const xhrMock: Partial<XMLHttpRequest> = {
 			open: jest.fn(),
 			send: jest.fn(),
@@ -35,7 +34,7 @@ describe('HTTPTransport', () => {
 
 			setTimeout(() => {
 				if (xhr.onload) {
-					xhr?.onload (new Event('load') as ProgressEvent);
+					xhr?.onload(new Event('load') as ProgressEvent);
 				}
 			}, 0);
 
@@ -84,7 +83,10 @@ describe('HTTPTransport', () => {
 		const xhrMock = mockXHR(mockResponse);
 		await http.get(mockUrl, { headers: mockHeaders });
 
-		expect(xhrMock.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'application/json');
+		expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+			'Content-Type',
+			'application/json'
+		);
 	});
 
 	it('should set withCredentials if provided', async () => {
