@@ -3,12 +3,10 @@
  */
 
 import HTTPTransport from './HTTPTransport';
+import { mockHeaders, mockResponse, mockUrl } from '../../Mokes/http';
 
 describe('HTTPTransport', () => {
 	const http: HTTPTransport = new HTTPTransport();
-	const mockUrl = 'https://example.com';
-	const mockResponse = { data: 'test' };
-	const mockHeaders = { 'Content-Type': 'application/json' };
 
 	afterEach(() => {
 		jest.restoreAllMocks();
@@ -44,13 +42,13 @@ describe('HTTPTransport', () => {
 		return xhrMock;
 	};
 
-	it('should make GET request', async () => {
+	it('should make GET', async () => {
 		mockXHR(mockResponse);
 		const response = await http.get(mockUrl);
 		expect(response.responseText).toBe(JSON.stringify(mockResponse));
 	});
 
-	it('should make POST request with body', async () => {
+	it('should make POST with body', async () => {
 		mockXHR(mockResponse);
 		const body = { test: 'data' };
 		const response = await http.post(mockUrl, { body: JSON.stringify(body) });
@@ -58,21 +56,21 @@ describe('HTTPTransport', () => {
 		expect(response.responseText).toBe(JSON.stringify(mockResponse));
 	});
 
-	it('should make PUT request with headers', async () => {
+	it('should make PUT with headers', async () => {
 		mockXHR(mockResponse);
 		const response = await http.put(mockUrl, { headers: mockHeaders });
 
 		expect(response.responseText).toBe(JSON.stringify(mockResponse));
 	});
 
-	it('should make DELETE request', async () => {
+	it('should make DELETE', async () => {
 		mockXHR(mockResponse);
 		const response = await http.delete(mockUrl);
 
 		expect(response.responseText).toBe(JSON.stringify(mockResponse));
 	});
 
-	it('should make PATCH request', async () => {
+	it('should make PATCH', async () => {
 		mockXHR(mockResponse);
 		const response = await http.patch(mockUrl);
 
