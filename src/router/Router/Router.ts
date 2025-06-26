@@ -3,10 +3,10 @@ import { BlockConstructor, BlockPropsWithChildren } from '../../utils/types';
 
 export default class Index {
 	private static instance: Index;
-	private routes: Route[] = [];
-	private defaultRoute: Route | null = null;
+	public routes: Route[] = [];
+	public defaultRoute: Route | null = null;
 	private history: History = window.history;
-	private currentRoute: Route | null = null;
+	public currentRoute: Route | null = null;
 	readonly rootQuery: string = '#app';
 
 	constructor() {

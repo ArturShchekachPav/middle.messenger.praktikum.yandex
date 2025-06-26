@@ -7,7 +7,7 @@ import {
 } from '../utils/types';
 import Store, { StoreEvents } from '../store/Store';
 import Route from '../router/Route';
-import Index from '../router/Router';
+import Router from '../router/Router/Router';
 import { isEqual } from '../utils/utils';
 
 export default function Protect(
@@ -20,7 +20,7 @@ export default function Protect(
 			private store: Store = new Store();
 			private redirectPath: string = redirectPath;
 			private needleValue: Indexed = needleValue;
-			private router: Index = new Index();
+			private router: Router = new Router();
 
 			constructor(
 				pathname: string,

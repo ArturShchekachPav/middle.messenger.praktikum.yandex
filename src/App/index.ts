@@ -1,4 +1,4 @@
-import Index from '../router/Router';
+import Router from '../router/Router/Router';
 import {
 	LoginPage,
 	MessangerPage,
@@ -9,13 +9,13 @@ import {
 import './style.scss';
 import Actions from '../actions';
 import withIsLoggedIn from '../HOC/withIsLoggedIn';
-import Block from '../framework/Block';
+import Block from '../framework/Block/Block';
 import protectAuthorizedUsers from '../HOC/protectAuthorizedUsers';
 import Route from '../router/Route';
 import protectUnauthorizedUsers from '../HOC/protectUnauthorizedUsers';
 
 class App extends Block {
-	private router: Index = new Index();
+	private router: Router = new Router();
 	private actions: Actions = new Actions();
 
 	constructor({ isLoggedIn }: { isLoggedIn: boolean }) {

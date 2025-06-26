@@ -1,4 +1,4 @@
-import HTTPTransport from './HTTPTransport';
+import HTTPTransport from './HTTPTransport/HTTPTransport';
 
 export default abstract class Api {
 	protected baseUrl: string;

@@ -4,7 +4,7 @@ import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
 import { REGISTER_FORM_CONFIG } from '../../utils/constants.js';
 import Actions from '../../actions';
-import Index from '../../router/Router';
+import Router from '../../router/Router/Router';
 
 const formErrorMessage = new ErrorMessage({
 	text: '',
@@ -17,7 +17,7 @@ formErrorMessage.setAttributes({
 
 export default class RegisterForm extends Form {
 	private actions: Actions = new Actions();
-	private router: Index = new Index();
+	private router: Router = new Router();
 
 	constructor() {
 		super({

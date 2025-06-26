@@ -17,8 +17,8 @@ export default abstract class Block {
 	} as const;
 	public children: BlockChildren;
 	protected _id: string = makeUUID();
-	protected props: BlockSimpleProps;
-	protected lists: BlockList;
+	public props: BlockSimpleProps;
+	public lists: BlockList;
 	protected eventBus: () => EventBus;
 
 	constructor(propsWithChildren: BlockPropsWithChildren = {}) {

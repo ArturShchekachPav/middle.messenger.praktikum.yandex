@@ -1,4 +1,4 @@
-import Block from '../../framework/Block';
+import Block from '../../framework/Block/Block';
 import { default as template } from './template.hbs?raw';
 import withCurrentUserName from '../../HOC/withCurrentUserName';
 
