@@ -1,4 +1,4 @@
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import Component from '../../framework/Component';
 import { ChatHeader, ChatMessageForm, ChatMessages } from '../index';
 import { default as template } from './template.hbs?raw';

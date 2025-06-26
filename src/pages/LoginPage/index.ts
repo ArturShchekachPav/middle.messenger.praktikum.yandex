@@ -1,4 +1,4 @@
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import { default as template } from './login.hbs?raw';
 import '../RegistrationPage/styles.scss';
 import { LoginForm } from '../../components';

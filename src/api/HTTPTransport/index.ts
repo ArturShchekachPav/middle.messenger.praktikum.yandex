@@ -1,7 +1,7 @@
 import { METHOD } from '../../utils/constants';
 import { HTTPMethod, Options } from '../../utils/types';
 
-export default class HTTPTransport {
+export default class Index {
 	public get = this.createMethod(METHOD.GET);
 
 	public put = this.createMethod(METHOD.PUT);

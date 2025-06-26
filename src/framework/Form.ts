@@ -1,4 +1,4 @@
-import Block from './Block/Block';
+import Block from './Block';
 import { ErrorMessage } from '../components';
 import { BlockPropsWithChildren } from '../utils/types';
 

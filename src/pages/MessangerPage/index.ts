@@ -1,6 +1,6 @@
 import './styles.scss';
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import {
 	AddChatPopup,
 	AddMediaPopup,
@@ -13,13 +13,13 @@ import {
 	RemoveUserPopup,
 } from '../../components/index';
 import Component from '../../framework/Component';
-import Router from '../../router/Router/Router';
+import Index from '../../router/Router';
 import Actions from '../../actions';
 
-const router = new Router();
+const router = new Index();
 
 export class MessangerPage extends Block {
-	private router: Router = router;
+	private router: Index = router;
 	private actions: Actions = new Actions();
 
 	constructor() {

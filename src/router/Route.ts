@@ -1,5 +1,5 @@
 import { render } from '../utils/utils';
-import Block from '../framework/Block/Block';
+import Block from '../framework/Block';
 import {
 	BlockConstructor,
 	BlockPropsWithChildren,

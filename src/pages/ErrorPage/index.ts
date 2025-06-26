@@ -1,11 +1,11 @@
 import './styles.scss';
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import Component from '../../framework/Component';
-import Router from '../../router/Router/Router';
+import Index from '../../router/Router';
 
 export class ErrorPage extends Block {
-	private router: Router = new Router();
+	private router: Index = new Index();
 
 	constructor({ error, message }: { error: string; message: string }) {
 		super({

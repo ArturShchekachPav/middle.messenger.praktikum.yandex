@@ -1,5 +1,5 @@
 import {DateMessagesType, Indexed, MessageType, PlainObject} from './types';
-import Block from '../framework/Block/Block';
+import Block from '../framework/Block';
 import Actions from '../actions';
 
 export function isPlainObject(value: unknown): value is PlainObject {

@@ -1,6 +1,6 @@
 import './styles.scss';
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import {
 	ChangeAvatarPopup,
 	CurrentUserAvatar,
@@ -11,13 +11,13 @@ import {
 } from '../../components/index.js';
 import Component from '../../framework/Component';
 import Actions from '../../actions';
-import Router from '../../router/Router/Router';
+import Index from '../../router/Router';
 
-const router = new Router();
+const router = new Index();
 
 export class SettingsPage extends Block {
 	private actions: Actions = new Actions();
-	private router: Router = router;
+	private router: Index = router;
 
 	constructor() {
 		super({

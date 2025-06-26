@@ -4,7 +4,7 @@ import { ErrorMessage, Field } from '../index.js';
 import Component from '../../framework/Component.js';
 import { LOGIN_FORM_CONFIG } from '../../utils/constants.js';
 import Actions from '../../actions';
-import Router from '../../router/Router/Router';
+import Index from '../../router/Router';
 
 const formErrorMessage = new ErrorMessage({
 	text: '',
@@ -17,7 +17,7 @@ formErrorMessage.setAttributes({
 
 export class LoginForm extends Form {
 	private actions: Actions = new Actions();
-	private router: Router = new Router();
+	private router: Index = new Index();
 
 	constructor() {
 		super({

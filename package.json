@@ -18,7 +18,7 @@
 		"lintFix": "npm-run-all --parallel lint:*",
 		"start": "npm run build && npm run preview",
 		"test": "jest",
-//		"prepare": "husky",
+		"prepare": "husky",
 		"validate-commit": "npm-run-all test check lint"
 	},
 	"devDependencies": {

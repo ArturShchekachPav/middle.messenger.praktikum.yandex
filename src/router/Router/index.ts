@@ -1,8 +1,8 @@
 import Route from '../Route';
 import { BlockConstructor, BlockPropsWithChildren } from '../../utils/types';
 
-export default class Router {
-	private static instance: Router;
+export default class Index {
+	private static instance: Index;
 	private routes: Route[] = [];
 	private defaultRoute: Route | null = null;
 	private history: History = window.history;
@@ -10,11 +10,11 @@ export default class Router {
 	readonly rootQuery: string = '#app';
 
 	constructor() {
-		if (Router.instance) {
-			return Router.instance;
+		if (Index.instance) {
+			return Index.instance;
 		}
 
-		Router.instance = this;
+		Index.instance = this;
 	}
 
 	public use(

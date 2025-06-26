@@ -1,5 +1,5 @@
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import { FileMessageType } from '../../utils/types';
 
 export class FileMessage extends Block {

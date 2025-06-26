@@ -1,7 +1,7 @@
 import Component from '../framework/Component';
 import { ErrorMessage, UsersList } from '../components';
 import { METHOD } from './constants';
-import Block from '../framework/Block/Block';
+import Block from '../framework/Block';
 import AuthApi from '../api/AuthApi';
 import ChatsApi from '../api/ChatsApi';
 import UsersApi from '../api/UsersApi';

@@ -1,6 +1,6 @@
 import './styles.scss';
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block/Block';
+import Block from '../../framework/Block';
 import { ChatType } from '../../utils/types';
 import Actions from '../../actions';
 import { formatDate } from '../../utils/utils';
