@@ -1,4 +1,4 @@
-import Block from '../../framework/Block';
+import Block from '../../framework/Block/Block';
 import { default as template } from './template.hbs?raw';
 import { ChatType } from '../../utils/types';
 import withChats from '../../HOC/withChats';

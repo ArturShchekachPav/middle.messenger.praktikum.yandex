@@ -1,20 +1,20 @@
-import Route from './Route';
-import { BlockConstructor, BlockPropsWithChildren } from '../utils/types';
+import Route from '../Route';
+import { BlockConstructor, BlockPropsWithChildren } from '../../utils/types';
 
-export default class Router {
-	private static instance: Router;
-	private routes: Route[] = [];
-	private defaultRoute: Route | null = null;
+export default class Index {
+	private static instance: Index;
+	public routes: Route[] = [];
+	public defaultRoute: Route | null = null;
 	private history: History = window.history;
-	private currentRoute: Route | null = null;
+	public currentRoute: Route | null = null;
 	readonly rootQuery: string = '#app';
 
 	constructor() {
-		if (Router.instance) {
-			return Router.instance;
+		if (Index.instance) {
+			return Index.instance;
 		}
 
-		Router.instance = this;
+		Index.instance = this;
 	}
 
 	public use(

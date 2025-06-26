@@ -1,5 +1,5 @@
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block';
+import Block from '../../framework/Block/Block';
 import { ChatActionsMenu } from '../index';
 import Component from '../../framework/Component';
 import Actions from '../../actions';

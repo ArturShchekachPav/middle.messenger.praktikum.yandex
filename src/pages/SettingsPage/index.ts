@@ -1,6 +1,6 @@
 import './styles.scss';
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block';
+import Block from '../../framework/Block/Block';
 import {
 	ChangeAvatarPopup,
 	CurrentUserAvatar,
@@ -11,7 +11,7 @@ import {
 } from '../../components/index.js';
 import Component from '../../framework/Component';
 import Actions from '../../actions';
-import Router from '../../router/Router';
+import Router from '../../router/Router/Router';
 
 const router = new Router();
 
