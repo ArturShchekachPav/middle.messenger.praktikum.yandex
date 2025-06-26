@@ -6,7 +6,7 @@ html {
 }
 
 body {
-	font-family: "Helvetica Neue", Helvetica, Arial;
+	font-family: 'Helvetica Neue', Helvetica, Arial;
 	font-size: 14px;
 	color: #333;
 }
@@ -261,7 +261,7 @@ table.coverage td span.cline-any {
 	width: 7px;
 	display: inline-block;
 	margin-left: 0.5em;
-	background: url("sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+	background: url('sort-arrow-sprite.png') no-repeat scroll 0 0 transparent;
 }
 
 .coverage-summary .sorted .sorter {
