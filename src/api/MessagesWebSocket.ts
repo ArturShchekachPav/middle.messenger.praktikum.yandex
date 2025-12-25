@@ -4,7 +4,7 @@ import { getTimeString } from '../utils/utils';
 
 export default class MessagesWebSocket {
 	private webSocket: WebSocket;
-	private ping?: number;
+	private ping?: NodeJS.Timeout;
 	private store: Store = new Store();
 
 	constructor({ userId, chatId, token }: MessagesSocketProps) {

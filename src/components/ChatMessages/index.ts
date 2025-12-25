@@ -1,5 +1,5 @@
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block.js';
+import Block from '../../framework/Block/Block';
 import { TextMessage } from '../index.js';
 import { MessageType } from '../../utils/types';
 import withMessages from '../../HOC/withMessages';

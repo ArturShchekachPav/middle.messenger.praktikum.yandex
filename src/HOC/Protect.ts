@@ -7,7 +7,7 @@ import {
 } from '../utils/types';
 import Store, { StoreEvents } from '../store/Store';
 import Route from '../router/Route';
-import Router from '../router/Router';
+import Router from '../router/Router/Router';
 import { isEqual } from '../utils/utils';
 
 export default function Protect(

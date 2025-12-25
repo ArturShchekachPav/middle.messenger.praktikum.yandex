@@ -1,4 +1,4 @@
-import Block from '../../framework/Block.js';
+import Block from '../../framework/Block/Block';
 import { default as template } from './template.hbs?raw';
 import { PopupProps } from '../../utils/types';
 

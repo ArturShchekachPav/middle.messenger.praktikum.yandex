@@ -1,4 +1,4 @@
-import EventBus from './EventBus';
+import EventBus from '../EventBus';
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import {
@@ -6,7 +6,7 @@ import {
 	BlockList,
 	BlockPropsWithChildren,
 	BlockSimpleProps,
-} from '../utils/types';
+} from '../../utils/types';
 
 export default abstract class Block {
 	static EVENTS = {
@@ -17,8 +17,8 @@ export default abstract class Block {
 	} as const;
 	public children: BlockChildren;
 	protected _id: string = makeUUID();
-	protected props: BlockSimpleProps;
-	protected lists: BlockList;
+	public props: BlockSimpleProps;
+	public lists: BlockList;
 	protected eventBus: () => EventBus;
 
 	constructor(propsWithChildren: BlockPropsWithChildren = {}) {

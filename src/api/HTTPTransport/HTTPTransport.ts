@@ -1,5 +1,5 @@
-import { METHOD } from '../utils/constants';
-import { HTTPMethod, Options } from '../utils/types';
+import { METHOD } from '../../utils/constants';
+import { HTTPMethod, Options } from '../../utils/types';
 
 export default class HTTPTransport {
 	public get = this.createMethod(METHOD.GET);

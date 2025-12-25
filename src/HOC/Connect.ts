@@ -1,4 +1,4 @@
-import Block from '../framework/Block';
+import Block from '../framework/Block/Block';
 import { BlockPropsWithChildren, Indexed, StateType } from '../utils/types';
 import { isEqual } from '../utils/utils';
 import Store, { StoreEvents } from '../store/Store';

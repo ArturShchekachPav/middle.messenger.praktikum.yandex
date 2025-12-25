@@ -1,4 +1,4 @@
-import Block from './Block';
+import Block from './Block/Block';
 import { BlockPropsWithChildren } from '../utils/types';
 
 export default class Component extends Block {

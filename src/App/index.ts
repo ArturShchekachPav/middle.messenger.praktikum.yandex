@@ -1,4 +1,4 @@
-import Router from '../router/Router';
+import Router from '../router/Router/Router';
 import {
 	LoginPage,
 	MessangerPage,
@@ -9,7 +9,7 @@ import {
 import './style.scss';
 import Actions from '../actions';
 import withIsLoggedIn from '../HOC/withIsLoggedIn';
-import Block from '../framework/Block';
+import Block from '../framework/Block/Block';
 import protectAuthorizedUsers from '../HOC/protectAuthorizedUsers';
 import Route from '../router/Route';
 import protectUnauthorizedUsers from '../HOC/protectUnauthorizedUsers';

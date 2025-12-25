@@ -1,5 +1,5 @@
 import { default as template } from './template.hbs?raw';
-import Block from '../../framework/Block.js';
+import Block from '../../framework/Block/Block';
 import { CurrentUserType } from '../../utils/types';
 
 export class UserPreview extends Block {
